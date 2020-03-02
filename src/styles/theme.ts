@@ -1,5 +1,7 @@
 import styled, { css, createGlobalStyle } from 'styled-components'
 import tufte from './tufte'
+import dark from './dark'
+import toggle from './toggle'
 
 export { css, styled }
 
@@ -15,8 +17,27 @@ export const theme = {
 }
 
 const reset = () => `
+
 :root {
   --main-width: 60%;
+}
+
+nav.navigation li.dayNight {
+  margin: 10px;
+}
+
+@media (min-width: 760px) {
+  nav.navigation li.dayNight {
+    float: right;
+  }
+}
+
+label.dayNight {
+  cursor: pointer;
+}
+
+label.dayNight > div {
+  transform: scale(0.35) !important;
 }
 
 @media (min-width: 760px) {
@@ -61,15 +82,6 @@ pre > code {
   }
 }
 
-/* ::selection {
-  background-color: ${theme.colors.contrastLightest};
-  color: rgba(0, 0, 0, 0.70);
-} */
-
-a.anchor, a.anchor:hover, a.anchor:link {
-  background: none !important;
-}
-
 figure {
   a.gatsby-resp-image-link {
     background: none;
@@ -89,17 +101,22 @@ table {
   border-top: 2px solid black;
   border-bottom: 2px solid black;
 }
+
 th {
   border-bottom: 1px solid black;
 }
+
 td, th {
   font-size: 1.2rem;
   padding: 10px;
   text-align: left;
 }
+
 `
 
 export const GlobalStyle = createGlobalStyle`
 ${tufte()}
+${dark()}
+${toggle()}
 ${reset()}
 `

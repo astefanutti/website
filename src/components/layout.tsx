@@ -1,9 +1,11 @@
 import React from 'react'
 import {Link} from 'gatsby'
 import {GlobalStyle, styled} from '../styles/theme'
+import DayNightToggle from './dark'
 
 const StyledNav = styled.nav`
   ul {
+    width: 100%;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -47,6 +49,9 @@ export default class Layout extends React.Component<Props> {
             </li>
             <li>
               <a href="/rss">RSS</a>
+            </li>
+            <li className="dayNight">
+              <DayNightToggle />
             </li>
           </ul>
         </StyledNav>
