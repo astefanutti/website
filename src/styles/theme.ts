@@ -34,8 +34,8 @@ a.anchor, a.anchor:hover, a.anchor:link {
   text-decoration: none;
 }
 
-nav.navigation li.dayNight {
-  margin: 10px;
+nav.navigation li {
+  vertical-align: middle;
 }
 
 @media (min-width: 760px) {
