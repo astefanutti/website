@@ -22,6 +22,18 @@ const reset = () => `
   --main-width: 60%;
 }
 
+a {
+  text-decoration-thickness: 0.05em;
+}
+
+a.anchor, a.anchor:hover, a.anchor:link {
+  background: none !important;
+}
+
+.navigation a {
+  text-decoration: none;
+}
+
 nav.navigation li.dayNight {
   margin: 10px;
 }
