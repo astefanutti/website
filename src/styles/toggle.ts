@@ -5,6 +5,14 @@ export default () => `
   display: none;
 }
 
+label.dayNight {
+  cursor: pointer;
+}
+
+label.dayNight > div {
+  transform: scale(0.35) !important;
+}
+
 .dayNight input + div {
   border-radius: 50%;
   width: 36px;

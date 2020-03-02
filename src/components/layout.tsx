@@ -5,6 +5,8 @@ import DayNightToggle from './dark'
 
 const StyledNav = styled.nav`
   ul {
+    display: flex;
+    align-items: center;
     width: 100%;
     list-style-type: none;
     margin: 0;
@@ -12,7 +14,6 @@ const StyledNav = styled.nav`
   }
 
   li {
-    display: inline-block;
     margin: 16px;
 
     a {
@@ -50,7 +51,7 @@ export default class Layout extends React.Component<Props> {
             <li>
               <a href="/rss">RSS</a>
             </li>
-            <li className="dayNight">
+            <li style={{marginLeft: 'auto'}}>
               <DayNightToggle />
             </li>
           </ul>

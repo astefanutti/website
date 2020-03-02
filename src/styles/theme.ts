@@ -34,24 +34,6 @@ a.anchor, a.anchor:hover, a.anchor:link {
   text-decoration: none;
 }
 
-nav.navigation li {
-  vertical-align: middle;
-}
-
-@media (min-width: 760px) {
-  nav.navigation li.dayNight {
-    float: right;
-  }
-}
-
-label.dayNight {
-  cursor: pointer;
-}
-
-label.dayNight > div {
-  transform: scale(0.35) !important;
-}
-
 @media (min-width: 760px) {
   body {
     width: auto;
