@@ -1,18 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import useDarkMode from 'use-dark-mode'
 
 const DayNightToggle = () => {
   const darkMode = useDarkMode()
 
-  const onChange = function() {
-    document.body.style.transition = 'background-color 0.5s ease'
-    darkMode.toggle()
-  }
+  useEffect(() => {
+    document.body.style.transition = 'background-color 0.3s ease'
+  })
 
   return (
     <label className="dayNight">
-      <input type="checkbox" checked={darkMode.value} onChange={onChange} />
+      <input type="checkbox" checked={darkMode.value} onChange={darkMode.toggle} />
       <div></div>
     </label>
   )
