@@ -11,7 +11,7 @@ const DayNightToggle = () => {
 
   return (
     <label className="dayNight">
-      <input type="checkbox" checked={darkMode.value} onInput={darkMode.toggle} />
+      <input type="checkbox" checked={darkMode.value} onInput={darkMode.toggle} onChange={() => {}} />
       <div></div>
     </label>
   )
