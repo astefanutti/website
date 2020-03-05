@@ -8,6 +8,7 @@ import prism_dark from '!!raw-loader!prismjs/themes/prism-tomorrow.css'
 import prism_light from '!!raw-loader!prismjs/themes/prism.css'
 
 export {css, createGlobalStyle, styled, prism_light, prism_dark}
+
 export const theme = {
   colors: {
     black: '#000000',
@@ -107,6 +108,17 @@ td, th {
   font-size: 1.2rem;
   padding: 10px;
   text-align: left;
+}
+
+/* Prism */
+.command-line-prompt {
+  border-right: none;
+  margin-right: 0em;
+}
+
+.gatsby-highlight-code-line {
+  background-color: #feb;
+  display: block;
 }
 
 `

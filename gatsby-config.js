@@ -56,7 +56,7 @@ module.exports = {
             options: {
               // KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md
               strict: 'ignore',
-            }
+            },
           },
           {
             resolve: 'gatsby-remark-responsive-iframe',
@@ -69,7 +69,12 @@ module.exports = {
             options: {
               aliases: {
                 sh: 'bash',
-              }
+              },
+              prompt: {
+                user: "user",
+                host: "localhost",
+                global: false,
+              },
             },
           },
           'gatsby-remark-autolink-headers',
