@@ -12,8 +12,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": false,
-    "preserveConstEnums": true,
-    "types": ["raw-loader.d.ts"]
+    "preserveConstEnums": true
   },
   "include": ["./src/**/*"]
 }
