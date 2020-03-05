@@ -1,10 +1,13 @@
-import styled, { css, createGlobalStyle } from 'styled-components'
+import styled, {css, createGlobalStyle} from 'styled-components'
+
 import tufte from './tufte'
 import dark from './dark'
 import toggle from './toggle'
 
-export { css, styled }
+import prism_dark from '!!raw-loader!prismjs/themes/prism-tomorrow.css'
+import prism_light from '!!raw-loader!prismjs/themes/prism.css'
 
+export {css, createGlobalStyle, styled, prism_light, prism_dark}
 export const theme = {
   colors: {
     black: '#000000',
