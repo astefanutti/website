@@ -19,6 +19,8 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
+    "@mdx-js/mdx": "^1.5.7",
+    "@mdx-js/react": "^1.5.7",
     "@tufte-markdown/remark-figure-transformer": "^1.0.0",
     "@tufte-markdown/remark-sidenotes": "^1.0.0",
     "@tufte-markdown/remark-wrap-in-section": "^2.0.1",
@@ -33,8 +35,9 @@
     "gatsby": "^2.19.22",
     "gatsby-image": "^2.2.31",
     "gatsby-plugin-canonical-urls": "^2.1.14",
-    "gatsby-plugin-feed": "^2.3.20",
+    "gatsby-plugin-feed-mdx": "^1.0.1",
     "gatsby-plugin-manifest": "^2.2.27",
+    "gatsby-plugin-mdx": "^1.0.76",
     "gatsby-plugin-react-helmet": "^3.1.14",
     "gatsby-plugin-sharp": "^2.2.37",
     "gatsby-plugin-styled-components": "^3.1.12",
@@ -52,7 +55,9 @@
     "gatsby-transformer-json": "^2.2.17",
     "gatsby-transformer-remark": "^2.6.33",
     "gatsby-transformer-sharp": "^2.3.3",
+    "hast-util-to-html": "^3.1.0",
     "katex": "^0.11.1",
+    "mdast-util-to-hast": "^2.5.0",
     "prettier": "^1.19.1",
     "prism-themes": "^1.3.0",
     "prismjs": "^1.17.1",
@@ -60,12 +65,15 @@
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",
     "rimraf": "^3.0.0",
+    "speakingurl": "^14.0.1",
     "styled-components": "^4.4.1",
     "tslint": "^5.20.1",
     "tslint-config-blvd": "^1.2.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.7.2",
+    "unist-util-select": "^1.5.0",
+    "unist-util-visit": "^1.2.0",
     "use-dark-mode": "^2.3.1"
   }
 }

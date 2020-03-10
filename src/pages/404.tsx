@@ -4,39 +4,19 @@ import {graphql} from 'gatsby'
 import Layout from '../components/layout'
 import Head from '../components/head'
 
-interface Props {
-  readonly data: PageQueryData
+export default function({data}: {data: Site}) {
+  const {site} = data
+
+  return (
+    <Layout title={site.siteMetadata.title}>
+      <Head title="404" />
+      <h1>Not Found</h1>
+      <p>There is nothing there...</p>
+    </Layout>
+  )
 }
-
-export default class NotFoundPage extends React.Component<Props> {
-  render() {
-    const {data} = this.props
-    const siteTitle = data.site.siteMetadata.title
-
-    return (
-      <Layout title={siteTitle}>
-        <Head title="404" />
-        <h1>Not Found</h1>
-        <p>There is nothing there...</p>
-      </Layout>
-    )
-  }
-}
-
-interface PageQueryData {
-  site: {
-    siteMetadata: {
-      title: string
-    }
-  }
-}
-
-export const pageQuery = graphql`
+export const query = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
+    ...site
   }
 `

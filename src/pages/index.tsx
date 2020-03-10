@@ -6,91 +6,45 @@ import Head from '../components/head'
 import Bio from '../components/bio'
 import {styled} from '../styles/theme'
 
-interface Props {
-  readonly data: PageQueryData
-}
-
 const Container = styled('div')`
   margin-top: 100px;
 `
 
-export default class Index extends React.Component<Props> {
-  render() {
-    const {data} = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMarkdownRemark ? data.allMarkdownRemark.edges : []
+export default function({data}: {data: any}) {
+  const {site, posts} = data
 
-    return (
-      <Layout title={siteTitle}>
-        <Head title="Posts" />
-        <Bio />
-        <Container>
-          <div className={'page-content'}>
-            {posts.map(({node}) => {
-              const excerpt = node.frontmatter.excerpt || node.excerpt
-              const title = node.frontmatter.title || node.fields.slug
-              return (
-                <div key={node.fields.slug}>
-                  <h3>
-                    <Link to={node.fields.slug}>{title}</Link>
-                  </h3>
-                  <small>{node.frontmatter.date}</small>
-                  <p>{excerpt}</p>
-                </div>
-              )
-            })}
-          </div>
-        </Container>
-      </Layout>
-    )
-  }
+  return (
+    <Layout title={site.siteMetadata.title}>
+      <Head title="Posts" />
+      <Bio />
+      <Container>
+        <div className={'page-content'}>
+          {posts.edges.map(({node}: {node: any}) => {
+            const excerpt = node.frontmatter.excerpt || node.excerpt
+            const title = node.frontmatter.title || node.frontmatter.slug
+            return (
+              <div key={node.frontmatter.slug}>
+                <h3>
+                  <Link to={node.frontmatter.slug}>{title}</Link>
+                </h3>
+                <small>{node.frontmatter.date}</small>
+                <p>{excerpt}</p>
+              </div>
+            )
+          })}
+        </div>
+      </Container>
+    </Layout>
+  )
 }
 
-interface PageQueryData {
-  site: {
-    siteMetadata: {
-      title: string
-    }
-  }
-  allMarkdownRemark: {
-    edges: {
-      node: {
-        excerpt: string
-        fields: {
-          slug: string
-        }
-        frontmatter: {
-          date: string
-          title: string
-          excerpt: string
-        }
-      }
-    }[]
-  }
-}
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(
-      filter: {frontmatter: {published: {ne: false}}}
-      sort: {fields: [frontmatter___date], order: DESC}
-    ) {
+export const query = graphql`
+  {
+    ...site
+    posts: allMdx(sort: {fields: frontmatter___date, order: DESC}) {
       edges {
         node {
-          excerpt(pruneLength: 2500)
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            excerpt
-          }
+          ...page
         }
       }
     }

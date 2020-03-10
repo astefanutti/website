@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 
 import useDarkMode from 'use-dark-mode'
 
-const DayNightToggle = () => {
+export default function() {
   const darkMode = useDarkMode(false)
 
   useEffect(() => {
@@ -21,5 +21,3 @@ const DayNightToggle = () => {
     </label>
   )
 }
-
-export default DayNightToggle

@@ -39,16 +39,19 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-transformer-remark',
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        gfm: true,
-        excerpt_separator: '<!-- excerpt -->',
+        extensions: [`.mdx`, `.md`],
         plugins: [
-          'gatsby-remark-tufte',
+          `gatsby-remark-images`,
+          `gatsby-remark-autolink-headers`,
+        ],
+        gatsbyRemarkPlugins: [
           {
             resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 1280,
+              linkImagesToOriginal: false,
             },
           },
           {
@@ -81,6 +84,12 @@ module.exports = {
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
         ],
+        remarkPlugins: [
+          require('@tufte-markdown/remark-figure-parser'),
+          require('@tufte-markdown/remark-figure-transformer'),
+          require('./plugins/remark-sidenotes'),
+          require('./plugins/remark-tufte-section'),
+        ],
       },
     },
     {
@@ -102,55 +111,55 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-feed',
+      resolve: 'gatsby-plugin-feed-mdx',
       options: {
         query: `
-          {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-                site_url: siteUrl
-              }
-            }
-          }
-        `,
-        feeds: [
-          {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ 'content:encoded': edge.node.html }],
-                })
-              })
-            },
-            query: `
               {
-                allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                ) {
-                  edges {
-                    node {
-                      excerpt
-                      html
-                      fields { slug }
-                      frontmatter {
-                        title
-                        date
-                      }
-                    }
+                site {
+                  siteMetadata {
+                    title
+                    description
+                    siteUrl
+                    site_url: siteUrl
                   }
                 }
               }
             `,
+        feeds: [
+          {
+            serialize: ({ query }) => {
+              const { siteUrl } = query.site.siteMetadata
+              return query.posts.edges.map(({ node }) => {
+                const { slug } = node.frontmatter
+                return {
+                  ...node.frontmatter,
+                  description: node.excerpt,
+                  url: siteUrl + slug,
+                  guid: siteUrl + slug,
+                  custom_elements: [{ 'content:encoded': node.html }],
+                }
+              })
+            },
+            query: `{
+              posts: allMdx(
+                sort: { fields: frontmatter___date, order: DESC }
+              ) {
+                edges {
+                  node {
+                    frontmatter {
+                      title
+                      slug
+                      date(formatString: "MMM D, YYYY")
+                    }
+                    timeToRead
+                    excerpt(pruneLength: 300)
+                    html
+                  }
+                }
+              }
+            }`,
             output: '/rss.xml',
             title: 'Antonin Stefanutti',
-            match: '^/blog/',
           },
         ],
       },

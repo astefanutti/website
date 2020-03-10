@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link, graphql} from 'gatsby'
+import {MDXRenderer} from 'gatsby-plugin-mdx'
 import useDarkMode from 'use-dark-mode'
 
 import Layout from '../components/layout'
@@ -16,11 +17,9 @@ const StyledUl = styled('ul')`
   }
 `
 
-export default ({data, pageContext}: {data: PageQueryData; pageContext: any}) => {
-  const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata.title
-  const excerpt = post.frontmatter.excerpt || post.excerpt
-  const image = post.frontmatter.image && post.frontmatter.image.childImageSharp.resize.src
+export default ({data}: {data: any}) => {
+  const {post, next, previous, site} = data
+  const {excerpt, body, image} = post
 
   const darkMode = useDarkMode(false)
   const PrismTheme = createGlobalStyle`${darkMode.value ? prism_dark : prism_light}`
@@ -28,7 +27,7 @@ export default ({data, pageContext}: {data: PageQueryData; pageContext: any}) =>
   return (
     <>
       <PrismTheme />
-      <Layout title={siteTitle}>
+      <Layout title={site.siteMetadata.title}>
         <Head title={post.frontmatter.title} description={excerpt} image={image} />
         <article>
           <header>
@@ -36,19 +35,19 @@ export default ({data, pageContext}: {data: PageQueryData; pageContext: any}) =>
             <p>{post.frontmatter.date}</p>
           </header>
           <div className={'page-content'}>
-            <div dangerouslySetInnerHTML={{__html: post.html}} />
+            <MDXRenderer>{body}</MDXRenderer>
             <StyledUl>
-              {pageContext.previous && (
+              {previous && (
                 <li>
-                  <Link to={pageContext.previous.fields.slug} rel="prev">
-                    ← {pageContext.previous.frontmatter.title}
+                  <Link to={previous.fields.slug} rel="prev">
+                    ← {previous.frontmatter.title}
                   </Link>
                 </li>
               )}
-              {pageContext.next && (
+              {next && (
                 <li>
-                  <Link to={pageContext.next.fields.slug} rel="next">
-                    {pageContext.next.frontmatter.title} →
+                  <Link to={next.fields.slug} rel="next">
+                    {next.frontmatter.title} →
                   </Link>
                 </li>
               )}
@@ -60,54 +59,17 @@ export default ({data, pageContext}: {data: PageQueryData; pageContext: any}) =>
   )
 }
 
-interface PageQueryData {
-  site: {
-    siteMetadata: {
-      title: string
-    }
-  }
-  markdownRemark: {
-    id?: string
-    excerpt?: string
-    html: string
-    frontmatter: {
-      title: string
-      date: string
-      excerpt: string
-      image?: {
-        childImageSharp: {
-          resize: {
-            src: string
-          }
-        }
-      }
-    }
-  }
-}
-
 export const query = graphql`
-  query BlogPostBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-      }
+  query($slug: String!, $previous: String!, $next: String!) {
+    ...site
+    post: mdx(frontmatter: {slug: {eq: $slug}}) {
+      ...page
     }
-    markdownRemark(fields: {slug: {eq: $slug}}) {
-      id
-      excerpt(pruneLength: 2500)
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        image {
-          childImageSharp {
-            resize(width: 1500, height: 1500) {
-              src
-            }
-          }
-        }
-        excerpt
-      }
+    next: mdx(frontmatter: {slug: {eq: $next}}) {
+      ...page
+    }
+    prev: mdx(frontmatter: {slug: {eq: $previous}}) {
+      ...page
     }
   }
 `

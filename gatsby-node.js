@@ -4,42 +4,18 @@ const { createFilePath } = require('gatsby-source-filesystem')
 const isDevelopment = process.env.NODE_ENV === 'development'
 const filter = isDevelopment ? '' : 'frontmatter: {published: {ne: false}}'
 
-exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions
-  const typeDefs = `
-    type MarkdownRemark implements Node {
-      frontmatter: MarkdownRemarkFrontmatter
-      fields: Fields
-    }
-    type Fields {
-      slug: String
-    }
-    type MarkdownRemarkFrontmatter {
-      title: String
-      image: File
-      tags: [String]
-      published: Boolean
-      date: Date @dateformat(formatString: "MMMM DD, YYYY")
-      excerpt: String
-    }
-  `
-  createTypes(typeDefs)
-}
-
-exports.createPages = ({ graphql, actions }) => {
-  return graphql(`
+exports.createPages = async ({ graphql, actions }) => {
+  const response = await graphql(`
     {
-      allMarkdownRemark(
+      posts: allMdx(
         filter: {${filter}}
-        sort: {fields: [frontmatter___date], order: DESC}
+        sort: {fields: frontmatter___date, order: DESC}
         limit: 1000
       ) {
         edges {
           node {
-            fields {
-              slug
-            }
             frontmatter {
+              slug
               tags
               title
             }
@@ -47,51 +23,49 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     }
-  `).then(result => {
-    if (result.errors) {
-      throw result.errors
+  `)
+  if (response.errors) throw new Error(response.errors)
+
+  // Get the templates
+  const postTemplate = path.resolve('./src/templates/post.tsx')
+  const tagTemplate = path.resolve('./src/templates/tag.tsx')
+
+  // Create post pages
+  const { posts } = response.data
+
+  posts.edges.forEach((post, index, arr) => {
+    const next = index === 0 ? '' : arr[index - 1].node
+    const previous = index === arr.length - 1 ? '' : arr[index + 1].node
+
+    actions.createPage({
+      path: post.node.frontmatter.slug,
+      component: postTemplate,
+      context: {
+        slug: post.node.frontmatter.slug,
+        previous,
+        next,
+      },
+    })
+  })
+
+  // Iterate through each post, putting all found tags into `tags`
+  let tags = []
+  posts.edges.forEach(post => {
+    if (post.node.frontmatter.tags) {
+      tags = tags.concat(post.node.frontmatter.tags)
     }
+  })
+  const uniqTags = [...new Set(tags)]
 
-    // Get the templates
-    const postTemplate = path.resolve('./src/templates/post.tsx')
-    const tagTemplate = path.resolve('./src/templates/tag.tsx')
-
-    // Create post pages
-    const posts = result.data.allMarkdownRemark ? result.data.allMarkdownRemark.edges : []
-    posts.forEach((post, index) => {
-      const previous = index === posts.length - 1 ? null : posts[index + 1].node
-      const next = index === 0 ? null : posts[index - 1].node
-
-      actions.createPage({
-        path: post.node.fields.slug,
-        component: postTemplate,
-        context: {
-          slug: post.node.fields.slug,
-          previous,
-          next,
-        },
-      })
-    })
-
-    // Iterate through each post, putting all found tags into `tags`
-    let tags = []
-    posts.forEach(post => {
-      if (post.node.frontmatter.tags) {
-        tags = tags.concat(post.node.frontmatter.tags)
-      }
-    })
-    const uniqTags = [...new Set(tags)]
-
-    // Create tag pages
-    uniqTags.forEach(tag => {
-      if (!tag) return
-      actions.createPage({
-        path: `/tags/${tag}/`,
-        component: tagTemplate,
-        context: {
-          tag,
-        },
-      })
+  // Create tag pages
+  uniqTags.forEach(tag => {
+    if (!tag) return
+    actions.createPage({
+      path: `/tags/${tag}/`,
+      component: tagTemplate,
+      context: {
+        tag,
+      },
     })
   })
 }
@@ -99,7 +73,7 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === 'MarkdownRemark') {
+  if (node.internal.type === 'Mdx') {
     const value = createFilePath({ node, getNode })
     createNodeField({
       name: 'slug',
