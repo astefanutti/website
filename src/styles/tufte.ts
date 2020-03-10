@@ -343,7 +343,7 @@ h3 > code {
 pre > code {
     font-size: 0.9rem;
     width: 52.5%;
-    margin-left: 2.5%;
+    // margin-left: 2.5%;
     overflow-x: auto;
     display: block;
 }

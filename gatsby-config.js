@@ -55,6 +55,22 @@ module.exports = {
             },
           },
           {
+            resolve: 'gatsby-remark-vscode',
+            options: {
+              injectStyles: true,
+              extensions: [
+                'vscode-theme-darcula',
+              ],
+              theme: {
+                default: 'Light (Visual Studio)',
+                parentSelector: {
+                  'body[class=dark-mode]': 'Darcula',
+                  'body[class=light-mode]': 'Solarized Light',
+                },
+              },
+            },
+          },
+          {
             resolve: 'gatsby-remark-katex',
             options: {
               // KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md
@@ -65,19 +81,6 @@ module.exports = {
             resolve: 'gatsby-remark-responsive-iframe',
             options: {
               wrapperStyle: 'margin-bottom: 1.0725rem',
-            },
-          },
-          {
-            resolve: 'gatsby-remark-prismjs',
-            options: {
-              aliases: {
-                sh: 'bash',
-              },
-              prompt: {
-                user: "user",
-                host: "localhost",
-                global: false,
-              },
             },
           },
           'gatsby-remark-autolink-headers',

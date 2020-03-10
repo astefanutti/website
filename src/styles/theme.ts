@@ -1,13 +1,12 @@
-import styled, {css, createGlobalStyle} from 'styled-components'
+import styled, { css, createGlobalStyle } from 'styled-components'
 
 import tufte from './tufte'
 import dark from './dark'
 import toggle from './toggle'
 
-import prism_dark from '!!raw-loader!prismjs/themes/prism-tomorrow.css'
-import prism_light from '!!raw-loader!prismjs/themes/prism.css'
+require('typeface-jetbrains-mono')
 
-export {css, createGlobalStyle, styled, prism_light, prism_dark}
+export { css, createGlobalStyle, styled }
 
 export const theme = {
   colors: {
@@ -24,6 +23,7 @@ const reset = () => `
 
 :root {
   --main-width: 60%;
+  --grvsc-border-radius: 0px;
 }
 
 a {
@@ -64,6 +64,7 @@ pre.fullwidth > code {
 pre > code {
   width: auto;
   overflow-x: scroll;
+  font-family: 'JetBrains Mono';
 }
 
 @media (max-width: 760px) {
@@ -108,17 +109,6 @@ td, th {
   font-size: 1.2rem;
   padding: 10px;
   text-align: left;
-}
-
-/* Prism */
-.command-line-prompt {
-  border-right: none;
-  margin-right: 0em;
-}
-
-.gatsby-highlight-code-line {
-  background-color: #feb;
-  display: block;
 }
 
 `
