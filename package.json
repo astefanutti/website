@@ -72,6 +72,7 @@
     "tslint-plugin-prettier": "^2.0.1",
     "typeface-jetbrains-mono": "^1.0.3",
     "typescript": "^3.7.2",
+    "unist-util-remove": "^2.0.0",
     "unist-util-select": "^1.5.0",
     "unist-util-visit": "^1.2.0",
     "use-dark-mode": "^2.3.1",
