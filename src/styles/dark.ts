@@ -1,21 +1,21 @@
-export default () => `
+export default ({color, backgroundColor}: Theme) => `
 
 body.dark-mode {
-  color: #ddd;
-  background-color: #333;
+  color: ${color};
+  background-color: ${backgroundColor};
 }
 
 body.dark-mode a.anchor > svg {
-  fill: #ddd;
+  fill: ${color};
 }
 
 body.dark-mode table {
-  border-top: 2px solid #ddd;
-  border-bottom: 2px solid #ddd;
+  border-top: 2px solid ${color};
+  border-bottom: 2px solid ${color};
 }
 
 body.dark-mode th {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid ${color};
 }
 
 `

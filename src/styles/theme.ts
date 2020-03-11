@@ -1,4 +1,4 @@
-import styled, { css, createGlobalStyle } from 'styled-components'
+import styled, {css, createGlobalStyle} from 'styled-components'
 
 import tufte from './tufte'
 import dark from './dark'
@@ -6,16 +6,16 @@ import toggle from './toggle'
 
 require('typeface-jetbrains-mono')
 
-export { css, createGlobalStyle, styled }
+export {css, createGlobalStyle, styled}
 
 export const theme = {
-  colors: {
-    black: '#000000',
-    background: '#fffff8',
-    contrast: '#111',
-    contrastLightest: '#dad9d9',
-    accent: 'red',
-    white: '#ffffff',
+  dark: {
+    color: '#ddd',
+    backgroundColor: '#333',
+  },
+  light: {
+    color: '#111',
+    backgroundColor: '#fffff8',
   },
 }
 
@@ -114,8 +114,8 @@ td, th {
 `
 
 export const GlobalStyle = createGlobalStyle`
-${tufte()}
-${dark()}
+${tufte(theme.light)}
+${dark(theme.dark)}
 ${toggle()}
 ${reset()}
 `

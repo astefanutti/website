@@ -7,3 +7,8 @@ interface Site {
     }
   }
 }
+
+interface Theme {
+  color: string
+  backgroundColor: string
+}
