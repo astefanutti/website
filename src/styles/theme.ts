@@ -1,4 +1,4 @@
-import styled, {css, createGlobalStyle} from 'styled-components'
+import styled, { css, createGlobalStyle } from 'styled-components'
 
 import tufte from './tufte'
 import dark from './dark'
@@ -6,7 +6,7 @@ import toggle from './toggle'
 
 require('typeface-jetbrains-mono')
 
-export {css, createGlobalStyle, styled}
+export { css, createGlobalStyle, styled }
 
 export const theme = {
   dark: {
@@ -53,6 +53,11 @@ a.anchor, a.anchor:hover, a.anchor:link {
   }
 }
 
+.sidenote,
+.marginnote {
+    margin-bottom: 2em;
+}
+
 pre.fullwidth > code {
   width: 100%;
 }
@@ -65,6 +70,10 @@ pre > code {
   width: auto;
   overflow-x: scroll;
   font-family: 'JetBrains Mono';
+}
+
+.grvsc-container {
+  clear: both;
 }
 
 @media (max-width: 760px) {
