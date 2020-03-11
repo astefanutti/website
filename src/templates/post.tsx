@@ -1,9 +1,11 @@
 import React from 'react'
 import {Link, graphql} from 'gatsby'
 import {MDXRenderer} from 'gatsby-plugin-mdx'
+import {MDXProvider} from '@mdx-js/react'
 
-import Layout from '../components/layout'
 import Head from '../components/head'
+import Layout from '../components/layout'
+import Plotly from '../components/plotly'
 
 import {styled} from '../styles/theme'
 
@@ -21,34 +23,36 @@ export default ({data}: {data: any}) => {
   const {excerpt, body, image} = post
 
   return (
-    <Layout title={site.siteMetadata.title}>
-      <Head title={post.frontmatter.title} description={excerpt} image={image} />
-      <article>
-        <header>
-          <h1>{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
-        </header>
-        <div className={'page-content'}>
-          <MDXRenderer>{body}</MDXRenderer>
-          <StyledUl>
-            {previous && (
-              <li>
-                <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
-                </Link>
-              </li>
-            )}
-            {next && (
-              <li>
-                <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
-                </Link>
-              </li>
-            )}
-          </StyledUl>
-        </div>
-      </article>
-    </Layout>
+    <MDXProvider components={{Plotly}}>
+      <Layout title={site.siteMetadata.title}>
+        <Head title={post.frontmatter.title} description={excerpt} image={image} />
+        <article>
+          <header>
+            <h1>{post.frontmatter.title}</h1>
+            <p>{post.frontmatter.date}</p>
+          </header>
+          <div className={'page-content'}>
+            <MDXRenderer>{body}</MDXRenderer>
+            <StyledUl>
+              {previous && (
+                <li>
+                  <Link to={previous.fields.slug} rel="prev">
+                    ← {previous.frontmatter.title}
+                  </Link>
+                </li>
+              )}
+              {next && (
+                <li>
+                  <Link to={next.fields.slug} rel="next">
+                    {next.frontmatter.title} →
+                  </Link>
+                </li>
+              )}
+            </StyledUl>
+          </div>
+        </article>
+      </Layout>
+    </MDXProvider>
   )
 }
 
