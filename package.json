@@ -23,8 +23,6 @@
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
     "@tufte-markdown/remark-figure-transformer": "^1.0.0",
-    "@tufte-markdown/remark-sidenotes": "^1.0.0",
-    "@tufte-markdown/remark-wrap-in-section": "^2.0.1",
     "@types/classnames": "^2.2.9",
     "@types/mdx-js__react": "^1.5.1",
     "@types/node": "^12.12.7",
