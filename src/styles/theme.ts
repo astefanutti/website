@@ -51,6 +51,11 @@ a.anchor, a.anchor:hover, a.anchor:link {
   .sidenote, .marginnote {
     text-align: left;
   }
+
+  // Katex
+  .katex-display {
+    width: var(--main-width);
+  }
 }
 
 .sidenote,
@@ -104,7 +109,7 @@ article .excerpt {
   display: none;
 }
 
-/* Simulate Pandoc's table output styles */
+// Simulate Pandoc's table output styles
 table {
   border-top: 2px solid black;
   border-bottom: 2px solid black;
@@ -120,6 +125,11 @@ td, th {
   font-size: 1.2rem;
   padding: 10px;
   text-align: left;
+}
+
+// Katex
+.katex .newline {
+  height: 1em;
 }
 
 `
