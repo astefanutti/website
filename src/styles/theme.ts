@@ -1,4 +1,4 @@
-import styled, { css, createGlobalStyle } from 'styled-components'
+import styled, {css, createGlobalStyle} from 'styled-components'
 
 import tufte from './tufte'
 import dark from './dark'
@@ -6,7 +6,7 @@ import toggle from './toggle'
 
 require('typeface-jetbrains-mono')
 
-export { css, createGlobalStyle, styled }
+export {css, createGlobalStyle, styled}
 
 export const theme = {
   dark: {
