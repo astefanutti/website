@@ -29,7 +29,7 @@ export default function({data, ...rest}: {data: Plotly.Data[]}) {
         },
         autosize: true,
       }}
-      style={{width: '100%'}}
+      style={{width: '100%', clear: 'both'}}
       useResizeHandler
       config={{
         displayModeBar: false,
