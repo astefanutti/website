@@ -78,7 +78,7 @@ h2 {
 h3 {
     font-style: italic;
     font-weight: 400;
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     margin-top: 2rem;
     margin-bottom: 1.4rem;
     line-height: 1;
