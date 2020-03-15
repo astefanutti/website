@@ -132,6 +132,11 @@ td, th {
   height: 1em;
 }
 
+// Plotly
+.js-plotly-plot .plotly svg {
+  overflow: visible !important;
+}
+
 `
 
 export const GlobalStyle = createGlobalStyle`
