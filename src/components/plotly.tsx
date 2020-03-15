@@ -10,7 +10,7 @@ const {dark, light} = theme
 const Plot = Loadable({
   loader: () =>
     import('plotly.js/lib/core').then((Plotly: any) =>
-      import('plotly.js/lib/sankey' as any)
+      import('../plotly/sankey' as any)
         .then(module => Plotly.register([module]))
         .then(() => import('react-plotly.js/factory'))
         .then(factory => factory.default(Plotly)),
