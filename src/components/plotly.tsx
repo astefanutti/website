@@ -1,24 +1,37 @@
 import React from 'react'
 import Loadable from 'react-loadable'
-import * as Plotly from 'plotly.js'
+import {PlotParams} from 'react-plotly.js'
 import useDarkMode from 'use-dark-mode'
 
 import {theme} from '../styles/theme'
 
 const {dark, light} = theme
 
-const ReactPlotly = Loadable({
-  loader: () => import('react-plotly.js'),
+const Plot = Loadable({
+  loader: () =>
+    import('plotly.js/lib/core').then((Plotly: any) =>
+      import('plotly.js/lib/sankey' as any)
+        .then(module => Plotly.register([module]))
+        .then(() => import('react-plotly.js/factory'))
+        .then(factory => factory.default(Plotly)),
+    ) as Promise<React.ComponentType<PlotParams>>,
   loading: ({timedOut}) =>
     timedOut ? <blockquote>Error: Loading Plotly timed out.</blockquote> : <span>Loading...</span>,
   timeout: 10000,
 })
 
-export default function({data, ...rest}: {data: Plotly.Data[]}) {
+export default function({
+  data,
+  style,
+  ...rest
+}: {
+  data: Plotly.Data[]
+  style?: React.CSSProperties
+}) {
   const darkMode = useDarkMode()
 
   return (
-    <ReactPlotly
+    <Plot
       layout={{
         margin: {t: 0, r: 0, l: 35},
         paper_bgcolor: 'rgba(0, 0, 0, 0)',
@@ -29,7 +42,7 @@ export default function({data, ...rest}: {data: Plotly.Data[]}) {
         },
         autosize: true,
       }}
-      style={{width: '100%', clear: 'both'}}
+      style={Object.assign({width: '100%', clear: 'both'}, style)}
       useResizeHandler
       config={{
         displayModeBar: false,
