@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{"2l/u":function(e,t,a){"use strict";a.r(t),a.d(t,"query",(function(){return u}));var n=a("q1tI"),r=a.n(n),l=a("9Dj+"),i=a("RnvD");t.default=function(e){var t=e.data.site;return r.a.createElement(l.a,{title:t.siteMetadata.title},r.a.createElement(i.a,{title:"About"}),r.a.createElement("article",null,r.a.createElement("p",null,"👋 Hi!")))};var u="3072574239"}}]);
+//# sourceMappingURL=component---src-pages-about-tsx-a21c5924470deb27569f.js.map
