@@ -1,1 +1,1 @@
-{"componentChunkName":"component---src-pages-about-tsx","path":"/about/","result":{"data":{"site":{"siteMetadata":{"title":"Antonin Stefanutti"}}},"pageContext":{}}}
+{"componentChunkName":"component---src-pages-about-tsx","path":"/about/","result":{"data":{"site":{"siteMetadata":{"title":"Antonin Stefanutti","description":"/dev/null","social":{"github":"https://github.com/astefanutti","twitter":"https://twitter.com/a7tti"}}}},"pageContext":{}}}
