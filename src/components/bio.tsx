@@ -1,35 +1,15 @@
 import React from 'react'
 import {StaticQuery, graphql} from 'gatsby'
 
-type StaticQueryData = {
-  site: {
-    siteMetadata: {
-      description: string
-      social: {
-        github: string
-        twitter: string
-      }
-    }
-  }
-}
-
 export default function() {
   return (
     <StaticQuery
       query={graphql`
         query {
-          site {
-            siteMetadata {
-              description
-              social {
-                github
-                twitter
-              }
-            }
-          }
+          ...site
         }
       `}
-      render={(data: StaticQueryData) => {
+      render={(data: Site) => {
         const {description, social} = data.site.siteMetadata
         return (
           <div>
