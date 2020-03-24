@@ -240,7 +240,7 @@ Interestingly, the CPU has become the bottleneck with the RPi4, while it used to
 A quick test, using `netcat`, gave a much better transfer rate of 104MB/s in the same conditions:
 
 ```sh
-$ nc -l 6000 |dd bs=1m of=<destination> & ssh pi@master "dd bs=1M if=<source> | nc -q 0 $(hostname -I | awk '{print $1}') 6000"
+$ nc -l 6000 | dd bs=1m of=<destination> & ssh pi@master "dd bs=1M if=<source> | nc -q 0 $(hostname -I | awk '{print $1}') 6000"
 [1] 71300 71301
 1181+1 records in
 1181+1 records out
@@ -307,6 +307,8 @@ mirrors:
 EOT'
 $ sudo service k3s restart
 ```
+
+I've also used [Kubebox](https://github.com/astefanutti/kubebox), as interactive dashboard, displayed on the screen.
 
 ## Future
 
