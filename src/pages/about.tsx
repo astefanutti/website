@@ -19,7 +19,7 @@ export default function({data}: {data: Site}) {
         <p>
           My name is <i>Antonin Stefanutti</i>. I work as a <i>minimal</i> software engineer, that
           goes by the <i>Principles of Evolutionary Architecture</i>. I studied{' '}
-          <i>Applied Mathematics</i>, and has always find <i>beauty</i> in the effectivness of its
+          <i>Applied Mathematics</i>, and has always find <i>beauty</i> in the effectiveness of its
           abstractions and the conciseness of its symbolic notation. I tend to approach software
           engineering from the angle of my mathematical background, and try to balance the{' '}
           <i>perfectionism</i> that comes with it, with the reality of contemporary{' '}
