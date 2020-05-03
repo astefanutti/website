@@ -109,29 +109,29 @@ module.exports = {
       resolve: 'gatsby-plugin-feed-mdx',
       options: {
         query: `
-              {
-                site {
-                  siteMetadata {
-                    title
-                    description
-                    siteUrl
-                    site_url: siteUrl
-                  }
-                }
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
               }
-            `,
+            }
+          }
+        `,
         feeds: [
           {
-            serialize: ({ query }) => {
-              const { siteUrl } = query.site.siteMetadata
-              return query.posts.edges.map(({ node }) => {
+            serialize: ({ query: { site, posts} }) => {
+              const { siteUrl } = site.siteMetadata
+              return posts.edges.map(({ node }) => {
                 const { slug } = node.frontmatter
                 return {
                   ...node.frontmatter,
                   description: node.excerpt,
-                  url: siteUrl + slug,
-                  guid: siteUrl + slug,
-                  custom_elements: [{ 'content:encoded': node.html }],
+                  url: siteUrl + '/' + slug,
+                  guid: siteUrl + '/' + slug,
+                  // custom_elements: [{ 'content:encoded': node.html }],
                 }
               })
             },
@@ -146,8 +146,7 @@ module.exports = {
                       slug
                       date(formatString: "MMM D, YYYY")
                     }
-                    timeToRead
-                    excerpt(pruneLength: 300)
+                    excerpt
                     html
                   }
                 }
