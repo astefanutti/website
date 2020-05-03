@@ -125,12 +125,15 @@ module.exports = {
             serialize: ({ query: { site, posts} }) => {
               const { siteUrl } = site.siteMetadata
               return posts.edges.map(({ node }) => {
-                const { slug } = node.frontmatter
+                const { slug, image } = node.frontmatter
                 return {
                   ...node.frontmatter,
                   description: node.excerpt,
                   url: siteUrl + '/' + slug,
                   guid: siteUrl + '/' + slug,
+                  enclosure: image && {
+                    url: siteUrl + image.publicURL,
+                  },
                   // custom_elements: [{ 'content:encoded': node.html }],
                 }
               })
@@ -145,6 +148,9 @@ module.exports = {
                       title
                       slug
                       date(formatString: "MMM D, YYYY")
+                      image {
+                        publicURL
+                      }
                     }
                     excerpt
                     html
