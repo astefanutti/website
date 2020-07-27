@@ -10,7 +10,7 @@ const Container = styled('div')`
   margin-top: 100px;
 `
 
-export default function({data}: {data: any}) {
+export default function ({data}: {data: any}) {
   const {site, posts} = data
 
   return (
