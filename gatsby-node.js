@@ -34,16 +34,11 @@ exports.createPages = async ({ graphql, actions }) => {
   const { posts } = response.data
 
   posts.edges.forEach((post, index, arr) => {
-    const next = index === 0 ? '' : arr[index - 1].node
-    const previous = index === arr.length - 1 ? '' : arr[index + 1].node
-
     actions.createPage({
       path: post.node.frontmatter.slug,
       component: postTemplate,
       context: {
         slug: post.node.frontmatter.slug,
-        previous,
-        next,
       },
     })
   })

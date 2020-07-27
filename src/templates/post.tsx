@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, graphql} from 'gatsby'
+import {graphql} from 'gatsby'
 import {MDXRenderer} from 'gatsby-plugin-mdx'
 import {MDXProvider} from '@mdx-js/react'
 
@@ -7,19 +7,8 @@ import Head from '../components/head'
 import Layout from '../components/layout'
 import Plotly from '../components/plotly'
 
-import {styled} from '../styles/theme'
-
-const StyledUl = styled('ul')`
-  list-style-type: none;
-
-  li::before {
-    content: '' !important;
-    padding-right: 0 !important;
-  }
-`
-
 export default ({data}: {data: any}) => {
-  const {post, next, previous, site} = data
+  const {post, site} = data
   const {excerpt, body, image} = post
 
   return (
@@ -33,22 +22,6 @@ export default ({data}: {data: any}) => {
           </header>
           <div className={'page-content'}>
             <MDXRenderer>{body}</MDXRenderer>
-            <StyledUl>
-              {previous && (
-                <li>
-                  <Link to={previous.fields.slug} rel="prev">
-                    ← {previous.frontmatter.title}
-                  </Link>
-                </li>
-              )}
-              {next && (
-                <li>
-                  <Link to={next.fields.slug} rel="next">
-                    {next.frontmatter.title} →
-                  </Link>
-                </li>
-              )}
-            </StyledUl>
           </div>
         </article>
       </Layout>
@@ -57,15 +30,9 @@ export default ({data}: {data: any}) => {
 }
 
 export const query = graphql`
-  query($slug: String!, $previous: String!, $next: String!) {
+  query($slug: String!) {
     ...site
     post: mdx(frontmatter: {slug: {eq: $slug}}) {
-      ...page
-    }
-    next: mdx(frontmatter: {slug: {eq: $next}}) {
-      ...page
-    }
-    prev: mdx(frontmatter: {slug: {eq: $previous}}) {
       ...page
     }
   }
