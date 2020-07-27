@@ -9,6 +9,5 @@ export const query = graphql`
       tags
     }
     excerpt(pruneLength: 1000)
-    body
   }
 `

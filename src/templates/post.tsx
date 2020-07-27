@@ -33,6 +33,7 @@ export const query = graphql`
   query($slug: String!) {
     ...site
     post: mdx(frontmatter: {slug: {eq: $slug}}) {
+      body
       ...page
     }
   }
