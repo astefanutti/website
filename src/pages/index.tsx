@@ -4,11 +4,6 @@ import {Link, graphql} from 'gatsby'
 import Layout from '../components/layout'
 import Head from '../components/head'
 import Bio from '../components/bio'
-import {styled} from '../styles/theme'
-
-const Container = styled('div')`
-  margin-top: 100px;
-`
 
 export default function ({data}: {data: any}) {
   const {site, posts} = data
@@ -17,7 +12,7 @@ export default function ({data}: {data: any}) {
     <Layout title={site.siteMetadata.title}>
       <Head title="Posts" />
       <Bio />
-      <Container>
+      <article>
         <div className={'page-content'}>
           {posts.edges.map(({node}: {node: any}) => {
             const excerpt = node.frontmatter.excerpt || node.excerpt
@@ -33,7 +28,7 @@ export default function ({data}: {data: any}) {
             )
           })}
         </div>
-      </Container>
+      </article>
     </Layout>
   )
 }
