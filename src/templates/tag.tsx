@@ -24,7 +24,7 @@ export default function ({data, pageContext}: {data: any; pageContext: any}) {
             return (
               <div key={node.frontmatter.slug}>
                 <h3>
-                  <Link to={'/' + node.frontmatter.slug}>{title}</Link>
+                  <Link to={`/${node.frontmatter.slug}`}>{title}</Link>
                 </h3>
                 <small>{node.frontmatter.date}</small>
                 <p dangerouslySetInnerHTML={{__html: excerpt}} />

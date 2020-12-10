@@ -4,7 +4,7 @@ import {graphql} from 'gatsby'
 import Layout from '../components/layout'
 import Head from '../components/head'
 
-export default function({data}: {data: Site}) {
+export default function ({data}: {data: Site}) {
   const {site} = data
 
   return (

@@ -4,7 +4,7 @@ import {Link, graphql} from 'gatsby'
 import Layout from '../components/layout'
 import Head from '../components/head'
 
-export default function({data}: {data: any}) {
+export default function ({data}: {data: any}) {
   const {posts, site} = data
   const {group} = posts
 

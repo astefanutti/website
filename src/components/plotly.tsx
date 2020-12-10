@@ -11,16 +11,16 @@ const Plot = Loadable({
   loader: () =>
     import('plotly.js/lib/core').then((Plotly: any) =>
       import('../plotly/sankey' as any)
-        .then(module => Plotly.register([module]))
+        .then((module) => Plotly.register([module]))
         .then(() => import('react-plotly.js/factory'))
-        .then(factory => factory.default(Plotly)),
+        .then((factory) => factory.default(Plotly)),
     ) as Promise<React.ComponentType<PlotParams>>,
   loading: ({timedOut}) =>
     timedOut ? <blockquote>Error: Loading Plotly timed out.</blockquote> : <span>Loading...</span>,
   timeout: 10000,
 })
 
-export default function({
+export default function ({
   data,
   style,
   ...rest

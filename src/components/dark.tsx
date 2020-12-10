@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 
 import useDarkMode from 'use-dark-mode'
 
-export default function() {
+export default function () {
   const darkMode = useDarkMode(false)
 
   useEffect(() => {
