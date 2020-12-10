@@ -12,13 +12,13 @@ const StyledNav = styled.nav`
     list-style-type: none;
     margin: 0;
     padding: 0;
-  }
 
-  li {
-    margin: 16px;
+    li {
+      margin: 16px;
 
-    a {
-      background: none;
+      a {
+        background: none;
+      }
     }
   }
 `
