@@ -31,12 +31,12 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: 'gatsby-plugin-mdx',
       options: {
-        extensions: [`.mdx`, `.md`],
+        extensions: ['.mdx', '.md'],
         plugins: [
-          `gatsby-remark-images`,
-          `gatsby-remark-autolink-headers`,
+          'gatsby-remark-images',
+          'gatsby-remark-autolink-headers',
         ],
         gatsbyRemarkPlugins: [
           'gatsby-remark-autolink-headers',
@@ -78,6 +78,7 @@ module.exports = {
           require('@tufte-markdown/remark-figure-transformer'),
           require('./plugins/remark-sidenotes'),
           require('./plugins/remark-tufte-section'),
+          require('remark-emoji'),
         ],
       },
     },
