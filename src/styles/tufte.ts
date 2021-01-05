@@ -140,7 +140,7 @@ section > table {
 section > ol,
 section > ul {
     width: calc(var(--main-width) - 5%);
-    -webkit-padding-start: 5%;
+    padding-inline-start: 5%;
 }
 
 li:not(:first-child) {
@@ -198,6 +198,12 @@ img {
     line-height: 1.3;
     vertical-align: baseline;
     position: relative;
+}
+
+ul .sidenote,
+ul .marginnote {
+  margin-right: calc(-5% - var(--main-width));
+  width: calc(100% - 0.95*var(--main-width));
 }
 
 .sidenote-number {
