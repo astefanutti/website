@@ -21,8 +21,8 @@ const reset = () => `
 
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('JetBrainsMono.woff2') format("woff2-variations");
-  src: url('JetBrainsMono.ttf') format("truetype-variations");
+  src: url('/JetBrainsMono.woff2') format('woff2-variations');
+  src: url('/JetBrainsMono.ttf') format('truetype-variations');
   font-weight: 1 999;
   font-display: block;
   font-style: normal;
@@ -30,8 +30,8 @@ const reset = () => `
 
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('JetBrainsMono-Italic.woff2') format("woff2-variations");
-  src: url('JetBrainsMono-Italic.ttf') format("truetype-variations");
+  src: url('/JetBrainsMono-Italic.woff2') format('woff2-variations');
+  src: url('/JetBrainsMono-Italic.ttf') format('truetype-variations');
   font-weight: 1 999;
   font-display: block;
   font-style: italic;
