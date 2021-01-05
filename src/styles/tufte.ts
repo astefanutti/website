@@ -1,4 +1,4 @@
-export default ({color, backgroundColor}: Theme) => `
+export default ({ color, backgroundColor }: Theme) => `
 
 @charset "UTF-8";
 

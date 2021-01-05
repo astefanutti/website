@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link} from 'gatsby'
+import { Link } from 'gatsby'
 
-import {GlobalStyle, styled} from '../styles/theme'
+import { GlobalStyle, styled } from '../styles/theme'
 import DayNightToggle from './dark'
 
 const StyledNav = styled.nav`
@@ -33,7 +33,7 @@ interface Props {
 
 export default class Layout extends React.Component<Props> {
   render() {
-    const {children} = this.props
+    const { children } = this.props
 
     return (
       <>
@@ -52,7 +52,7 @@ export default class Layout extends React.Component<Props> {
             <li>
               <a href="/rss">RSS</a>
             </li>
-            <li style={{marginLeft: 'auto'}}>
+            <li style={{ marginLeft: 'auto' }}>
               <DayNightToggle />
             </li>
           </ul>

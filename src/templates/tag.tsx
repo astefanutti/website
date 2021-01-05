@@ -1,12 +1,12 @@
 import React from 'react'
-import {Link, graphql} from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import Head from '../components/head'
 
-export default function ({data, pageContext}: {data: any; pageContext: any}) {
-  const {posts, site} = data
-  const {tag} = pageContext
+export default function ({ data, pageContext }: { data: any; pageContext: any }) {
+  const { posts, site } = data
+  const { tag } = pageContext
 
   return (
     <Layout title={site.siteMetadata.title}>
@@ -18,7 +18,7 @@ export default function ({data, pageContext}: {data: any; pageContext: any}) {
           </h1>
         </header>
         <div className={'page-content'}>
-          {posts.edges.map(({node}: {node: any}) => {
+          {posts.edges.map(({ node }: { node: any }) => {
             const title = node.frontmatter.title || node.frontmatter.slug
             const excerpt = node.frontmatter.excerpt || node.excerpt
             return (
@@ -27,7 +27,7 @@ export default function ({data, pageContext}: {data: any; pageContext: any}) {
                   <Link to={`/${node.frontmatter.slug}`}>{title}</Link>
                 </h3>
                 <small>{node.frontmatter.date}</small>
-                <p dangerouslySetInnerHTML={{__html: excerpt}} />
+                <p dangerouslySetInnerHTML={{ __html: excerpt }} />
               </div>
             )
           })}
@@ -40,7 +40,7 @@ export default function ({data, pageContext}: {data: any; pageContext: any}) {
 export const query = graphql`
   query($tag: String) {
     ...site
-    posts: allMdx(limit: 1000, filter: {frontmatter: {tags: {in: [$tag]}}}) {
+    posts: allMdx(limit: 1000, filter: { frontmatter: { tags: { in: [$tag] } } }) {
       totalCount
       edges {
         node {

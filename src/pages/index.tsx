@@ -1,12 +1,12 @@
 import React from 'react'
-import {Link, graphql} from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import Head from '../components/head'
 import Bio from '../components/bio'
 
-export default function ({data}: {data: any}) {
-  const {site, posts} = data
+export default function ({ data }: { data: any }) {
+  const { site, posts } = data
 
   return (
     <Layout title={site.siteMetadata.title}>
@@ -14,7 +14,7 @@ export default function ({data}: {data: any}) {
       <Bio />
       <article>
         <div className={'page-content'}>
-          {posts.edges.map(({node}: {node: any}) => {
+          {posts.edges.map(({ node }: { node: any }) => {
             const excerpt = node.frontmatter.excerpt || node.excerpt
             const title = node.frontmatter.title || node.frontmatter.slug
             return (
@@ -36,7 +36,7 @@ export default function ({data}: {data: any}) {
 export const query = graphql`
   {
     ...site
-    posts: allMdx(sort: {fields: frontmatter___date, order: DESC}) {
+    posts: allMdx(sort: { fields: frontmatter___date, order: DESC }) {
       edges {
         node {
           ...page

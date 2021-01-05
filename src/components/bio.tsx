@@ -1,5 +1,5 @@
 import React from 'react'
-import {StaticQuery, graphql} from 'gatsby'
+import { StaticQuery, graphql } from 'gatsby'
 
 export default function () {
   return (
@@ -10,7 +10,7 @@ export default function () {
         }
       `}
       render={(data: Site) => {
-        const {description, social} = data.site.siteMetadata
+        const { description, social } = data.site.siteMetadata
         return (
           <div>
             <h1>{description}</h1>

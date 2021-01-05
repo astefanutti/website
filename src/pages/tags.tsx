@@ -1,12 +1,12 @@
 import React from 'react'
-import {Link, graphql} from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import Head from '../components/head'
 
-export default function ({data}: {data: any}) {
-  const {posts, site} = data
-  const {group} = posts
+export default function ({ data }: { data: any }) {
+  const { posts, site } = data
+  const { group } = posts
 
   return (
     <Layout title={site.siteMetadata.title}>
@@ -38,7 +38,7 @@ export default function ({data}: {data: any}) {
 export const query = graphql`
   query {
     ...site
-    posts: allMdx(filter: {frontmatter: {published: {ne: false}}}) {
+    posts: allMdx(filter: { frontmatter: { published: { ne: false } } }) {
       group(field: frontmatter___tags) {
         fieldValue
         totalCount

@@ -1,18 +1,18 @@
 import React from 'react'
-import {graphql} from 'gatsby'
-import {MDXRenderer} from 'gatsby-plugin-mdx'
-import {MDXProvider} from '@mdx-js/react'
+import { graphql } from 'gatsby'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { MDXProvider } from '@mdx-js/react'
 
 import Head from '../components/head'
 import Layout from '../components/layout'
 import Plotly from '../components/plotly'
 
-export default ({data}: {data: any}) => {
-  const {post, site} = data
-  const {excerpt, body, image} = post
+export default ({ data }: { data: any }) => {
+  const { post, site } = data
+  const { excerpt, body, image } = post
 
   return (
-    <MDXProvider components={{Plotly}}>
+    <MDXProvider components={{ Plotly }}>
       <Layout title={site.siteMetadata.title}>
         <Head title={post.frontmatter.title} description={excerpt} image={image} />
         <article>
@@ -32,7 +32,7 @@ export default ({data}: {data: any}) => {
 export const query = graphql`
   query($slug: String!) {
     ...site
-    post: mdx(frontmatter: {slug: {eq: $slug}}) {
+    post: mdx(frontmatter: { slug: { eq: $slug } }) {
       body
       ...page
     }
