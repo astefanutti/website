@@ -71,7 +71,6 @@
     "tslint-config-blvd": "1.2.1",
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-prettier": "2.3.0",
-    "typeface-jetbrains-mono": "2.0.0",
     "typescript": "4.1.2",
     "unist-util-remove": "2.0.1",
     "unist-util-select": "1.5.0",

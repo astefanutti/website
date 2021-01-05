@@ -4,8 +4,6 @@ import tufte from './tufte'
 import dark from './dark'
 import toggle from './toggle'
 
-require('typeface-jetbrains-mono')
-
 export {css, createGlobalStyle, styled}
 
 export const theme = {
@@ -20,6 +18,35 @@ export const theme = {
 }
 
 const reset = () => `
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('JetBrainsMono.woff2') format("woff2-variations");
+  src: url('JetBrainsMono.ttf') format("truetype-variations");
+  font-weight: 1 999;
+  font-display: block;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('JetBrainsMono-Italic.woff2') format("woff2-variations");
+  src: url('JetBrainsMono-Italic.ttf') format("truetype-variations");
+  font-weight: 1 999;
+  font-display: block;
+  font-style: italic;
+}
+
+html {
+  font-size: 13px;
+}
+
+body {
+  font-family: "JetBrains Mono", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
 
 :root {
   --main-width: 60%;
@@ -44,14 +71,6 @@ a.anchor, a.anchor:hover, a.anchor:link {
     padding-right: 10%;
   }
 
-  p, li {
-    text-align: justify;
-  }
-
-  .sidenote, .marginnote {
-    text-align: left;
-  }
-
   // Katex
   .katex-display {
     width: var(--main-width);
@@ -61,6 +80,12 @@ a.anchor, a.anchor:hover, a.anchor:link {
 .sidenote,
 .marginnote {
     margin-bottom: 2em;
+}
+
+code, pre > code {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 1.1rem;
 }
 
 pre.fullwidth > code {
@@ -74,7 +99,6 @@ pre.fullwidth > code {
 pre > code {
   width: auto;
   overflow-x: scroll;
-  font-family: 'JetBrains Mono';
 }
 
 .grvsc-container {
@@ -124,7 +148,6 @@ th {
 td, th {
   font-size: 1.2rem;
   padding: 10px;
-  text-align: left;
 }
 
 // Katex
