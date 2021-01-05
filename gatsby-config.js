@@ -158,6 +158,7 @@ module.exports = {
         ],
       },
     },
+    'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sharp',
     'gatsby-plugin-styled-components',
