@@ -42,10 +42,7 @@ html {
 }
 
 body {
-  font-family: "JetBrains Mono", monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 :root {

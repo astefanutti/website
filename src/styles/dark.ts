@@ -3,6 +3,11 @@ export default ({ color, backgroundColor }: Theme) => `
 body.dark-mode {
   color: ${color};
   background-color: ${backgroundColor};
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.dark-mode strong {
+  font-weight: 800;
 }
 
 body.dark-mode a.anchor > svg {
