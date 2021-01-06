@@ -43,6 +43,7 @@ html {
 
 body {
   font-family: 'JetBrains Mono', monospace;
+  overflow-wrap: anywhere;
 }
 
 :root {
