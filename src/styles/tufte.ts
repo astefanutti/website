@@ -190,6 +190,7 @@ img {
     float: right;
     clear: right;
     margin-right: -60%;
+    padding-left: calc(20% + 1px);
     width: calc(100% - var(--main-width));
     margin-top: 0;
     margin-bottom: 0;
