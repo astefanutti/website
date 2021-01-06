@@ -100,7 +100,7 @@ pre > code {
 }
 
 .grvsc-container {
-  clear: both;
+  // clear: both;
 }
 
 @media (max-width: 760px) {
