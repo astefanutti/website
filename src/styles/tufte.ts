@@ -136,7 +136,6 @@ section > table {
     width: var(--main-width);
 }
 
-/* 50 + 5 == 55, to be the same width as paragraph */
 section > ol,
 section > ul {
     width: calc(var(--main-width) - 5%);
@@ -239,10 +238,6 @@ blockquote .marginnote {
 div.fullwidth,
 table.fullwidth {
     width: 100%;
-}
-
-div.table-wrapper {
-    overflow-x: auto;
 }
 
 code, pre > code {
@@ -378,11 +373,6 @@ label.margin-toggle:not(.sidenote-number) {
 
     label {
         cursor: pointer;
-    }
-
-    div.table-wrapper,
-    table {
-        width: 85%;
     }
 
     img {
