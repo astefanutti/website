@@ -61,8 +61,9 @@ export default class Layout extends React.Component<Props> {
           {children}
         </main>
         <StyledFooter className="footer">
-          © {new Date().getFullYear()}, <a href="https://ttt.io">ttt.io</a>. Built with{' '}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          © {new Date().getFullYear()}, <a href="https://ttt.io">ttt.io</a>. Open{' '}
+          <a href="https://github.com/astefanutti/website">source</a>, powered by{' '}
+          <a href="https://gatsbyjs.org">Gatsby</a> and <a href="https://github.com">GitHub</a>.
         </StyledFooter>
       </>
     )
