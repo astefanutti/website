@@ -41,6 +41,11 @@ export default function ({
           color: darkMode.value ? dark.color : light.color,
           size: 14,
         },
+        hoverlabel: {
+          font: {
+            family: '"JetBrains Mono", monospace',
+          },
+        },
         autosize: true,
       }}
       style={Object.assign({ width: '100%', clear: 'both' }, style)}
