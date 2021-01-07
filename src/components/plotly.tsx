@@ -37,6 +37,7 @@ export default function ({
         paper_bgcolor: 'rgba(0, 0, 0, 0)',
         plot_bgcolor: 'rgba(0, 0, 0, 0)',
         font: {
+          family: '"JetBrains Mono", monospace',
           color: darkMode.value ? dark.color : light.color,
           size: 14,
         },

@@ -575,7 +575,7 @@ function textGuidePath(d) {
 
 function sankeyInverseTransform(d) { return d.horizontal ? 'matrix(1 0 0 1 0 0)' : 'matrix(0 1 1 0 0 0)'; }
 function textFlip(d) { return d.horizontal ? 'scale(1 1)' : 'scale(-1 1)'; }
-function nodeTextColor(d) { return d.darkBackground && !d.horizontal ? 'rgb(255,255,255)' : 'rgb(0,0,0)'; }
+// function nodeTextColor(d) { return d.darkBackground && !d.horizontal ? 'rgb(255,255,255)' : 'rgb(0,0,0)'; }
 function nodeTextOffset(d) { return d.horizontal && d.left ? '100%' : '0%'; }
 
 // event handling
@@ -1037,12 +1037,12 @@ module.exports = function (gd, svg, calcData, layout, callbacks) {
     .attr('transform', textFlip)
     .style('user-select', 'none')
     .style('cursor', 'default')
-    .style('fill', 'black');
+  // .style('fill', 'black');
 
   nodeLabel
-    .style('text-shadow', function (d) {
-      return d.horizontal ? '-1px 1px 1px #fff, 1px 1px 1px #fff, 1px -1px 1px #fff, -1px -1px 1px #fff' : 'none';
-    })
+    // .style('text-shadow', function (d) {
+    //   return d.horizontal ? '-1px 1px 1px #fff, 1px 1px 1px #fff, 1px -1px 1px #fff, -1px -1px 1px #fff' : 'none';
+    // })
     .each(function (d) { Drawing.font(nodeLabel, d.textFont); });
 
   nodeLabel
@@ -1059,7 +1059,7 @@ module.exports = function (gd, svg, calcData, layout, callbacks) {
     .attr('alignment-baseline', 'middle')
     .attr('xlink:href', function (d) { return '#' + d.uniqueNodeLabelPathId; })
     .attr('startOffset', nodeTextOffset)
-    .style('fill', nodeTextColor);
+  // .style('fill', nodeTextColor);
 
   nodeLabelTextPath
     .text(function (d) { return d.horizontal || d.node.dy > 5 ? d.node.label : ''; })
@@ -1069,5 +1069,5 @@ module.exports = function (gd, svg, calcData, layout, callbacks) {
     .transition()
     .ease(c.ease).duration(c.duration)
     .attr('startOffset', nodeTextOffset)
-    .style('fill', nodeTextColor);
+  // .style('fill', nodeTextColor);
 };
