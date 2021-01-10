@@ -160,7 +160,7 @@ td, th {
 
 `
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
 ${tufte(theme.light)}
 ${dark(theme.dark)}
 ${toggle()}

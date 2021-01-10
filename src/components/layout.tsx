@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-import { GlobalStyle, styled } from '../styles/theme'
+import { styled } from '../styles/theme'
 import DayNightToggle from './dark'
 
 const StyledNav = styled.nav`
@@ -9,6 +9,7 @@ const StyledNav = styled.nav`
     display: flex;
     align-items: center;
     width: 100%;
+    min-height: 68px;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -37,7 +38,6 @@ export default class Layout extends React.Component<Props> {
 
     return (
       <>
-        <GlobalStyle />
         <StyledNav className="navigation">
           <ul>
             <li>
