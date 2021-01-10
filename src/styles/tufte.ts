@@ -1,7 +1,5 @@
 export default ({ color, backgroundColor }: Theme) => `
 
-@charset "UTF-8";
-
 /* Import ET Book styles
    adapted from https://github.com/edwardtufte/et-book/blob/gh-pages/et-book.css */
 
