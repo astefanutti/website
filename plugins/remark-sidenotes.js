@@ -11,7 +11,7 @@ function sidenotes() {
 }
 
 const generateInputId = (isMarginNote, title) =>
-  `${isMarginNote ? 'md' : 'sd'}-${getSlug(title, { truncate: 20 })}`
+  `${isMarginNote ? 'md' : 'sd'}-${getSlug(title, { truncate: 50 })}`
 
 const getReplacement = ({ isMarginNote, noteHTML }, notesAst) => {
   const inputId = generateInputId(isMarginNote, noteHTML)
