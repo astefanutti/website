@@ -361,13 +361,13 @@ label.margin-toggle:not(.sidenote-number) {
     .margin-toggle:checked + .sidenote,
     .margin-toggle:checked + .marginnote {
         display: block;
-        float: left;
-        left: 1rem;
-        clear: both;
-        width: 95%;
-        margin: 1rem 2.5%;
-        vertical-align: baseline;
         position: relative;
+        float: unset;
+        padding-left: 1em;
+        margin: 1em 0 1em 0;
+        border-left-width: 1px;
+        border-left-style: solid;
+        width: auto;
     }
 
     label {
