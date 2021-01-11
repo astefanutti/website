@@ -129,9 +129,10 @@ It's more work, but I find the end result better, and more rewarding the journey
 
 ### Front Panel
 
-<figure>[^top] ![Front Panel](./front.jpg)</figure>
-
-[^top]: {-} ![Top Panel](./top.jpg) The screen can easily be moved to bring it closer to the keyboard, or to give access to the top panel and open the case.
+<figure>
+  [^top] ![Front Panel](./front.jpg)
+  [^top]: {-} ![Top Panel](./top.jpg) The screen can easily be moved to bring it closer to the keyboard, or to give access to the top panel and open the case.
+</figure>
 
 The front panel has a hole that exposes the microSD slots.
 That's convenient, even if I plan to setup [USB mass storage boot](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md), as soon as it's fully supported by the RPi4.
@@ -142,9 +143,10 @@ The activity LEDs from the 8-ports Gigabit Ethernet switch are also visible.
 
 ### Left Panel
 
-<figure>[^pull-up] ![Left Side](./left.jpg)</figure>
-
-[^pull-up]: {-} ![Pull-up resistor](./pull-up.jpg) On the bottom-left corner, a small circuit intefaces the Noctua fan 4-pin y-cable and the master RPi. It's hardware [PWM][pwm] capable GPIO is configured to control the fan rotation speed, based on the RPi temperatures, probed via SSH at regular interval. It also reads back the RPM signal from the fan, for monitoring purpose.
+<figure>
+  [^pull-up] ![Left Side](./left.jpg)
+  [^pull-up]: {-} ![Pull-up resistor](./pull-up.jpg) On the bottom-left corner, a small circuit intefaces the Noctua fan 4-pin y-cable and the master RPi. It's hardware [PWM][pwm] capable GPIO is configured to control the fan rotation speed, based on the RPi temperatures, probed via SSH at regular interval. It also reads back the RPM signal from the fan, for monitoring purpose.
+</figure>
 
 The left panel gives access to the RPi GPIOs. One ribbon cable connects the master RPi to the PWM controlled fan.
 Another connects the master RPi to the 4-outputs MOSFET switch relay breakout board module, that's used to switch on and off the worker nodes.
@@ -152,9 +154,10 @@ Four jumper wires connect each of the worker node to the master RPi, from a GPIO
 
 ### Rear Panel
 
-<figure>[^entry] ![Rear Panel](./rear.jpg)</figure>
-
-[^entry]: {-} ![Cable entry system](./entry.jpg) A failed attempt at using a cable entry system, aimed at holding USB 3.0 extension cables. Despite my countless attempts at laying out the cables, I systematically faced some I/O errors during data transfers, that were probably caused by the increased strain induced by the entry system, on the cables themselves, or their connectors.
+<figure>
+  [^entry] ![Rear Panel](./rear.jpg)
+  [^entry]: {-} ![Cable entry system](./entry.jpg) A failed attempt at using a cable entry system, aimed at holding USB 3.0 extension cables. Despite my countless attempts at laying out the cables, I systematically faced some I/O errors during data transfers, that were probably caused by the increased strain induced by the entry system, on the cables themselves, or their connectors.
+</figure>
 
 The rear panel hides all the cables, that are a by-product of artisanal modularlity.
 I found difficult to find quality cables. I particularly struggled finding short, angled USB 3.0 extension cables.
