@@ -74,11 +74,10 @@ module.exports = {
           'gatsby-remark-smartypants',
         ],
         remarkPlugins: [
-          require('@tufte-markdown/remark-figure-parser'),
-          require('@tufte-markdown/remark-figure-transformer'),
           require('./plugins/remark-sidenotes'),
           require('./plugins/remark-tufte-section'),
-          require('remark-emoji'),
+          require('./plugins/remark-figure-parser'),
+          require('./plugins/remark-figure-transformer'),
         ],
       },
     },
