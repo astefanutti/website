@@ -19,6 +19,12 @@ function transformer(tree) {
       }
     }
 
+    node.children.forEach(child => {
+      if (child.type === 'html') {
+        child.type = 'jsx'
+      }
+    });
+
     const replacement = {
       type: 'paragraph',
       children: node.children,
@@ -27,6 +33,7 @@ function transformer(tree) {
         hProperties: figureProperties,
       },
     }
+
     parent.children.splice(index, 1, replacement)
   })
 }
