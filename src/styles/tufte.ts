@@ -157,19 +157,18 @@ figure {
 }
 
 figcaption {
-    float: right;
-    clear: right;
+    text-align: right;
     margin-top: 0;
     margin-bottom: 0;
     font-size: 1.1rem;
+    font-style: italic;
     line-height: 1.6;
     vertical-align: baseline;
     position: relative;
-    max-width: 40%;
 }
 
 figure.fullwidth figcaption {
-    margin-right: 24%;
+    text-align: center;
 }
 
 /* Links: replicate underline that clears descenders */
