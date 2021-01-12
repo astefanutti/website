@@ -117,13 +117,11 @@ That explains I still have three RPi3s as worker nodes.
 I replaced the two others with RPi4s, for nodes requiring more resources, _i.e._, the master node, and the worker node also used for data backup.
 
 Shortly after the RPi4 came out, _PicoCluster_ released a [new case](https://www.picocluster.com/collections/raspberry-pi4/products/pico-5-raspberry-pi4) specifically for the Rasperry Pi 4, that includes a more poweful power supply, two fans, and a power switch.
-However, the case is larger, the fans are likely louder than the _Noctua_ NF-A4x20, whose speed can be controlled with [Pulse-Width Modulation][pwm][^6] depending on the temperature probed from the boards, it includes a mains AC power supply unit and, last but not least, is more expensive.
+However, the case is larger, the fans are likely louder than the _Noctua_ NF-A4x20, whose speed can be controlled with [Pulse-Width Modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation)[^6] depending on the temperature probed from the boards, it includes a mains AC power supply unit and, last but not least, is more expensive.
 For these reasons, I'd still be choosing the _Pico 5S_ kit.
 It's more work, but I find the end result better, and more rewarding the journey along building it.
 
 [^6]: Both the Broadcom BCM2837 (RPi3) and BCM2711 (RPi4) SoCs have hardware timers capable of generating PWM signals, and it is quite straighforward to generate the [control input signal](https://noctua.at/media/wysiwyg/Noctua_PWM_specifications_white_paper.pdf), expected by the _Noctua_ NF-A4x20 PWM, without overloading the CPU. Besides, the fan is hardly perceptible at half-speed (~2500 RPM), which has proven enough to keep the temperature below 45ºC/113°F under normal load.
-
-[pwm]: https://en.wikipedia.org/wiki/Pulse-width_modulation
 
 ## Assembly
 
@@ -145,7 +143,7 @@ The activity LEDs from the 8-ports Gigabit Ethernet switch are also visible.
 
 <figure>
   [^pull-up] ![Left Side](./left.jpg)
-  [^pull-up]: {-} ![Pull-up resistor](./pull-up.jpg) On the bottom-left corner, a small circuit intefaces the Noctua fan 4-pin y-cable and the master RPi. It's hardware [PWM][pwm] capable GPIO is configured to control the fan rotation speed, based on the RPi temperatures, probed via SSH at regular interval. It also reads back the RPM signal from the fan, for monitoring purpose.
+  [^pull-up]: {-} ![Pull-up resistor](./pull-up.jpg) On the bottom-left corner, a small circuit intefaces the Noctua fan 4-pin y-cable and the master RPi. It's hardware [PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation) capable GPIO is configured to control the fan rotation speed, based on the RPi temperatures, probed via SSH at regular interval. It also reads back the RPM signal from the fan, for monitoring purpose.
 </figure>
 
 The left panel gives access to the RPi GPIOs. One ribbon cable connects the master RPi to the PWM controlled fan.
