@@ -19,12 +19,17 @@ const getReplacement = ({ isMarginNote, noteHTML }, notesAst) => {
   const labelSymbol = isMarginNote ? '&#8853;' : ''
   const noteTypeCls = isMarginNote ? 'marginnote' : 'sidenote'
 
+  if (isMarginNote) {
+    notesAst[0].value = notesAst[0].value.substring(4)
+    if (!notesAst[0].value) {
+      notesAst.slice(1)
+    }
+  }
+
   return [
     {
       type: 'jsx',
-      value: `<label for="${inputId}" class="${labelCls}">${
-        labelSymbol
-        }</label>`,
+      value: `<label for="${inputId}" class="${labelCls}">${labelSymbol}</label>`,
     },
     {
       type: 'jsx',
@@ -32,7 +37,7 @@ const getReplacement = ({ isMarginNote, noteHTML }, notesAst) => {
     },
     {
       type: 'span',
-      children: isMarginNote ? notesAst.slice(1) : notesAst,
+      children: notesAst,
       data: {
         hName: 'span',
         hProperties: {
