@@ -45,8 +45,9 @@ module.exports = {
           {
             resolve: require.resolve('./plugins/gatsby-remark-images'),
             options: {
-              maxWidth: 1280,
+              maxWidth: 760,
               linkImagesToOriginal: false,
+              srcSetBreakpoints: [1000, 1500, 2000, 2500],
             },
           },
           {
