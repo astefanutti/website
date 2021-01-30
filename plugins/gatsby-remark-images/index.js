@@ -148,9 +148,14 @@ module.exports = (
       return resolve()
     }
 
+    let args = Object.assign({}, options)
+    if (node.sizes) {
+      args.sizes = node.sizes
+    }
+
     let fluidResult = await fluid({
       file: imageNode,
-      args: options,
+      args: args,
       reporter,
       cache,
     })
@@ -235,7 +240,10 @@ module.exports = (
           const formatFluidResult = await fluid({
             file: imageNode,
             args: _.defaults(
-              { toFormat: format },
+              {
+                toFormat: format,
+                sizes: node.sizes,
+              },
               // override options if it's an object, otherwise just pass through defaults
               options[propertyName] === true ? {} : options[propertyName],
               options
