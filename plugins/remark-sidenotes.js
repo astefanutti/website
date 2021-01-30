@@ -26,6 +26,21 @@ const getReplacement = ({ isMarginNote, noteHTML }, notesAst) => {
     }
   }
 
+  const span = {
+    type: 'span',
+    children: notesAst,
+    data: {
+      hName: 'span',
+      hProperties: {
+        className: noteTypeCls,
+      },
+    },
+  }
+
+  visit(span, 'image', (node) => {
+    node.sizes = '(max-width: 760px) 100vw, (min-width: 760px) 25vw, 760px'
+  })
+
   return [
     {
       type: 'jsx',
@@ -35,16 +50,7 @@ const getReplacement = ({ isMarginNote, noteHTML }, notesAst) => {
       type: 'jsx',
       value: `<input type="checkbox" id="${inputId}" class="margin-toggle" />`,
     },
-    {
-      type: 'span',
-      children: notesAst,
-      data: {
-        hName: 'span',
-        hProperties: {
-          className: noteTypeCls,
-        },
-      },
-    },
+    span,
   ]
 }
 
