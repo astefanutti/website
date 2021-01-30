@@ -35,13 +35,15 @@ module.exports = {
       options: {
         extensions: ['.mdx', '.md'],
         plugins: [
-          'gatsby-remark-images',
+          {
+            resolve: require.resolve('./plugins/gatsby-remark-images'),
+          },
           'gatsby-remark-autolink-headers',
         ],
         gatsbyRemarkPlugins: [
           'gatsby-remark-autolink-headers',
           {
-            resolve: 'gatsby-remark-images',
+            resolve: require.resolve('./plugins/gatsby-remark-images'),
             options: {
               maxWidth: 1280,
               linkImagesToOriginal: false,
