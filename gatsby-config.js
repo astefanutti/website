@@ -48,6 +48,14 @@ module.exports = {
               maxWidth: 760,
               linkImagesToOriginal: false,
               srcSetBreakpoints: [1000, 1500, 2000, 2500],
+              quality: 60,
+              withWebp: {
+                quality: 60,
+              },
+              // Enable AVIF when it works (https://github.com/libvips/libvips)
+              // withAvif: {
+              //   quality: 60,
+              // },
             },
           },
           {
