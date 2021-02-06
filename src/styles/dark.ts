@@ -23,4 +23,16 @@ body.dark-mode th {
   border-bottom: 1px solid ${color};
 }
 
+body.dark-mode svg text.themed {
+  fill: ${color};
+}
+
+body.dark-mode svg path.themed {
+  stroke: ${color};
+}
+
+body.dark-mode svg path.themed[fill^="#"] {
+  fill: ${color};
+}
+
 `

@@ -145,6 +145,18 @@ td, th {
   padding: 10px;
 }
 
+svg text.themed {
+  fill: ${theme.light.color};
+}
+
+svg path.themed {
+  stroke: ${theme.light.color};
+}
+
+svg path.themed[fill^="#"] {
+  fill: ${theme.light.color};
+}
+
 // Katex
 .katex .newline {
   height: 1em;
