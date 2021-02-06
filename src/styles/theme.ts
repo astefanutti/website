@@ -86,12 +86,9 @@ code, pre > code {
   font-size: 1.1rem;
 }
 
-pre.fullwidth > code {
-  width: 100%;
-}
-
-.fullwidth {
-    max-width: 100%;
+.liquid {
+  clear:unset;
+  overflow-x: auto;
 }
 
 pre > code {

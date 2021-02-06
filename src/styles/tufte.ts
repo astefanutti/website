@@ -262,11 +262,11 @@ pre > code {
 }
 
 pre.fullwidth > code {
-    width: 90%;
+  width: 100%;
 }
 
 .fullwidth {
-    max-width: 90%;
+    max-width: 100%;
     clear:both;
 }
 
