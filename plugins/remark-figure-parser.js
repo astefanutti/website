@@ -66,11 +66,15 @@ function parseMarkdown(markdown) {
     .use(footnotes, { inlineNotes: true })
     .parse(markdown)
 
-  if (result.type === 'root' && result.children[0].type === 'paragraph') {
-    let children = result.children[0].children
-    result.children.shift()
-    children = children.concat(result.children);
-    return children
+  if (result.type === 'root') {
+    if (result.children[0].type === 'paragraph') {
+      let children = result.children[0].children
+      result.children.shift()
+      children = children.concat(result.children);
+      return children
+    } else {
+      return result.children
+    }
   }
 
   return result
