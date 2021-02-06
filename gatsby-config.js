@@ -31,6 +31,15 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: `${__dirname}/content/`,
+          omitKeys: ['xmlnsDc', 'xmlnsCc', 'xmlnsRdf', 'xmlnsSvg', 'xmlnsSodipodi', 'xmlnsInkscape'],
+        },
+      },
+    },
+    {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx', '.md'],
