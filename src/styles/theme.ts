@@ -10,10 +10,12 @@ export const theme = {
   dark: {
     color: '#ddd',
     backgroundColor: '#333',
+    inlineCodeBgColor: '#242424',
   },
   light: {
     color: '#111',
     backgroundColor: '#fffff8',
+    inlineCodeBgColor: '#fdf6e3',
   },
 }
 
@@ -84,6 +86,12 @@ code, pre > code {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   font-size: 1.1rem;
+}
+
+code:not(.grvsc-code) {
+  background-color: ${theme.light.inlineCodeBgColor};
+  border-radius: 4px;
+  padding: 2px 4px;
 }
 
 .liquid {

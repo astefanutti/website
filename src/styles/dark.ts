@@ -1,4 +1,4 @@
-export default ({ color, backgroundColor }: Theme) => `
+export default ({ color, backgroundColor, inlineCodeBgColor }: Theme) => `
 
 body.dark-mode {
   color: ${color};
@@ -21,6 +21,10 @@ body.dark-mode table {
 
 body.dark-mode th {
   border-bottom: 1px solid ${color};
+}
+
+body.dark-mode code:not(.grvsc-code) {
+  background-color: ${inlineCodeBgColor};
 }
 
 body.dark-mode svg text.themed {
