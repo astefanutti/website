@@ -79,7 +79,13 @@ a.anchor, a.anchor:hover, a.anchor:link {
 
 .sidenote,
 .marginnote {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
+}
+
+pre {
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
 }
 
 code, pre > code {
