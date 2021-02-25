@@ -148,6 +148,10 @@ svg path.themed[fill^="#"] {
 }
 
 // Katex
+.katex-display {
+  font-size: 1.2em;
+}
+
 .katex .newline {
   height: 1em;
 }
