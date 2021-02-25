@@ -136,12 +136,14 @@ section > table {
 
 section > ol,
 section > ul {
-    width: calc(var(--main-width) - 5%);
-    padding-inline-start: 5%;
+  width: calc(var(--main-width) - 5%);
+  padding-inline-start: 5%;
 }
-
-li:not(:first-child) {
-    margin-top: 0.25rem;
+section > ul > li {
+  padding-left: 0.5rem;
+}
+section > ul > li:not(:first-child) {
+  margin-top: 0.25rem;
 }
 
 figure {
@@ -321,11 +323,11 @@ label.margin-toggle:not(.sidenote-number) {
     }
 
     section > ol {
-        width: 90%;
+      width: 100%;
     }
 
     section > ul {
-        width: 90%;
+      width: calc(100% - 5%);
     }
 
     figure {
