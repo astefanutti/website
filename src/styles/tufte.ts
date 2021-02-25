@@ -4,10 +4,11 @@ export default ({ color, backgroundColor }: Theme) => `
    adapted from https://github.com/edwardtufte/et-book/blob/gh-pages/et-book.css */
 
 body {
-    width: 87.5%;
+    width: auto;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 12.5%;
+    padding-left: 10%;
+    padding-right: 10%;
     background-color: ${backgroundColor};
     color: ${color};
     max-width: 1400px;
@@ -318,10 +319,6 @@ label.margin-toggle:not(.sidenote-number) {
         width: 100%;
     }
 
-    pre > code {
-        width: 97%;
-    }
-
     section > ol {
       width: 100%;
     }
@@ -331,7 +328,7 @@ label.margin-toggle:not(.sidenote-number) {
     }
 
     figure {
-        max-width: 90%;
+      max-width: 100%;
     }
 
     figcaption,

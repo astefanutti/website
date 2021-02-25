@@ -65,18 +65,6 @@ a.anchor, a.anchor:hover, a.anchor:link {
   text-decoration: none;
 }
 
-@media (min-width: 760px) {
-  body {
-    width: auto;
-    padding-right: 10%;
-  }
-
-  // Katex
-  .katex-display {
-    width: var(--main-width);
-  }
-}
-
 .sidenote,
 .marginnote {
   margin-bottom: 2em;
@@ -115,20 +103,6 @@ pre > code {
   // clear: both;
 }
 
-@media (max-width: 760px) {
-  figure {
-    max-width: 100%;
-  }
-
-  pre.fullwidth > code {
-    width: 100%;
-  }
-
-  .fullwidth {
-      max-width: 100%;
-  }
-}
-
 figure {
   a.gatsby-resp-image-link {
     background: none;
@@ -160,6 +134,7 @@ td, th {
   padding: 10px;
 }
 
+// Inlined SVGs
 svg text.themed {
   fill: ${theme.light.color};
 }
@@ -180,6 +155,20 @@ svg path.themed[fill^="#"] {
 // Plotly
 .js-plotly-plot .plotly svg {
   overflow: visible !important;
+}
+
+// Viewport size
+@media (max-width: 760px) {
+  .katex-display {
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 760px) {
+  // Katex
+  .katex-display {
+    width: var(--main-width);
+  }
 }
 
 `
