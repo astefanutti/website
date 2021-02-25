@@ -108,6 +108,7 @@ code:not(.grvsc-code) {
 pre > code {
   width: auto;
   overflow-x: scroll;
+  font-size: 1.2rem;
 }
 
 .grvsc-container {
