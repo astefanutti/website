@@ -8,7 +8,7 @@ export { css, createGlobalStyle, styled }
 
 export const theme = {
   dark: {
-    color: '#ddd',
+    color: '#eee',
     backgroundColor: '#333',
     inlineCodeBgColor: '#242424',
   },
