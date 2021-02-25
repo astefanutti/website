@@ -78,7 +78,7 @@ pre {
 
 code, pre > code {
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.1rem;
 }
 

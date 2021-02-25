@@ -3,7 +3,7 @@ export default ({ color, backgroundColor, inlineCodeBgColor }: Theme) => `
 body.dark-mode {
   color: ${color};
   background-color: ${backgroundColor};
-  -moz-osx-font-smoothing: grayscale;
+  font-weight: 200;
 }
 
 body.dark-mode strong {
