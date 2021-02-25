@@ -40,7 +40,7 @@ export default class Layout extends React.Component<Props> {
       <>
         <StyledNav className="navigation">
           <ul>
-            <li>
+            <li style={{ marginLeft: 0 }}>
               <Link to={'/'}>Posts</Link>
             </li>
             <li>
@@ -52,7 +52,7 @@ export default class Layout extends React.Component<Props> {
             <li>
               <a href="/rss">RSS</a>
             </li>
-            <li style={{ marginLeft: 'auto' }}>
+            <li style={{ marginLeft: 'auto', marginRight: 0 }}>
               <DayNightToggle />
             </li>
           </ul>
