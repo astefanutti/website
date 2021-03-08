@@ -45,7 +45,8 @@ html {
 
 body {
   font-family: 'JetBrains Mono', monospace;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 :root {
