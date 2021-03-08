@@ -132,7 +132,7 @@ blockquote footer {
 section > p,
 section > footer,
 section > table {
-    width: var(--main-width);
+  width: var(--main-width);
 }
 
 section > ol,
@@ -148,30 +148,40 @@ section > ul > li:not(:first-child) {
 }
 
 figure {
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-    max-width: var(--main-width);
-    -webkit-margin-start: 0;
-    -webkit-margin-end: 0;
-    margin: 0 0 3em 0;
+  position: relative;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  max-width: var(--main-width);
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  margin: 0 0 3em 0;
 }
 
 figcaption {
-    text-align: right;
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 1.1rem;
-    font-style: italic;
-    line-height: 1.6;
-    vertical-align: baseline;
-    position: relative;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.6;
+  vertical-align: baseline;
 }
 
 figure.fullwidth figcaption {
-    text-align: center;
+  text-align: center;
+}
+
+@media (min-width: 760px) {
+  figure:not(.fullwidth) > figcaption {
+    position: absolute;
+    top: 0px;
+    left: 100%;
+    padding-left: calc(20% + 1px);
+    width: calc(100% - var(--main-width));
+  }
 }
 
 /* Links: replicate underline that clears descenders */
@@ -319,10 +329,7 @@ label.margin-toggle:not(.sidenote-number) {
         width: 100%;
     }
 
-    section > ol {
-      width: 100%;
-    }
-
+    section > ol,
     section > ul {
       width: calc(100% - 5%);
     }
@@ -333,8 +340,9 @@ label.margin-toggle:not(.sidenote-number) {
 
     figcaption,
     figure.fullwidth figcaption {
-        margin-right: 0%;
-        max-width: none;
+      margin-right: 0%;
+      max-width: none;
+      text-align: center;
     }
 
     blockquote {
