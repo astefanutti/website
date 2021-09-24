@@ -113,10 +113,10 @@ module.exports = {
         name: 'Antonin Stefanutti',
         short_name: 'ttt.io',
         start_url: '/',
-        background_color: '#ffffff',
-        theme_color: '#663399',
         display: 'minimal-ui',
         icon: 'static/logo.svg',
+        theme_color_in_head: false,
+        legacy: false,
       },
     },
     {
