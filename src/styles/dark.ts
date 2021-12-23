@@ -27,6 +27,10 @@ body.dark-mode code:not(.grvsc-code) {
   background-color: ${inlineCodeBgColor};
 }
 
+body.dark-mode .gatsby-code-title {
+  background: ${inlineCodeBgColor};
+}
+
 body.dark-mode svg text.themed {
   fill: ${color};
 }

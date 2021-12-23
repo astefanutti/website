@@ -89,6 +89,19 @@ code:not(.grvsc-code) {
   padding: 2px 4px;
 }
 
+.gatsby-code-title {
+  font-style: italic;
+  background-color: ${theme.light.inlineCodeBgColor};
+  padding: 0.3em 0.5em;
+  width: max-content;
+  margin: 1em 0 -1.6em 1em;
+  border-radius: 0.3em;
+  position: relative;
+  z-index: 1;
+  font-size: 0.8em;
+  line-height: initial;
+}
+
 .liquid {
   clear:unset;
   overflow-x: auto;

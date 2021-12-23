@@ -51,6 +51,7 @@ module.exports = {
         ],
         gatsbyRemarkPlugins: [
           'gatsby-remark-autolink-headers',
+          'gatsby-remark-code-titles',
           {
             resolve: require.resolve('./plugins/gatsby-remark-images'),
             options: {
