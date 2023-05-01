@@ -44,7 +44,7 @@ I guess I approach the field from the angle of my Mathematics background, as I s
 As a projection of that language, I find the [OpenGL Shading Language](https://en.wikipedia.org/wiki/OpenGL_Shading_Language) an interesting case, at the intersection of computing and visual arts, that's concise and expressive enough to demonstrate human ingenuity and creativity.
 You can find me browsing for hours on [shadertoy.com](https://www.shadertoy.com/)[^2], mesmerized by the visuals.
 
-Since I built my [Kubernetes cluster with Rapsberry Pi](/posts/kubernetes-cluster) a year ago, I've kept somewhere in a corner of my head, the idea I could use the touchscreen monitor to play with OpenGL, making the coolest cluster ever, to begin with 😎, and turning it eventually, into a small gaming device <span style="white-space: nowrap">🕹👾</span>[^3].
+Since I built my [Kubernetes cluster with Rapsberry Pi](/anatomy-of-my-kubernetes-cluster) a year ago, I've kept somewhere in a corner of my head, the idea I could use the touchscreen monitor to play with OpenGL, making the coolest cluster ever, to begin with 😎, and turning it eventually, into a small gaming device <span style="white-space: nowrap">🕹👾</span>[^3].
 
 So I've accepted the mission to run shaders from _Shadertoy_, on the Raspberry Pi!
 
