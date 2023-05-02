@@ -170,6 +170,13 @@ strong {
   overflow-x: auto;
 }
 
+h1,
+h2,
+h3 {
+  color: var(--color-text-emphasis);
+  position: relative;
+}
+
 a,
 a:visited,
 a:active {
@@ -182,15 +189,24 @@ a:hover {
   text-decoration: underline;
 }
 
-/* a.anchor,
-a.anchor:hover,
-a.anchor:link {
-  background: none !important;
-} */
+a.anchor {
+  position: absolute;
+  left: -20px;
+  padding-right: 4px;
+}
 
-/* .navigation a {
-  text-decoration: none;
-} */
+a.anchor svg {
+  fill: var(--color-text-primary);
+  visibility: hidden;
+  width: 16px;
+  height: 16px;
+}
+
+h1:hover a.anchor svg,
+h2:hover a.anchor svg,
+h3:hover a.anchor svg {
+  visibility: visible;
+}
 
 pre {
   -moz-tab-size: 4;
