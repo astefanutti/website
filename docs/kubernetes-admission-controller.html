@@ -8,23 +8,23 @@
   <link rel="stylesheet" href="./katex.min.css" />
   <meta name="viewport" content="width=device-width" />
   <meta http-equiv="content-security-policy" content="">
-		<link href="./_app/immutable/assets/_layout.ea8996a4.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/ArticleMeta.cc8db478.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/_layout.2208094d.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/ArticleMeta.e75ae3db.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/Image.b943bec2.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.e34ae113.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.a9d11577.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.89c373c1.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.9fd2c2ba.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.0a8b5c3c.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.39ce08e8.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.9bdda2d3.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.20663a5b.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/control.e7f5239e.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.5892712c.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.d9ad0fff.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.0b356f7f.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_layout.svelte.67c434a8.js">
 		<link rel="modulepreload" href="./_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_slug_-page.svelte.1f3c8a43.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/ArticleMeta.83885f58.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_slug_-page.ts.3900d74f.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/_page.7cea030f.js"><title>Developing a Kubernetes Admission Controller with Telepresence</title><!-- HEAD_svelte-1lbq8gn_START --><!-- HTML_TAG_START --><script>!function(){try {var d=document.documentElement;var e=localStorage.getItem('theme');if("system"===e||(!e&&true)){var t="(prefers-color-scheme: dark)",m=window.matchMedia(t);if(m.media!==t||m.matches){d.setAttribute('data-theme', 'dark');document.documentElement.style.setProperty('color-scheme', 'dark')}else{d.setAttribute('data-theme', 'light');document.documentElement.style.setProperty('color-scheme', 'light')}}else if(e){ d.setAttribute('data-theme', e);document.documentElement.style.setProperty('color-scheme', e)}}catch(e){}}()</script><!-- HTML_TAG_END --><!-- HEAD_svelte-1lbq8gn_END --><!-- HEAD_svelte-1uq71di_START --><meta property="og:site_name" content="ttt.io"><meta property="og:title" content="Developing a Kubernetes Admission Controller with Telepresence"><meta property="og:description"><!-- HEAD_svelte-1uq71di_END -->
+		<link rel="modulepreload" href="./_app/immutable/entry/_slug_-page.svelte.640de55a.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/ArticleMeta.8e357784.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_slug_-page.ts.a9608ae8.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/_page.9b02f357.js"><title>Developing a Kubernetes Admission Controller with Telepresence</title><!-- HEAD_svelte-1lbq8gn_START --><!-- HTML_TAG_START --><script>!function(){try {var d=document.documentElement;var e=localStorage.getItem('theme');if("system"===e||(!e&&true)){var t="(prefers-color-scheme: dark)",m=window.matchMedia(t);if(m.media!==t||m.matches){d.setAttribute('data-theme', 'dark');document.documentElement.style.setProperty('color-scheme', 'dark')}else{d.setAttribute('data-theme', 'light');document.documentElement.style.setProperty('color-scheme', 'light')}}else if(e){ d.setAttribute('data-theme', e);document.documentElement.style.setProperty('color-scheme', e)}}catch(e){}}()</script><!-- HTML_TAG_END --><!-- HEAD_svelte-1lbq8gn_END --><!-- HEAD_svelte-1uq71di_START --><meta property="og:site_name" content="ttt.io"><meta property="og:title" content="Developing a Kubernetes Admission Controller with Telepresence"><meta property="og:description"><!-- HEAD_svelte-1uq71di_END -->
 </head>
 
 <body data-sveltekit-preload-data="hover">
@@ -35,7 +35,7 @@
 
 
 
-<header class="navbar"><span><a href="/"><h1 class="small">ttt.io</h1></a>
+<header class="navbar"><span><a href="/"><span class="title small">ttt.io</span></a>
     <span class="icons"><a class="icon" href="https://github.com/astefanutti"><!-- HTML_TAG_START --><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><!-- HTML_TAG_END --></a>
       <a class="icon" href="https://fosstodon.org/@ttt"><!-- HTML_TAG_START --><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Mastodon</title><path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/></svg><!-- HTML_TAG_END --></a>
       <a class="icon" href="https://twitter.com/a7tti"><!-- HTML_TAG_START --><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg><!-- HTML_TAG_END --></a></span></span>
@@ -66,7 +66,7 @@
     </svg><!-- HTML_TAG_END --></label></fieldset></header>
 
 <main>
-<h2 class="heading svelte-1n5cir7 large" id="developing-a-kubernetes-admission-controller-with-telepresence"><a href="#developing-a-kubernetes-admission-controller-with-telepresence">Developing a Kubernetes Admission Controller with Telepresence</a></h2>
+<h1 class="heading svelte-171h6gf large">Developing a Kubernetes Admission Controller with Telepresence</h1>
 <p class="svelte-4ufgo2">
   <span class="date svelte-4ufgo2">Tue Dec 21 2021</span>
 </p>
@@ -97,7 +97,7 @@ This is diametrically opposed to <em>standard</em> controllers, or <a href="http
 <p>That difference matters during the development cycle, as the controller, running locally, is not directly accessible from the API server.
 The container image has to be built, push to a registry, and the controller deployment rolled out.</p>
 <p>The following post demonstrates how to use <a href="https://www.telepresence.io" rel="nofollow">Telepresence</a><span class="sidenote-number"></span><span class="sidenote">Telepresence is a CNCF sandbox project, that enables to connect a local machine seamlessly to a Kubernetes cluster, via a two-way proxying mechanism.</span>, to intercept requests from the API server to the admission webhook service, tunnel them to the admission controller running locally, and ultimately speed the <a href="https://www.telepresence.io/docs/v2.4/concepts/devloop/" rel="nofollow">inner development loop</a> up.</p>
-<h2 id="kubebuilder"><a href="#kubebuilder">Kubebuilder</a></h2>
+<h2 id="kubebuilder"><a class="anchor" aria-hidden="true" tabindex="-1" href="#kubebuilder"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Kubebuilder</h2>
 <p>First things first, let’s create an admission controller project.</p>
 <p>There is no unique way to implement an admission webhook.
 The contract is ultimately defined by the <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#webhook-request-and-response" rel="nofollow">webhook REST API</a>, that can be implemented with any stack.</p>
@@ -134,7 +134,7 @@ So the generated project must be modified manually, as documented in <a href="ht
 This fails as expected, since we haven’t deployed any endpoint yet, to actually serve the request.</p>
 <p>In production, that endpoint is generally exposed by the admission controller, deployed in-cluster.
 However, during the development phase, we want the requests to be processed by the admission controller, running locally.</p>
-<h2 id="telepresence"><a href="#telepresence">Telepresence</a></h2>
+<h2 id="telepresence"><a class="anchor" aria-hidden="true" tabindex="-1" href="#telepresence"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Telepresence</h2>
 <p>Thanks to Telepresence, it’s possible to have the requests issued by the API server tunneled to the local machine.
 Let’s use it to intercept the requests received by the webhook service, deployed in the cluster, and tunnel them to the admission controller started locally.</p>
 <p>1) Install the <code>telepresence</code> CLI:</p>
@@ -211,7 +211,7 @@ Let’s use it to intercept the requests received by the webhook service, deploy
 			
 			<script>
 				{
-					__sveltekit_14bo9cg = {
+					__sveltekit_xyx23b = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -221,8 +221,8 @@ Let’s use it to intercept the requests received by the webhook service, deploy
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.e34ae113.js"),
-						import("./_app/immutable/entry/app.5892712c.js")
+						import("./_app/immutable/entry/start.0a8b5c3c.js"),
+						import("./_app/immutable/entry/app.d9ad0fff.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
