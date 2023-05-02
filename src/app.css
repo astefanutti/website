@@ -123,7 +123,8 @@ body {
   height: 15px;
 }
 
-.navbar h1 {
+.navbar .title {
+  display: block;
   margin: 1em 0 10px 0;
 }
 

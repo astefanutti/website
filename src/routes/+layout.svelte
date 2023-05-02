@@ -10,7 +10,13 @@
 
 <header class="navbar">
   <span>
-    <a href="/"><h1 class:small={$page.url.pathname !== '/'}>ttt.io</h1></a>
+    <a href="/">
+      {#if $page.url.pathname === '/'}
+        <h1 class="title">ttt.io</h1>
+      {:else}
+        <span class="title small">ttt.io</span>
+      {/if}
+    </a>
     <span class="icons">
       <a class="icon" href="https://github.com/astefanutti">{@html icons.github}</a>
       <a class="icon" href="https://fosstodon.org/@ttt">{@html icons.mastodon}</a>
