@@ -10,22 +10,12 @@ export default {
   config: {
     displayModeBar: false,
     showTips: false,
-    // autosize: true,
     responsive: true,
   },
   layout: {
     margin: { t: 0, r: 0, l: 0, b: 0 },
     paper_bgcolor: 'rgba(0, 0, 0, 0)',
     plot_bgcolor: 'rgba(0, 0, 0, 0)',
-    font: {
-      family: '"JetBrains Mono", monospace',
-      size: 14,
-    },
-    hoverlabel: {
-      font: {
-        family: '"JetBrains Mono", monospace',
-      },
-    },
   },
   data: [{
     type: 'sankey',

@@ -18,11 +18,11 @@
 <style>
   .heading {
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 
   .large {
     margin-top: calc(var(--spacing-unit) * 12);
-    font-size: 2.2rem;
+    font-size: 1.8rem;
   }
 </style>
