@@ -100,7 +100,7 @@ html {
   -ms-text-size-adjust: 100%;
 }
 
-@supports (font: -apple-system-body) {
+@supports (font: -apple-system-body) and (-webkit-text-size-adjust: 100%) {
   html {
     font: -apple-system-body;
   }
