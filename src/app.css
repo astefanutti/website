@@ -126,7 +126,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin: 1em 0 3em 0;
+  margin: 1rem 0 3rem 0;
 }
 
 .navbar fieldset svg {
@@ -136,7 +136,7 @@ main {
 
 .navbar .title {
   display: block;
-  margin: 1em 0 10px 0;
+  margin: 1rem 0 10px 0;
 }
 
 .icons {
