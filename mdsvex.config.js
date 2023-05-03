@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { defineMDSveXConfig as defineConfig } from 'mdsvex';
+import { defineMDSveXConfig as defineConfig, escapeSvelte } from 'mdsvex';
 import { getHighlighter, renderToHtml, loadTheme } from 'shiki';
 
 import remarkAbbr from 'remark-abbr';
@@ -50,7 +50,7 @@ const config = defineConfig({
 
       const tokens = shikiHighlighter.codeToThemedTokens(code, lang);
 
-      return escapeHtml(renderToHtml(tokens, {
+      const html = escapeSvelte(renderToHtml(tokens, {
         elements: {
           pre({ className, style, children }) {
             return `<pre class="${className} language-${lang}">${children}</pre>`
@@ -68,7 +68,9 @@ const config = defineConfig({
           //   return `<span class="${className} ${shallHighlight ? 'highlighted-line' : ''}"><span class="line-number">${index + 1}</span>${children}</span>`
           // },
         }
-      }))
+      }));
+
+      return `{@html \`${html}\` }`;
     },
   },
 
@@ -95,12 +97,5 @@ const config = defineConfig({
     }]
   ]
 });
-
-function escapeHtml(code) {
-  return code.replace(
-    /[{}`]/g,
-    (character) => ({ '{': '&lbrace;', '}': '&rbrace;', '`': '&grave;' }[character]),
-  );
-}
 
 export default config;
