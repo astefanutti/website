@@ -90,7 +90,6 @@ html {
   background-color: var(--color-background);
   color: var(--color-text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-size: 1em;
   font-weight: var(--font-weight);
   font-synthesis: style;
   text-rendering: optimizeLegibility;
@@ -227,12 +226,16 @@ pre>code {
   width: auto;
   overflow-x: auto;
   display: block;
+  font-size: 0.95rem;
+}
+
+code {
+  font-size: 0.9rem;
 }
 
 code,
 pre>code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.95rem;
   border-radius: 4px;
   padding: 2px 4px;
   background-color: var(--color-background-code);
