@@ -13,11 +13,9 @@
 <PageHead title="ttt.io" description="Antonin Stefanutti's Blog" />
 
 {#each data.posts as { slug, title, author, description, date }}
-  <Article>
-    <ArticleTitle {slug} {title} />
-    <ArticleMeta {author} {date} />
-    <ArticleDescription {description} {slug} />
-  </Article>
+  <ArticleTitle {slug} {title} />
+  <ArticleMeta {author} {date} />
+  <ArticleDescription {description} {slug} />
 {/each}
 
 <slot />

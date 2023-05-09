@@ -63,9 +63,7 @@
   </fieldset>
 </header>
 
-<main>
-  <slot />
-</main>
+<slot />
 
 <footer>
   <p>

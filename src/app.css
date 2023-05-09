@@ -111,14 +111,17 @@ body {
   max-width: 80ch;
   padding: calc(var(--spacing-unit) * 8);
   line-height: 1.51;
-  container-type: inline-size;
-  container-name: body;
   font-size: 1.1rem;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
-main {
+article {
+  container-type: inline-size;
+  container-name: article;
+}
+
+article>h1 {
   counter-reset: sidenote-counter;
 }
 
@@ -380,7 +383,7 @@ figure figcaption {
 
 /* 80ch + 2*(20%*80ch) */
 /* @media (max-width: calc(1.4 * 800px)) { */
-@container body (max-width: 79.9ch) {
+@container article (max-width: 79.99ch) {
 
   .sidenote,
   .marginnote {
