@@ -48,12 +48,21 @@ const config = defineConfig({
         '#000016': 'var(--shiki-token-numeric)',
       });
 
+      let tag, tags = {};
+      const regex = /(\w+)="([^\s]+)"/g;
+      if (meta && meta.match(regex)) {
+        while ((tag = regex.exec(meta)) !== null) {
+          const [, k, v] = tag;
+          tags[k] = v;
+        }
+      }
+
       const tokens = shikiHighlighter.codeToThemedTokens(code, lang);
 
       const html = escapeSvelte(renderToHtml(tokens, {
         elements: {
           pre({ className, style, children }) {
-            return `<pre class="${className} language-${lang}">${children}</pre>`
+            return `<pre class="${className} ${tags["class"] || ""} language-${lang}">${children}</pre>`
           },
           code({ children }) {
             return `<code tabindex="0">${children}</code>`

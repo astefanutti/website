@@ -39,6 +39,7 @@
     "svelte": "^3.58.0",
     "svelte-check": "^3.2.0",
     "svelte-preprocess-import-assets": "1.0.0",
+    "svelte-vega": "2.0.0",
     "typescript": "^5.0.4",
     "unist-util-select": "4.0.3",
     "unist-util-visit": "4.1.2",
