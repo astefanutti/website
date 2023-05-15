@@ -11,6 +11,7 @@
   --color-text-emphasis: #080808;
   --color-background-code: #fff;
   --color-background-note: #dcdcdc;
+  --color-line-secondary: #d3d3d3;
 
   --shiki-color-text: #000;
   --shiki-token-constant: #005CC5;
@@ -38,6 +39,7 @@
   --color-text-emphasis: #f8f9fa;
   --color-background-code: #000;
   --color-background-note: #262634;
+  --color-line-secondary: #333;
 
   --shiki-color-text: #fff;
   --shiki-token-constant: #70d4ff;
@@ -188,6 +190,10 @@ h3 {
   position: relative;
 }
 
+ol {
+  padding-inline-start: 1em;
+}
+
 a,
 a:visited,
 a:active {
@@ -251,9 +257,21 @@ pre>code {
 }
 
 table {
+  display: block;
   border-top: 2px solid var(--color-text-primary);
   border-bottom: 2px solid var(--color-text-primary);
   margin-top: 2rem;
+  margin-bottom: 3rem;
+  overflow-x: auto;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+figure table {
+  margin-bottom: 1rem;
+}
+
+figure table+figcaption {
   margin-bottom: 3rem;
 }
 
@@ -281,6 +299,11 @@ svg path.themed {
 
 svg path.themed[fill^="#"] {
   fill: var(--color-text-primary);
+}
+
+div.vega-embed {
+  width: 100%;
+  margin: 1em 0;
 }
 
 .katex .newline {
