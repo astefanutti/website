@@ -43,7 +43,7 @@
     "unist-util-select": "4.0.3",
     "unist-util-visit": "4.1.2",
     "vfile-message": "3.1.4",
-    "vite": "^4.2.1",
+    "vite": "^4.3.9",
     "vite-imagetools": "4.0.18",
     "vite-plugin-svelte-svg": "2.2.1"
   },
