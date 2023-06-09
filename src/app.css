@@ -121,10 +121,6 @@ article {
   container-name: article;
 }
 
-article>h1 {
-  counter-reset: sidenote-counter;
-}
-
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -335,31 +331,15 @@ svg path.themed[fill^="#"] {
   padding: 1em 4em 1em 0px;
 }
 
-.sidenote-number {
-  counter-increment: sidenote-counter;
-}
-
-.sidenote-number:after,
-.sidenote:before {
+span.sidenote-number {
   position: relative;
-  vertical-align: baseline;
-}
-
-.sidenote-number:after {
-  content: counter(sidenote-counter);
   font-size: 0.75rem;
   top: -0.5rem;
   left: 0.1rem;
 }
 
-.sidenote:before {
-  content: counter(sidenote-counter) " ";
-  font-size: 0.75rem;
-  top: -0.5rem;
-}
-
-span.sidenote-number {
-  display: inline;
+.sidenote span.sidenote-number {
+  left: -0.15rem;
 }
 
 figure {
