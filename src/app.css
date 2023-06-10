@@ -246,8 +246,7 @@ pre>code {
   background-color: var(--color-background-code);
 }
 
-.marginnote>code,
-.sidenote>code {
+.note>code {
   font-size: 0.8rem;
 }
 
@@ -312,23 +311,25 @@ svg path.themed[fill^="#"] {
   fill: var(--color-text-primary) !important;
 }
 
-.sidenote,
-.marginnote {
+.note {
   text-align: left;
   float: right;
   clear: right;
   width: 220px;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
   margin-left: 4em;
   margin-right: max(calc((100cqw - 100vw)/2), -300px);
-  padding: 1.5em 4em 1.5em 0px;
+  padding-left: 0em;
+  padding-right: 4em;
   font-size: 0.85rem;
   line-height: 1.5;
   vertical-align: baseline;
   position: relative;
 }
 
-.marginnote {
-  padding: 1em 4em 1em 0px;
+:not(li)>.note:first-of-type {
+  margin-top: 0.5em;
 }
 
 span.sidenote-number {
@@ -365,8 +366,7 @@ figure figcaption {
 /* @media (max-width: calc(1.4 * 800px)) { */
 @container article (max-width: 79.99ch) {
 
-  .sidenote,
-  .marginnote {
+  .note {
     display: block;
     /* float: unset; */
     width: 25vw;
@@ -374,8 +374,12 @@ figure figcaption {
     border-style: none;
     border-radius: 1em;
     background-color: var(--color-background-note);
-    margin: 1em 0 1em 1em;
+    margin: 0.5em 0 1.5em 1em;
     padding: 1em;
+  }
+
+  :not(li)>.note:first-of-type {
+    margin-top: 0;
   }
 
   .math-display {

@@ -15,7 +15,7 @@ const getReplacement = (notesAst, isMarginNote, id) => {
     data: {
       hName: 'span',
       hProperties: {
-        className: isMarginNote ? 'marginnote' : 'sidenote',
+        className: 'note ' + (isMarginNote ? 'marginnote' : 'sidenote'),
       },
     },
   }
@@ -69,7 +69,7 @@ function transformer(tree) {
 
     // parent.children.splice(index, 1, ...getReplacement(notesAst, isMarginNote));
     const replacement = getReplacement(notesAst, isMarginNote, node.identifier);
-    const i = parent.children.findIndex(c => c.type !== "span" || !c.note);
+    const i = parent.children.findIndex(c => c.type !== 'span' || !c.note);
     if (replacement.length === 2) {
       parent.children.splice(index, 1, replacement[0]);
       parent.children.splice(i, 0, replacement[1]);
