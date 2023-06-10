@@ -283,11 +283,6 @@ svg path.themed[fill^="#"] {
   fill: var(--color-text-primary);
 }
 
-.math-display {
-  width: fit-content;
-  padding-left: 1em;
-}
-
 .katex .newline {
   height: 1em;
 }
@@ -389,6 +384,6 @@ figure figcaption {
 
   .katex-display {
     overflow-x: auto;
-    font-size: min(3.5cqw, 1rem);
+    font-size: min(3cqw, 1rem);
   }
 }

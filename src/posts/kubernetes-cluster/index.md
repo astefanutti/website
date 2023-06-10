@@ -206,7 +206,7 @@ It's kind of a chicken-egg question, because you can't get any measurements, unl
 To have an estimation, I turned to the official documentation, that provides some [power requirements](https://www.raspberrypi.org/documentation/faqs/#pi-power) for the Rasperry Pi, and other component specifications.
 That gave me the following estimates, based on the reported _average_ consumption figures:
 
-<section style="display: inline-block;">
+<section style="display: flow-root;">
 
 $$
 \begin{aligned}
