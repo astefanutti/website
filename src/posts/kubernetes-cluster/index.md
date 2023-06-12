@@ -52,16 +52,14 @@ However, I found none of these setups would meet all of the following requiremen
 ## Requirements
 
 - The cluster should be **enclosed in a standalone _unit_**, that can easily be manipulated, open and maintained modularly;
-- The cluster _unit_ should **not contain any high voltage component**[^3], to lower the risk of electrical shock, that may occur by inadvertently contacting a source of current;
+- The cluster _unit_ should **not contain any high voltage component**, to lower the risk of electrical shock, that may occur by inadvertently contacting a source of current;
 - The cluster can be **operated in a standalone manner**, by plugging in a screen and a keyboard;
 - Each worker node can be **powered on/off programmatically**, so that it's ultimately possible to implement [cluster auto-scaling](https://github.com/kubernetes/autoscaler).
 
-[^3]: As a basic safety rule, the cluster must be switched off and the main power supply unplugged, before performing any maintenance operation, as any source of current is potentially dangerous. Still, using low-voltage DC currents decreases the risk of [electrical injury](https://en.wikipedia.org/wiki/Electrical_injury#Pathophysiology).
-
 One hidden goal, behing some of these requirements, is to share the cluster with my 4 years-old daughter.
-I hope this will become an educational tool, introducing her to computers, and familiarizing her with shells and terminals 👨‍👧[^4].
+I hope this will become an educational tool, introducing her to computers, and familiarizing her with shells and terminals 👨‍👧[^3].
 
-[^4]: As I work at home, she is used to coming to my desk, hi-jacking my keyboard and typing random strings. Now, she enjoys having her own computer, with a mechanical keyboard and a retro terminal, while I can work without being interrupted, in addition to being satisfied she starts her journey into the fabulous [history of computing hardware](https://en.wikipedia.org/wiki/History_of_computing_hardware).
+[^3]: As I work at home, she is used to coming to my desk, hi-jacking my keyboard and typing random strings. Now, she enjoys having her own computer, with a mechanical keyboard and a retro terminal, while I can work without being interrupted, in addition to being satisfied she starts her journey into the fabulous [history of computing hardware](https://en.wikipedia.org/wiki/History_of_computing_hardware).
 
 ## Parts
 
@@ -120,22 +118,22 @@ The prices are intentionally omitted, so is the grand total, as I prefer not kno
 <!-- [we-online]: https://www.we-online.com/catalog/en/WTB_2_54_MALE_LEFT_ANGLED_LOCKING_HEADER_6190XX11021/ -->
 
 The case from _PicoCluster_ has a small form-factor and is very easy to tinker with.
-From the starter kit I ordered, I only kept the case[^5], including the fasteners and standoffs, and the 8-ports Gigabit Ethernet switch.
+From the starter kit I ordered, I only kept the case[^4], including the fasteners and standoffs, and the 8-ports Gigabit Ethernet switch.
 I faced some [under-voltage warnings](https://raspberrypi.stackexchange.com/questions/48329/undervoltage-warning-despite-decent-power-supply/48337), and identified it was caused by the micro-USB cables that come with the kit.
 It also comes with a 12V to 5V - 30W step-down/buck converter, that I replaced with a more powerful one, for reasons detailed in the [Power](#power) section below.
 
-[^5]: Retrospectively, I had preferred _PicoCluster_ would sell a version of the kit without any electrical components. Another, more time-consuming alternative, would have been to design the case, and turn the vector drawings to a laser cutting service, proposing acrylic sheets, with electrostatic dissipative coating ideally.
+[^4]: Retrospectively, I had preferred _PicoCluster_ would sell a version of the kit without any electrical components. Another, more time-consuming alternative, would have been to design the case, and turn the vector drawings to a laser cutting service, proposing acrylic sheets, with electrostatic dissipative coating ideally.
 
 At the time I started this project, they were no plan to have the Raspberry Pi 4 released by 2019.
 That explains I still have three RPi3s as worker nodes.
 I replaced the two others with RPi4s, for nodes requiring more resources, _i.e._, the master node, and the worker node also used for data backup.
 
 Shortly after the RPi4 came out, _PicoCluster_ released a [new case](https://www.picocluster.com/collections/raspberry-pi4/products/pico-5-raspberry-pi4) specifically for the Rasperry Pi 4, that includes a more poweful power supply, two fans, and a power switch.
-However, the case is larger, the fans are likely louder than the _Noctua_ NF-A4x20, whose speed can be controlled with [Pulse-Width Modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation)[^6] depending on the temperature probed from the boards, it includes a mains AC power supply unit and, last but not least, is more expensive.
+However, the case is larger, the fans are likely louder than the _Noctua_ NF-A4x20, whose speed can be controlled with [Pulse-Width Modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation)[^5] depending on the temperature probed from the boards, it includes a mains AC power supply unit and, last but not least, is more expensive.
 For these reasons, I'd still be choosing the _Pico 5S_ kit.
 It's more work, but I find the end result better, and more rewarding the journey along building it.
 
-[^6]: Both the Broadcom BCM2837 (RPi3) and BCM2711 (RPi4) SoCs have hardware timers capable of generating PWM signals, and it is quite straighforward to generate the [control input signal](https://noctua.at/media/wysiwyg/Noctua_PWM_specifications_white_paper.pdf), expected by the _Noctua_ NF-A4x20 PWM, without overloading the CPU. Besides, the fan is hardly perceptible at half-speed (~2500 RPM), which has proven enough to keep the temperature below 45ºC/113°F under normal load.
+[^5]: Both the Broadcom BCM2837 (RPi3) and BCM2711 (RPi4) SoCs have hardware timers capable of generating PWM signals, and it is quite straighforward to generate the [control input signal](https://noctua.at/media/wysiwyg/Noctua_PWM_specifications_white_paper.pdf), expected by the _Noctua_ NF-A4x20 PWM, without overloading the CPU. Besides, the fan is hardly perceptible at half-speed (~2500 RPM), which has proven enough to keep the temperature below 45ºC/113°F under normal load.
 
 ## Assembly
 
@@ -231,9 +229,9 @@ $$
 That's well above the power supplied by any AC mains to 5V DC external power supply I could find, as a 10A current becomes demanding for "low-end" components.
 That excluded the option of relying on a single external AC to 5V DC power supply.
 Conversely, 12V DC converters, capable of supplying power in that range, are pretty common.
-So I opted for the _Dehner Elektronik_ STD-12090 12V/DC 9A 108W power supply, coupled to a DC 12V to 5V 75W [buck converter](https://en.wikipedia.org/wiki/Buck_converter)[^7].
+So I opted for the _Dehner Elektronik_ STD-12090 12V/DC 9A 108W power supply, coupled to a DC 12V to 5V 75W [buck converter](https://en.wikipedia.org/wiki/Buck_converter)[^6].
 
-[^7]: Another option would have been to rely on five, smaller and less powerful, buck converters, one for each RPi, but that would have complexified the assembly significantly.
+[^6]: Another option would have been to rely on five, smaller and less powerful, buck converters, one for each RPi, but that would have complexified the assembly significantly.
 
 The following diagram summarizes the _average_ and _maximum_ power I've been able to measure on the cluster:
 
