@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="./favicon-32x32.png" type="image/png" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./katex.min.css" />
+  <meta name="viewport" content="width=device-width" />
+  <meta http-equiv="content-security-policy" content="">
+		<link href="./_app/immutable/assets/0.3991a6d8.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/ArticleMeta.dea4be15.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/Image.b943bec2.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.1d8a40cb.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.55619a77.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.cd6bc017.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.aef2731d.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/control.e7f5239e.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.53051a89.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.c02a2a20.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.f1571009.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/ArticleMeta.83d25659.js"><title>Running OpenGL Shaders on the Jetson Nano</title><!-- HEAD_svelte-1lbq8gn_START --><!-- HTML_TAG_START --><script>!function(){try {var d=document.documentElement;var e=localStorage.getItem('theme');if("system"===e||(!e&&true)){var t="(prefers-color-scheme: dark)",m=window.matchMedia(t);if(m.media!==t||m.matches){d.setAttribute('data-theme', 'dark');document.documentElement.style.setProperty('color-scheme', 'dark')}else{d.setAttribute('data-theme', 'light');document.documentElement.style.setProperty('color-scheme', 'light')}}else if(e){ d.setAttribute('data-theme', e);document.documentElement.style.setProperty('color-scheme', e)}}catch(e){}}()</script><!-- HTML_TAG_END --><!-- HEAD_svelte-1lbq8gn_END --><!-- HEAD_svelte-1uq71di_START --><meta property="og:site_name" content="ttt.io"><meta property="og:title" content="Running OpenGL Shaders on the Jetson Nano"><meta property="og:description"><!-- HEAD_svelte-1uq71di_END -->
+</head>
+
+<body data-sveltekit-preload-data="hover">
+  <div style="display: contents">
+
+
+
+
+
+
+<header class="navbar"><span><a href="/"><span class="title small">ttt.io</span></a>
+    <span class="icons"><a class="icon" href="https://github.com/astefanutti"><!-- HTML_TAG_START --><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><!-- HTML_TAG_END --></a>
+      <a class="icon" href="https://fosstodon.org/@ttt"><!-- HTML_TAG_START --><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Mastodon</title><path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/></svg><!-- HTML_TAG_END --></a>
+      <a class="icon" href="https://twitter.com/a7tti"><!-- HTML_TAG_START --><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg><!-- HTML_TAG_END --></a></span></span>
+
+  <fieldset class="toggle-group svelte-1o5f7om"><label class="svelte-1o5f7om"><input type="radio" name="color-scheme" id="color-scheme-light" value="light"  data-sr class="svelte-1o5f7om">
+      <!-- HTML_TAG_START --><svg role="img" viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"/>
+      <path d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"/>
+      <path d="M12,24c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,23.6,12.6,24,12,24z"/>
+      <path d="M5.6,6.6c-0.3,0-0.5-0.1-0.7-0.3L3.5,4.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C6.2,6.5,5.9,6.6,5.6,6.6z"/>
+      <path d="M19.8,20.8c-0.3,0-0.5-0.1-0.7-0.3l-1.4-1.4c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C20.3,20.7,20,20.8,19.8,20.8z"/>
+      <path d="M3,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S3.6,13,3,13z"/>
+      <path d="M23,13h-2c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S23.6,13,23,13z"/>
+      <path d="M4.2,20.8c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C4.7,20.7,4.5,20.8,4.2,20.8z"/>
+      <path d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"/>
+    </svg><!-- HTML_TAG_END --></label>
+    <label class="svelte-1o5f7om"><input type="radio" name="color-scheme" value="system"  data-sr class="svelte-1o5f7om">
+      <!-- HTML_TAG_START --><svg role="img" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+      <path d="M27,14h-0.172c-0.478,0-0.904-0.337-0.98-0.809c-0.037-0.229-0.081-0.456-0.132-0.68c-0.106-0.464,0.158-0.933,0.597-1.115l0.156-0.065c0.51-0.211,0.753-0.796,0.541-1.307v0c-0.211-0.51-0.796-0.753-1.307-0.541l-0.16,0.066c-0.441,0.183-0.961,0.035-1.214-0.37c-0.122-0.196-0.25-0.388-0.384-0.576c-0.277-0.388-0.213-0.924,0.124-1.261l0.122-0.122c0.391-0.391,0.391-1.024,0-1.414l0,0c-0.391-0.391-1.024-0.391-1.414,0L22.656,5.93c-0.337,0.337-0.873,0.401-1.261,0.124c-0.188-0.134-0.38-0.262-0.576-0.384c-0.405-0.252-0.553-0.773-0.37-1.214l0.066-0.16c0.211-0.51-0.031-1.095-0.541-1.307c-0.51-0.211-1.095,0.031-1.307,0.541l-0.065,0.156c-0.182,0.439-0.651,0.703-1.115,0.597c-0.224-0.051-0.451-0.095-0.68-0.132C16.337,4.076,16,3.65,16,3.172V3c0-0.552-0.448-1-1-1s-1,0.448-1,1v0.172c0,0.478-0.337,0.904-0.809,0.98c-0.229,0.037-0.456,0.081-0.68,0.132c-0.464,0.106-0.933-0.158-1.115-0.597l-0.065-0.156c-0.211-0.51-0.796-0.753-1.307-0.541c-0.51,0.211-0.753,0.796-0.541,1.307l0.066,0.16C9.733,4.897,9.586,5.418,9.18,5.67C8.984,5.792,8.792,5.92,8.605,6.053C8.217,6.33,7.681,6.267,7.344,5.93L7.222,5.808c-0.391-0.391-1.024-0.391-1.414,0l0,0c-0.39,0.391-0.39,1.024,0,1.414L5.93,7.344C6.267,7.681,6.33,8.216,6.053,8.605C5.92,8.792,5.792,8.984,5.67,9.18C5.418,9.586,4.897,9.733,4.456,9.55l-0.16-0.066c-0.51-0.211-1.095,0.031-1.307,0.541v0c-0.211,0.51,0.031,1.095,0.541,1.307l0.156,0.065c0.439,0.182,0.703,0.651,0.597,1.115c-0.051,0.224-0.095,0.451-0.132,0.68C4.076,13.663,3.65,14,3.172,14H3c-0.552,0-1,0.448-1,1v0c0,0.552,0.448,1,1,1h0.172c0.478,0,0.904,0.337,0.98,0.809c0.037,0.229,0.081,0.456,0.132,0.68c0.106,0.464-0.158,0.933-0.597,1.115l-0.156,0.065c-0.51,0.211-0.753,0.796-0.541,1.307v0c0.211,0.51,0.796,0.753,1.307,0.541l0.16-0.066c0.441-0.183,0.961-0.035,1.214,0.37c0.122,0.196,0.25,0.388,0.384,0.576c0.277,0.388,0.213,0.924-0.124,1.261l-0.122,0.122c-0.391,0.391-0.391,1.024,0,1.414s1.024,0.391,1.414,0l0.122-0.122c0.337-0.337,0.873-0.401,1.261-0.124c0.188,0.134,0.38,0.262,0.576,0.384c0.405,0.252,0.553,0.773,0.37,1.214l-0.066,0.16c-0.211,0.51,0.031,1.095,0.541,1.307c0.51,0.211,1.095-0.031,1.307-0.541l0.065-0.156c0.182-0.439,0.651-0.703,1.115-0.597c0.224,0.051,0.451,0.095,0.68,0.132C13.663,25.924,14,26.35,14,26.828V27c0,0.552,0.448,1,1,1s1-0.448,1-1v-0.172c0-0.478,0.337-0.904,0.809-0.98c0.229-0.037,0.456-0.081,0.68-0.132c0.464-0.106,0.933,0.158,1.115,0.597l0.065,0.156c0.211,0.51,0.796,0.753,1.307,0.541c0.51-0.211,0.753-0.796,0.541-1.307l-0.066-0.16c-0.183-0.441-0.035-0.961,0.37-1.214c0.196-0.122,0.388-0.25,0.576-0.384c0.388-0.277,0.924-0.213,1.261,0.124l0.122,0.122c0.391,0.391,1.024,0.391,1.414,0s0.391-1.024,0-1.414l-0.122-0.122c-0.337-0.337-0.401-0.873-0.124-1.261c0.134-0.188,0.262-0.38,0.384-0.576c0.252-0.405,0.773-0.553,1.214-0.37l0.16,0.066c0.51,0.211,1.095-0.031,1.307-0.541v0c0.211-0.51-0.031-1.095-0.541-1.307l-0.156-0.065c-0.439-0.182-0.703-0.651-0.597-1.115c0.051-0.224,0.095-0.451,0.132-0.68C25.924,16.337,26.35,16,26.828,16H27c0.552,0,1-0.448,1-1v0C28,14.448,27.552,14,27,14z M15,23c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S19.418,23,15,23z"/>
+      < rect x="15" y="14" width="9" height="2"/>
+      <rect x="8.25" y="10.103" transform="matrix(0.5 0.866 -0.866 0.5 15.9904 -5.4904)" width="9" height="2"/>
+      <rect x="8.125" y="17.681" transform="matrix(-0.5 0.866 -0.866 -0.5 35.4904 16.8708)" width="9.5" height="2"/>
+      <circle cx="15" cy="15" r="2"/>
+    </svg><!-- HTML_TAG_END --></label>
+    <label class="svelte-1o5f7om"><input type="radio" name="color-scheme" id="color-scheme-dark" value="dark"  data-sr class="svelte-1o5f7om">
+      <!-- HTML_TAG_START --><svg role="img" viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"/>
+    </svg><!-- HTML_TAG_END --></label></fieldset></header>
+
+<article>
+  <h1 class="heading svelte-go1iu3 large">Running OpenGL Shaders on the Jetson Nano</h1>
+  <p class="svelte-4ufgo2">
+  <span class="date svelte-4ufgo2">Mon Jun 12 2023</span>
+</p>
+
+  <figure class="fullwidth"><picture><source srcset="/_app/immutable/assets/jetson.ab8d0719.avif 600w, /_app/immutable/assets/jetson.3f34f8d8.avif 1000w, /_app/immutable/assets/jetson.da7be365.avif 1400w" type="image/avif" sizes="100vw"><source srcset="/_app/immutable/assets/jetson.f10d6ed1.webp 600w, /_app/immutable/assets/jetson.4d23fede.webp 1000w, /_app/immutable/assets/jetson.1b1bfe77.webp 1400w" type="image/webp" sizes="100vw"><source srcset="/_app/immutable/assets/jetson.b1afe769.jpg 600w, /_app/immutable/assets/jetson.598947d2.jpg 1000w, /_app/immutable/assets/jetson.62b78318.jpg 1400w" type="image/jpeg" sizes="100vw">
+  <img src="/_app/immutable/assets/jetson.62b78318.jpg" alt="A shader running on the Jetson Nano" loading="lazy" class="svelte-10t3lmq">
+  
+</picture>
+  <figcaption>A <a href="https://www.shadertoy.com/view/fstyD4">shader</a> from 
+    <a href="https://www.shadertoy.com">Shadertoy</a> running on the Jetson Nano at 26 FPS in Full HD
+  </figcaption></figure>
+<p>Few years ago, I <a href="/glsl-raspberry-pi">experimented</a> with running OpenGL shaders using the Linux kernel <a href="https://docs.kernel.org/gpu/introduction.html" rel="nofollow">Direct Rendering Manager</a>, and the <a href="https://docs.kernel.org/gpu/drm-kms.html" rel="nofollow">Kernel Mode Setting</a> API.
+I captured the result of this experiment into the <a href="https://github.com/astefanutti/kms-glsl" rel="nofollow">kms-glsl</a> project, that I’ve used ever since to run my favorite shaders from <a href="https://www.shadertoy.com" rel="nofollow">Shadertoy</a>, on the Rapsberry Pi 4.
+Unsurprisingly, it quickly became obvious the RPi 4 VideoCore VI GPU would not be capable of rendering complex shaders at decent FPS, nor reasonably scale with display resolution.
+It was time for an upgrade!</p>
+<h2 id="jetson-nano"><a class="anchor" aria-hidden="true" tabindex="-1" href="#jetson-nano"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Jetson Nano</h2>
+<p>You could argue I should go for using a desktop computer, with a mid-range graphics card.
+And you’d probably be right!
+Yet, I have long term goals for the project, that are best met by single board computers.
+So I’ve reviewed the SBCs I’ve been able to find, and that are listed hereafter:</p>
+<figure><table><thead><tr><th>SBC</th>
+<th>SoC</th>
+<th>CPU</th>
+<th>GPU</th>
+<th>RAM</th>
+<th>Price<sup>*</sup></th></tr></thead>
+<tbody><tr><td><a href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-nano/" rel="nofollow">Jetson Nano</a></td>
+<td>Tegra X1 T210 TM660M-A2</td>
+<td>4x Cortex-A57 @ 1.43GHz</td>
+<td>Maxwell 128 CUDA cores @ 921Mhz</td>
+<td>4GB</td>
+<td>$149</td></tr>
+<tr><td><a href="https://wiki.odroid.com/odroid-n2l/hardware" rel="nofollow">ODROID-N2L</a></td>
+<td>ARM Amlogic S922X</td>
+<td>4x Cortex-A73 @ 2.2Ghz, 2x Cortex-A53 @ 2Ghz</td>
+<td>Mali-G52 6EE @ 800MHz</td>
+<td>4GB</td>
+<td>$130</td></tr>
+<tr><td><a href="http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-5.html" rel="nofollow">Orange Pi 5</a></td>
+<td>Rockchip RK3588S</td>
+<td>4x Cortex-A76 @ 2.4GHz, 4x Cortex-A55 @ 1.8GHz</td>
+<td>Mali-G610 MP4 @ 600MHz</td>
+<td>16GB</td>
+<td>$149</td></tr>
+<tr><td><a href="https://wiki.pine64.org/wiki/Quartz64" rel="nofollow">Quartz64B</a></td>
+<td>Rockchip RK3566</td>
+<td>4x Cortex-A55 @ 1.8GHz</td>
+<td>Mali-G52 MP2 @ 800MHz</td>
+<td>8GB</td>
+<td>$80</td></tr>
+<tr><td><a href="https://wiki.radxa.com/Rock5/5a" rel="nofollow">ROCK 5A</a></td>
+<td>Rockchip RK3588S</td>
+<td>4x Cortex-A76 @ 2.4GHz, 4x Cortex-A55 @ 1.8GHz</td>
+<td>Mali-G610 MC4 @ 600MHz</td>
+<td>16GB</td>
+<td>$170</td></tr>
+<tr><td><a href="https://tinker-board.asus.com/product/tinker-board-2.html" rel="nofollow">Tinker Board 2</a></td>
+<td>Rockchip RK3399</td>
+<td>2x Cortex-A72 @ 2.0 GHz, 4x Cortex-A53 @ 1.5 GHz</td>
+<td>Mali-T860 MP4 @ 800MHz</td>
+<td>4GB</td>
+<td>$179</td></tr>
+<tr><td><a href="https://www.udoo.org/discover-the-udoo-bolt/" rel="nofollow">UDOO BOLT V3</a></td>
+<td>AMD Ryzen™ Embedded V1202B</td>
+<td>4x cores @ 2.3GHz (3.2GHz boost)</td>
+<td>AMD Radeon™ Vega 3 @ 1GHz</td>
+<td>2x SO-DIMM DDR4</td>
+<td>$437</td></tr>
+<tr><td><a href="https://www.udoo.org/udoo-vision/" rel="nofollow">UDOO VISION X5</a></td>
+<td>Intel® Atom™ x5-E3940</td>
+<td>4x cores @ 1.6GHz</td>
+<td>Intel® HD Graphics 500 @ 600MHz</td>
+<td>4GB</td>
+<td>$349</td></tr></tbody></table>
+<figcaption><sup>*</sup>Retail prices, as of May 2023, are very volatile, so is availability.</figcaption></figure>
+<p>Given my primary use case, GPU performance, relative to price, is the main decision criteria.
+The following diagram gives the relative differences between these GPUs, for some specifications, like the number of <a href="https://en.wikipedia.org/wiki/Unified_shader_model" rel="nofollow">shaders</a>, <a href="https://en.wikipedia.org/wiki/FLOPS" rel="nofollow">FLOP/s</a>, or <a href="https://en.wikipedia.org/wiki/Fillrate" rel="nofollow">pixel fillrate</a>:</p>
+<div></div>
+<p><span class="note sidenote"><span class="sidenote-number">1</span>The second metric may be the power efficiency, if you care about electrical consumption. But that’s not yet a real issue for SBCs!</span>Ultimately, the metric that matters the most for graphical applications is FPS<span class="sidenote-number">1</span>, and deriving it from a GPU specifications requires a deep understanding of its architecture.
+That led me to searching for some benchmarks, that would help me to practically compare the performance of these GPUs, for the use cases closest to mine.</p>
+<p>Publicly available benchmarks usually focus on graphics card GPUs, not GPUs that equip SBCs, nor mobile phones.
+Even when they do, they seldomly provide data for all the GPUs listed above.
+The results from the few ones I was able to find are illustrated in the diagrams below:</p>
+<div></div>
+<div></div>
+<p><span class="note sidenote"><span class="sidenote-number">2</span>The Jetson Nano compute module form factor is another advantage, with its 260-pin SODIMM-style System-on-Module (SoM), so it can be used in different contexts, like with the <a href="https://turingpi.com/product/turing-pi-2/" rel="nofollow">Turing Pi 2</a>.</span>I concluded the Jetson Nano would be the best compromise.
+While it has inferior FLOP/s and Pixel/s theoretical performance limits than the Orange Pi 5, it provides the greatest number of shaders per price, which is very likely to be the limiting factor for my use case<span class="sidenote-number">2</span>.
+Yet, I was still hesitant to spend that amount of money, without any guarantees I’d be able to run <a href="https://github.com/astefanutti/kms-glsl" rel="nofollow">kms-glsl</a> on it, nor it’d run orders of magnitude faster than on the Raspberry Pi 4!</p>
+<p><span class="note sidenote"><span class="sidenote-number">3</span>NVIDIA has disabled some shading units on the Jetson Nano GPU, to reach 128 shaders, unlike the Nintendo Switch (2017, HAC-001) GPU variant, which has all the 256 shaders enabled.</span>What actually triggered me, is the realisation the Jetson Nano Tegra X1 GPU/SoC is <a href="https://en.wikipedia.org/wiki/Tegra#Devices_6" rel="nofollow">almost the same</a> as the Nintendo Switch one<span class="sidenote-number">3</span>.
+At least, it cleared the later concern I had.
+So I went on and bought a <a href="https://developer.nvidia.com/embedded/jetson-nano-developer-kit" rel="nofollow">Jetson Nano developer kit</a>, then tried to run <a href="https://github.com/astefanutti/kms-glsl" rel="nofollow">kms-glsl</a>, and it failed!</p>
+<p><span class="note sidenote"><span class="sidenote-number">4</span>That is with the DRM-NVDC compatibility library, which implements the Direct Rendering Manager API (DRM), on top of the Tegra Display Controller kernel driver (NVDC).</span>Out of the box<span class="sidenote-number">4</span>, on the most recent Linux Jetson version, that still supports the Jetson Nano (R32.7.3 as of writing), it fails to initialize GBM.
+When switching to the <a href="https://www.kernel.org/doc/html/v4.16/gpu/tegra.html" rel="nofollow">Tegra DRM driver</a>, with <code>sudo modprobe tegra-udrm modeset=1</code>, it fails to initialize EGL.
+It seems NVIDIA hasn’t considered GBM support a priority until recently, and the version of the Tegra DRM driver packaged in Jetson Linux 32 may be too old.</p>
+<p>On the other hand, the <a href="https://github.com/OE4T" rel="nofollow">OpenEmbedded for Tegra</a> project (OE4T) provides <a href="https://github.com/OE4T/tegra-udrm-gbm" rel="nofollow">tegra-udrm-gbm</a>, a wrapper for <code>libnvgbm.so</code> to work with Mesa’s GBM backend loader.
+So I was set to build my own Linux distribution, with <a href="https://github.com/OE4T" rel="nofollow">OpenEmbedded for Tegra</a>! 🚀</p>
+<h2 id="openembedded-for-tegra"><a class="anchor" aria-hidden="true" tabindex="-1" href="#openembedded-for-tegra"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>OpenEmbedded for Tegra</h2>
+<p><a href="https://github.com/OE4T" rel="nofollow">OE4T</a> is a community project that provides support for NVIDIA Tegra (Jetson) platforms, on top of <a href="https://www.openembedded.org" rel="nofollow">OpenEmbedded</a>.
+It comes with the <a href="https://github.com/OE4T/meta-tegra" rel="nofollow">meta-tegra</a> BSP layer for NVIDIA Jetson platforms, based on L4T, that can be used to build a Linux distribution that includes <a href="https://github.com/OE4T/tegra-udrm-gbm" rel="nofollow">tegra-udrm-gbm</a>.</p>
+<h3 id="building-the-distribution"><a class="anchor" aria-hidden="true" tabindex="-1" href="#building-the-distribution"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Building the Distribution</h3>
+<p>After a couple of iterations, I came up with the following instructions, that build a minimal distribution image, which can be used to flash the Jetson Nano, and run <a href="https://github.com/astefanutti/kms-glsl" rel="nofollow">kms-glsl</a> successfully:</p>
+<ol><li><p>Start a build environment, that contains the toolchain, on your host machine, using a <a href="https://github.com/crops/poky-container" rel="nofollow">Poky container</a>:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ docker run </span><span style="color: var(--shiki-token-symbol)">--</span><span style="color: var(--shiki-color-text)">rm </span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">it </span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">v &#96;pwd&#96;:</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">workdir crops</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">poky:ubuntu</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-token-numeric)">22.04</span></span></code></pre><!-- HTML_TAG_END -->
+<p>It provides an operating system agnostic environment, that can be used on Windows, Mac, or Linux.
+If you’re on a native Linux host machine, it’s also possible to <a href="https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html" rel="nofollow">set it up</a>, to run the build directly on it.</p></li>
+<li><p>Setup the build, from the <a href="https://github.com/OE4T/tegra-demo-distro" rel="nofollow">tegra-demo-distro</a> reference distributions project:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ git clone </span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">b kirkstone</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">l4t</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">r32.</span><span style="color: var(--shiki-token-numeric)">7.</span><span style="color: var(--shiki-color-text)">x https:</span><span style="color: var(--shiki-token-symbol)">//github.com/</span><span style="color: var(--shiki-color-text)">OE4T</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">tegra</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">demo</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">distro.git</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">$ cd tegra</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">demo</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">distro</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">$ git submodule update </span><span style="color: var(--shiki-token-symbol)">--</span><span style="color: var(--shiki-color-text)">init</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">$ . .</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">setup</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">env </span><span style="color: var(--shiki-token-symbol)">--</span><span style="color: var(--shiki-color-text)">machine jetson</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">nano</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">devkit</span></span></code></pre><!-- HTML_TAG_END -->
+<p>It’s important to use the <code>kirkstone-l4t-r32.7.x</code> branch, as it’s the latest stable (LTS) branch that supports L4T R32.7.3, and the Jetson Nano.</p></li>
+<li><p>Update the build configuration, by appending the following changes:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ cat &lt;&lt;EOT &gt;&gt; conf</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">local.conf</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">DISTRO_FEATURES:remove </span><span style="color: var(--shiki-token-symbol)">=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-string)">&quot;wayland&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: var(--shiki-color-text)">EXTRA_IMAGE_FEATURES </span><span style="color: var(--shiki-token-symbol)">=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-string)">&quot;tools-sdk dev-pkgs debug-tweaks&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: var(--shiki-color-text)">IMAGE_INSTALL:append </span><span style="color: var(--shiki-token-symbol)">=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-string)">&quot; mesa tegra-udrm-gbm tegra-udrm-probeconf egl-gbm&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: var(--shiki-color-text)">CORE_IMAGE_BASE_INSTALL:remove </span><span style="color: var(--shiki-token-symbol)">=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-string)">&quot;packagegroup-demo-egltests&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: var(--shiki-token-comment); font-style: italic"># Tools needed to build kms-glsl</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">CORE_IMAGE_EXTRA_INSTALL </span><span style="color: var(--shiki-token-symbol)">+=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-string)">&quot;git&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">CORE_IMAGE_EXTRA_INSTALL </span><span style="color: var(--shiki-token-symbol)">+=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-string)">&quot;make&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">CORE_IMAGE_EXTRA_INSTALL </span><span style="color: var(--shiki-token-symbol)">+=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-string)">&quot;gcc&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">CORE_IMAGE_EXTRA_INSTALL </span><span style="color: var(--shiki-token-symbol)">+=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-string)">&quot;vim&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">EOT</span></span></code></pre><!-- HTML_TAG_END --></li>
+<li><p>Start the build (it may take a while to complete):</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ bitbake demo</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">image</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">egl</span></span></code></pre><!-- HTML_TAG_END --></li>
+<li><p>Once completed, you can copy the distribution image into the mounted host directory, and exit the build container:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ cp tmp</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">deploy</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">images</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">jetson</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">nano</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">devkit</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">demo</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">image</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">egl</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">jetson</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">nano</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">devkit.tegraflash.tar.gz </span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">workdir</span><span style="color: var(--shiki-token-symbol)">/</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">$ </span><span style="color: var(--shiki-token-keyword)">exit</span></span></code></pre><!-- HTML_TAG_END --></li></ol>
+<h3 id="flashing-the-jetson-nano"><a class="anchor" aria-hidden="true" tabindex="-1" href="#flashing-the-jetson-nano"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Flashing the Jetson Nano</h3>
+<p>The distribution image that you’ve just built, can now be used to flash the Jetson Nano:</p>
+<ol><li><p>Prepare the Jetson Nano to boot in recovery mode, which can be achieved by shorting pins 3 and 4 (you can find more information in the <a href="https://github.com/OE4T/meta-tegra/wiki/Flashing-the-Jetson-Dev-Kit" rel="nofollow">Flashing the Jetson Dev Kit</a> guide):</p>
+<picture><source srcset="/_app/immutable/assets/recovery.97e3875b.avif 600w, /_app/immutable/assets/recovery.f2e2e84c.avif 1000w, /_app/immutable/assets/recovery.545894d0.avif 1400w" type="image/avif" sizes="100vw"><source srcset="/_app/immutable/assets/recovery.4f37353e.webp 600w, /_app/immutable/assets/recovery.21ee25ee.webp 1000w, /_app/immutable/assets/recovery.145704d3.webp 1400w" type="image/webp" sizes="100vw"><source srcset="/_app/immutable/assets/recovery.772d64fa.jpg 600w, /_app/immutable/assets/recovery.872df84b.jpg 1000w, /_app/immutable/assets/recovery.6fb5a708.jpg 1400w" type="image/jpeg" sizes="100vw">
+  <img src="/_app/immutable/assets/recovery.6fb5a708.jpg" alt="Jetson Nano recovery mode" loading="lazy" class="svelte-10t3lmq">
+  
+</picture></li>
+<li><p>Connect the Jetson Nano to your host machine via the micro-B USB port, power it up via the 5V jack barrel, and check it’s connected:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ lsusb </span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">d </span><span style="color: var(--shiki-token-numeric)">0955</span><span style="color: var(--shiki-color-text)">:</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">Bus </span><span style="color: var(--shiki-token-numeric)">011</span><span style="color: var(--shiki-color-text)"> Device </span><span style="color: var(--shiki-token-numeric)">002</span><span style="color: var(--shiki-color-text)">: ID </span><span style="color: var(--shiki-token-numeric)">0955</span><span style="color: var(--shiki-color-text)">:7f21 NVIDIA Corp. APX</span></span></code></pre><!-- HTML_TAG_END --></li>
+<li><p>Untar the image archive:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ tar </span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">xf demo</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">image</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">egl</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">jetson</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">nano</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">devkit.tegraflash.tar.gz</span></span></code></pre><!-- HTML_TAG_END --></li></ol>
+<ol start="4"><li><p>Flash the Jetson Nano:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ sudo .</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">doflash.sh</span></span></code></pre><!-- HTML_TAG_END --></li></ol>
+<h3 id="compiling-and-testing"><a class="anchor" aria-hidden="true" tabindex="-1" href="#compiling-and-testing"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Compiling and Testing</h3>
+<p>The Jetson Nano will reboot once the flashing has successfully completed.
+You can then login as <code>root</code>, and test <a href="https://github.com/astefanutti/kms-glsl" rel="nofollow">kms-glsl</a>, by running the following instructions:</p>
+<ol><li><p>Build the project:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ git clone https:</span><span style="color: var(--shiki-token-symbol)">//github.com/</span><span style="color: var(--shiki-color-text)">astefanutti</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">kms</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">glsl.git</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">$ cd kms</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">glsl</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">$ make</span></span></code></pre><!-- HTML_TAG_END --></li>
+<li><p>Run an example, e.g.:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ .</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">glsl examples</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">costal_landscape.glsl</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: var(--shiki-color-text)">Using display </span><span style="color: var(--shiki-token-numeric)">0x55aadc1320</span><span style="color: var(--shiki-color-text)"> with EGL version </span><span style="color: var(--shiki-token-numeric)">1.5</span></span>
+<span class="line"><span style="color: var(--shiki-token-symbol)">===================================</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">EGL information:</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">  version: </span><span style="color: var(--shiki-token-string)">&quot;1.5&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">  vendor: </span><span style="color: var(--shiki-token-string)">&quot;NVIDIA&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-token-symbol)">===================================</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">OpenGL ES </span><span style="color: var(--shiki-token-numeric)">2.</span><span style="color: var(--shiki-color-text)">x information:</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">  version: </span><span style="color: var(--shiki-token-string)">&quot;OpenGL ES 3.2 NVIDIA 32.7.3&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">  shading language version: </span><span style="color: var(--shiki-token-string)">&quot;OpenGL ES GLSL ES 3.20&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">  vendor: </span><span style="color: var(--shiki-token-string)">&quot;NVIDIA Corporation&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">  renderer: </span><span style="color: var(--shiki-token-string)">&quot;NVIDIA Tegra X1 (nvgpu)/integrated&quot;</span></span>
+<span class="line"><span style="color: var(--shiki-token-symbol)">===================================</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">Using GLSL version directive: </span><span style="color: var(--shiki-token-comment); font-style: italic">#version 320 es</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">Rendered </span><span style="color: var(--shiki-token-numeric)">41</span><span style="color: var(--shiki-color-text)"> frames </span><span style="color: var(--shiki-token-keyword)">in</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-numeric)">2.049823</span><span style="color: var(--shiki-color-text)"> sec (</span><span style="color: var(--shiki-token-numeric)">20.001726</span><span style="color: var(--shiki-color-text)"> fps)</span></span></code></pre><!-- HTML_TAG_END --></li></ol>
+<p>I was quite happy to have <a href="https://github.com/astefanutti/kms-glsl" rel="nofollow">kms-glsl</a> running on the Jetson Nano.
+At least, I had passed the embarrassement of having bought a unit for nothing.
+Yet, this was not the end of the journey!</p>
+<h2 id="bugs-and-improvements"><a class="anchor" aria-hidden="true" tabindex="-1" href="#bugs-and-improvements"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Bugs and Improvements</h2>
+<p>As I gave few sample shaders a try, I quickly noticed some issues:</p>
+<ol><li><p><span class="note sidenote"><span class="sidenote-number">5</span>An example of the floating point precision issue, with this <a href="https://www.shadertoy.com/view/fstyD4" rel="nofollow">shader</a> (to be compared with the picture in introduction):<br><picture><source srcset="/_app/immutable/assets/precision.f6eec3ea.avif 400w, /_app/immutable/assets/precision.d79f708f.avif 800w" type="image/avif" sizes="(max-width: calc(1.4 * 800px)) 25vw, 400px"><source srcset="/_app/immutable/assets/precision.39f74b3f.webp 400w, /_app/immutable/assets/precision.23f186de.webp 800w" type="image/webp" sizes="(max-width: calc(1.4 * 800px)) 25vw, 400px"><source srcset="/_app/immutable/assets/precision.e6f91191.jpg 400w, /_app/immutable/assets/precision.772c849b.jpg 800w" type="image/jpeg" sizes="(max-width: calc(1.4 * 800px)) 25vw, 400px">
+  <img src="/_app/immutable/assets/precision.772c849b.jpg" alt="An example of floating precision issue" loading="lazy" class="svelte-10t3lmq">
+  
+</picture></span><span class="note sidenote"><span class="sidenote-number">6</span>The Raspberry Pi does not seem to take that parameter into account, but the Jetson Nano definitely does!</span>While some shaders were rendering correctly, others were having weird glitches<span class="sidenote-number">5</span>.
+It’s only when I realised the later were performing more higher precision floating point operations than the former, that I figured it out!
+The shaders were configured to use the <code>mediump</code> precision, and changing it to <code>highp</code> fixed it<span class="sidenote-number">6</span>.
+As some systems do not support <code>highp</code> precision, I changed the shaders setup, to rely on the <code>GL_FRAGMENT_PRECISION_HIGH</code> pre-processor macro:</p>
+<!-- HTML_TAG_START --><pre class="shiki  liquid language-glsl"><code tabindex="0"><span class="line"><span style="color: var(--shiki-token-keyword)">#ifdef</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-function)">GL_FRAGMENT_PRECISION_HIGH</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">precision highp </span><span style="color: var(--shiki-token-keyword)">float</span><span style="color: var(--shiki-token-punctuation)">;</span></span>
+<span class="line"><span style="color: var(--shiki-token-keyword)">#else</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">precision mediump </span><span style="color: var(--shiki-token-keyword)">float</span><span style="color: var(--shiki-token-punctuation)">;</span></span>
+<span class="line"><span style="color: var(--shiki-token-keyword)">#endif</span></span></code></pre><!-- HTML_TAG_END --></li></ol>
+<ol start="2"><li><span class="note sidenote"><span class="sidenote-number">7</span>”<code>drmModePageFlip</code> <em>does not wait for rendering to complete, nor is future rendering blocked until the flip completes. This differs from KMS based implementations that utilize implicit synchronization.</em>”</span>As I got passed that first issue, I noticed some shaders were flickering.
+Only those that render at high FPS were affected.
+That’s about the only hint I could get.
+So I debugged it, and noticed the calls to <code>drmModePageFlip</code> were immediately returning, without page had flipped!
+I went double check the <a href="https://docs.nvidia.com/jetson/l4t-multimedia/group__direct__rendering__manager.html#gaf16a05d5b066b226eb1063e31a364e04" rel="nofollow">Jetson Linux DRM API implementation</a>, which explicitely documents that deviation from the usual behavior<span class="sidenote-number">7</span>.
+So the flushing must be done explicitely, which can be achieved by calling <code>glFinish()</code>.
+This fixed it, and I also double checked it did not impact the rendering on other implementations, e.g., on the Raspberry Pi.</li></ol>
+<ol start="3"><li><p>At last, all the shaders were rendering visually OK.
+However, the rendering was peaking at 30 FPS for a large proportion.
+For the first time since I started experimenting with <a href="https://github.com/astefanutti/kms-glsl" rel="nofollow">kms-glsl</a>, the limiting factor wasn’t the GPU anymore, it was the display refresh rate!
+That led me to <a href="https://github.com/astefanutti/kms-glsl/pull/14/files" rel="nofollow">add support for async page flipping</a>, using the <code>DRM_MODE_PAGE_FLIP_ASYNC</code> flag, e.g.:</p>
+<!-- HTML_TAG_START --><pre class="shiki  liquid language-c"><code tabindex="0"><span class="line"><span style="color: var(--shiki-token-keyword)">uint32_t</span><span style="color: var(--shiki-color-text)"> flags</span><span style="color: var(--shiki-token-punctuation)">;</span></span>
+<span class="line"><span style="color: var(--shiki-token-keyword)">if</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-punctuation)">(</span><span style="color: var(--shiki-color-text)">options</span><span style="color: var(--shiki-token-operator)">-&gt;</span><span style="color: var(--shiki-color-text)">async_page_flip</span><span style="color: var(--shiki-token-punctuation)">)</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-punctuation)">&#123;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">  flags </span><span style="color: var(--shiki-token-keyword)">|=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-constant)">DRM_MODE_PAGE_FLIP_ASYNC</span><span style="color: var(--shiki-token-punctuation)">;</span></span>
+<span class="line"><span style="color: var(--shiki-token-punctuation)">&#125;</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-keyword)">else</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-punctuation)">&#123;</span></span>
+<span class="line"><span style="color: var(--shiki-color-text)">  flags </span><span style="color: var(--shiki-token-keyword)">|=</span><span style="color: var(--shiki-color-text)"> </span><span style="color: var(--shiki-token-constant)">DRM_MODE_PAGE_FLIP_EVENT</span><span style="color: var(--shiki-token-punctuation)">;</span></span>
+<span class="line"><span style="color: var(--shiki-token-punctuation)">&#125;</span></span>
+<span class="line"><span style="color: var(--shiki-token-comment); font-style: italic">// With the DRM legacy API</span></span>
+<span class="line"><span style="color: var(--shiki-token-function)">drmModePageFlip</span><span style="color: var(--shiki-token-punctuation)">(</span><span style="color: var(--shiki-token-parameter)">drm.fd</span><span style="color: var(--shiki-token-punctuation)">,</span><span style="color: var(--shiki-token-parameter)"> drm.crtc_id</span><span style="color: var(--shiki-token-punctuation)">,</span><span style="color: var(--shiki-token-parameter)"> fb</span><span style="color: var(--shiki-token-operator)">-&gt;</span><span style="color: var(--shiki-color-text)">fb_id</span><span style="color: var(--shiki-token-punctuation)">,</span><span style="color: var(--shiki-token-parameter)"> flags</span><span style="color: var(--shiki-token-punctuation)">,</span><span style="color: var(--shiki-token-parameter)"> </span><span style="color: var(--shiki-token-operator)">&amp;</span><span style="color: var(--shiki-color-text)">waiting_for_flip</span><span style="color: var(--shiki-token-punctuation)">);</span></span>
+<span class="line"><span style="color: var(--shiki-token-comment); font-style: italic">// Or with the DRM atomic API</span></span>
+<span class="line"><span style="color: var(--shiki-token-function)">drmModeAtomicCommit</span><span style="color: var(--shiki-token-punctuation)">(</span><span style="color: var(--shiki-token-parameter)">drm.fd</span><span style="color: var(--shiki-token-punctuation)">,</span><span style="color: var(--shiki-token-parameter)"> req</span><span style="color: var(--shiki-token-punctuation)">,</span><span style="color: var(--shiki-token-parameter)"> flags</span><span style="color: var(--shiki-token-punctuation)">,</span><span style="color: var(--shiki-token-parameter)"> </span><span style="color: var(--shiki-token-constant)">NULL</span><span style="color: var(--shiki-token-punctuation)">);</span></span></code></pre><!-- HTML_TAG_END -->
+<p><span class="note sidenote"><span class="sidenote-number">8</span>A visible example of tearing:<br><picture><source srcset="/_app/immutable/assets/tearing.b2c2a553.avif 400w, /_app/immutable/assets/tearing.83ff10b4.avif 800w" type="image/avif" sizes="(max-width: calc(1.4 * 800px)) 25vw, 400px"><source srcset="/_app/immutable/assets/tearing.7a0f3c7b.webp 400w, /_app/immutable/assets/tearing.0047d794.webp 800w" type="image/webp" sizes="(max-width: calc(1.4 * 800px)) 25vw, 400px"><source srcset="/_app/immutable/assets/tearing.abd97f3a.jpg 400w, /_app/immutable/assets/tearing.a534af0b.jpg 800w" type="image/jpeg" sizes="(max-width: calc(1.4 * 800px)) 25vw, 400px">
+  <img src="/_app/immutable/assets/tearing.a534af0b.jpg" alt="An example of tearing" loading="lazy" class="svelte-10t3lmq">
+  
+</picture></span>While that solved the issue, it comes at the cost of possible on-screen tearing, which can become clearly visible, depending on the nature of the shader.
+As the double frame buffers get swapped, asynchronously from the <a href="https://www.kernel.org/doc/html/v6.3/gpu/drm-kms.html#vertical-blanking" rel="nofollow">vertical blanking</a> period, visual artifacts can result from the display hardware scanning out the new frame buffer.
+This is particularly visible for high-contrast vertical lines<span class="sidenote-number">8</span>.
+A possible solution would be to implement <strong>tripple buffering</strong>, so a third frame buffer can immediately be used to render the next frame, while the two others stay locked, until the next vertical blanking period.</p></li></ol>
+<h2 id="benchmark"><a class="anchor" aria-hidden="true" tabindex="-1" href="#benchmark"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Benchmark</h2>
+<p>I can finally answer that one question: have I made a good decision to choose the Jetson Nano to achieve my initial goal, i.e., being able to run shaders at faster FPS, and larger display resolution, than on the Raspberry Pi 4?
+The following diagram illustrates the distribution of FPS, that I’ve measured for <a href="https://github.com/astefanutti/kms-glsl/tree/10ce390c7f82e5ba776cc63d95949d011cce7a3a/examples" rel="nofollow">a set of 59 shaders</a>, running either on the Raspberry Pi 4 or the Jetson Nano, on the same display, at full HD resolution (1920×1080 pixels):</p>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"><defs><pattern id="raspberry" width="25" height="25" patternTransform="rotate(15)" patternUnits="userSpaceOnUse" viewBox="0 0 1000 1000"><path fill="var(--color-background)" d="M107.39 68.056c67.948 35.031 107.45 63.369 129.09 87.504-11.082 44.418-68.896 46.445-90.036 45.199 4.328-2.015 7.94-4.428 9.22-8.136-5.304-3.77-24.112-.397-37.243-7.774 5.044-1.045 7.403-2.063 9.762-5.785-12.406-3.957-25.769-7.367-33.628-13.921 4.242.052 8.202.949 13.74-2.893-11.112-5.988-22.969-10.734-32.18-19.887 5.745-.14 11.938-.057 13.74-2.17-10.17-6.3-18.752-13.307-25.855-20.971 8.04.97 11.435.134 13.38-1.266-7.688-7.874-17.419-14.523-22.058-24.226 5.97 2.057 11.431 2.845 15.368-.18-2.612-5.894-13.805-9.37-20.249-23.143 6.285.61 12.95 1.371 14.283 0-2.917-11.884-7.922-18.565-12.83-25.487 13.45-.2 33.827.052 32.904-1.085l-8.316-8.497c13.138-3.537 26.58.568 36.34 3.616 4.382-3.458-.078-7.83-5.424-12.294 11.165 1.49 21.254 4.057 30.373 7.593 4.873-4.4-3.164-8.799-7.05-13.198 17.248 3.273 24.556 7.87 31.82 12.475 5.268-5.05.3-9.343-3.255-13.74 13.006 4.817 19.705 11.036 26.758 17.175 2.391-3.227 6.075-5.592 1.627-13.379 9.234 5.323 16.189 11.595 21.334 18.622 5.713-3.638 3.404-8.613 3.435-13.198 9.597 7.807 15.687 16.114 23.142 24.226 1.502-1.093 2.817-4.802 3.978-10.667 22.895 22.212 55.246 78.158 8.316 100.34-39.94-32.94-87.64-56.883-140.5-74.844zM467.92 68.056c-67.94 35.034-107.44 63.364-129.08 87.504 11.082 44.418 68.896 46.445 90.036 45.199-4.328-2.015-7.94-4.428-9.22-8.136 5.304-3.77 24.113-.397 37.244-7.774-5.045-1.045-7.404-2.063-9.763-5.785 12.406-3.957 25.769-7.367 33.628-13.921-4.242.052-8.202.949-13.74-2.893 11.112-5.988 22.969-10.734 32.18-19.887-5.745-.14-11.938-.057-13.74-2.17 10.17-6.3 18.752-13.307 25.855-20.971-8.04.97-11.435.134-13.38-1.266 7.688-7.874 17.419-14.523 22.058-24.226-5.97 2.057-11.431 2.845-15.368-.18 2.612-5.894 13.805-9.37 20.249-23.143-6.285.61-12.95 1.371-14.283 0 2.922-11.889 7.927-18.57 12.836-25.492-13.45-.2-33.828.052-32.905-1.085l8.316-8.497c-13.138-3.537-26.58.568-36.34 3.616-4.382-3.458.078-7.83 5.424-12.294-11.165 1.49-21.254 4.057-30.373 7.593-4.873-4.399 3.164-8.798 7.05-13.198-17.248 3.273-24.556 7.871-31.82 12.475-5.269-5.05-.3-9.343 3.255-13.74-13.006 4.817-19.705 11.036-26.758 17.175-2.391-3.227-6.075-5.592-1.627-13.379-9.234 5.323-16.189 11.595-21.334 18.622-5.713-3.638-3.404-8.613-3.435-13.198-9.597 7.807-15.687 16.114-23.142 24.226-1.502-1.093-2.817-4.801-3.978-10.667-22.895 22.212-55.246 78.158-8.316 100.34 39.919-32.947 87.616-56.888 140.48-74.849zM369.941 520.362a81.39 75.051 0 1 1-162.777 0 81.39 75.051 0 1 1 162.777 0zM241.458 305.967a86.13 72.999-55.966 1 1-94.968 143.712 86.13 72.999-55.966 1 1 94.968-143.712z"></path><path fill="var(--color-background)" d="M332.482 301.967a72.999 86.13-34.034 1 0 94.968 143.712 72.999 86.13-34.034 1 0-94.968-143.712zM72.91 342.09c36.41-9.76 12.292 150.63-17.333 137.47C22.99 453.35 12.494 376.59 72.91 342.09z"></path><path fill="var(--color-background)" d="M493.68 340.09c-36.414-9.757-12.292 150.64 17.333 137.48 32.587-26.213 43.083-102.98-17.333-137.48zM369.97 220.65c62.835-10.61 115.12 26.722 113.01 94.858-2.067 26.121-136.16-90.969-113.01-94.858zM196.36 218.65c-62.84-10.61-115.12 26.73-113.01 94.86 2.067 26.12 136.16-90.97 113.01-94.86zM286.62 202.76c-37.503-.975-73.495 27.834-73.582 44.544-.105 20.304 29.651 41.093 73.837 41.62 45.123.323 73.916-16.64 74.061-37.594.165-23.74-41.039-48.937-74.317-48.571zM288.91 619.12c32.697-1.427 76.571 10.532 76.657 26.396.543 15.405-39.79 50.211-78.826 49.538-40.427 1.744-80.069-33.116-79.55-45.199-.605-17.716 49.226-31.548 81.719-30.735zM168.14 525.1c23.279 28.046 33.891 77.319 14.464 91.844-18.379 11.088-63.012 6.522-94.736-39.052-21.395-38.242-18.638-77.157-3.616-88.589 22.464-13.684 57.173 4.799 83.89 35.797zM405.02 516.21c-25.187 29.502-39.212 83.31-20.838 100.64 17.568 13.464 64.729 11.582 99.566-36.756 25.296-32.465 16.82-86.682 2.37-101.08-21.463-16.602-52.276 4.645-81.098 37.188z"></path></pattern></defs></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"><defs><pattern id="nvidia" width="25" height="25" patternTransform="rotate(15)" patternUnits="userSpaceOnUse" viewBox="0 0 2500 2000"><path fill="var(--color-background)" fill-rule="evenodd" d="M1557.9-.5v1030.28H581.99V908.81c20.64 2.29 41.29 3.44 63.07 3.44 225.92 0 624.43-115.24 795.3-258.58-25.23-25.22-147.37-83.13-177.18-107.21-180.05 154.8-365.82 286.09-622.7 286.09-19.5 0-39.57-1.72-59.06-4.01v-86c23.51 4.01 47.02 6.31 71.1 6.31 275.8 0 540.71-322.22 540.71-322.22s-231.08-302.14-584.86-290.1l-27.53 1.72V-.5h977.06ZM608.37 212.78c254.58-8.03 421.44 219.01 421.44 219.01S849.76 681.77 656.53 681.77c-25.8 0-51.03-4.02-75.11-12.04V387.65c99.19 12.04 119.26 55.61 178.32 154.8L892.2 431.22s-96.91-126.71-259.75-126.71c-17.2-.57-34.4.58-51.61 2.3v-92.84C299.69 236 159.4 443.26 159.4 443.26s107.23 346.29 421.44 385.28v80.27C152.52 868.67 0 427.21 0 427.21s269.49-263.74 581.42-288.96v75.64c8.98-.56 17.96-1.11 26.95-1.11Zm-27.53 530.33c-237.38-42.42-303.32-289.53-303.32-289.53s114.11-126.13 303.32-146.77v80.26h-.57c-99.2-12.04-177.18 80.84-177.18 80.84s44.15 156.52 177.75 201.82v73.38Z"></path></pattern></defs></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><defs><pattern id="diagonal-stripe-1" width="10" height="10" patternUnits="userSpaceOnUse"><image width="10" height="10" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScvPgogIDxwYXRoIGQ9J00tMSwxIGwyLC0yCiAgICAgICAgICAgTTAsMTAgbDEwLC0xMAogICAgICAgICAgIE05LDExIGwyLC0yJyBzdHJva2U9J2JsYWNrJyBzdHJva2Utd2lkdGg9JzEnLz4KPC9zdmc+Cg=="></image></pattern></defs></svg>
+<figure><div></div>
+  <figcaption><sup>+</sup>Over the set of shaders from the project <a href="https://github.com/astefanutti/kms-glsl/tree/10ce390c7f82e5ba776cc63d95949d011cce7a3a/examples">examples</a> directory.<br>Async refers to async page flipping, using the <code>DRM_MODE_PAGE_FLIP_ASYNC</code> flag.</figcaption></figure>
+<p>The Jetson Nano is an order of magnitude faster!
+The median gets a 8.5× factor in synchronous pageflip mode, that locks the Jetson Nano to the display refresh rate, and a 11.9× factor in asynchronous pageflip mode.
+While 75% of the shaders render under 15 FPS on the Raspberry Pi 4, 75% render above on the Jetson Nano.</p>
+<h2 id="next"><a class="anchor" aria-hidden="true" tabindex="-1" href="#next"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Next</h2>
+<p>My earlier experimentation, with <a href="https://github.com/astefanutti/kms-glsl" rel="nofollow">kms-glsl</a> on the Raspberry Pi 4, has always felt more like a toy project, than a practical solution.
+Now with the Jetson Nano, I feel like I can move on to the next level, and start building more capable applications.
+The Jetson Nano is already 4 years old, and is being superseeded by the <a href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/" rel="nofollow">Jetson Orin Nano</a>, that raises the bar, in terms of specifications, and price :)
+I can’t wait to combine the AI/ML capabilities of the Jetson Nano, to augment the interactivity of OpenGL shaders, for example.
+There is so much potential there…</p>
+<p>Stay tuned!</p></article>
+
+<footer><p>Copyright © <a href="https://github.com/astefanutti">Antonin Stefanutti</a>, 2023</p>
+</footer>
+
+
+			
+			<script>
+				{
+					__sveltekit_1dt2w0r = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						env: {}
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.1d8a40cb.js"),
+						import("./_app/immutable/entry/app.53051a89.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+</body>
+
+</html>
