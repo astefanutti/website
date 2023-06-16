@@ -14,8 +14,9 @@ tags:
 ---
 
 <script>
-  import Plotly from '$lib/components/Plotly.svelte';
-  import sankeyPlotly from './power_sankey';
+  import { Vega } from 'svelte-vega';
+
+  import Sankey from "./sankey.js";
 
   import Image from '$lib/components/Image.svelte';
 
@@ -235,9 +236,7 @@ So I opted for the _Dehner Elektronik_ STD-12090 12V/DC 9A 108W power supply, co
 
 The following diagram summarizes the _average_ and _maximum_ power I've been able to measure on the cluster:
 
-<Plotly {...sankeyPlotly}>
-  Loading plotly...
-</Plotly>
+<Vega spec={Sankey} options={{actions: false, renderer: 'svg'}} />
 
 The measurements are compatible with the estimation I did.
 The test conditions and the configurations may explain the differences.
