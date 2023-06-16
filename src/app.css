@@ -310,25 +310,6 @@ div.vega-embed {
   height: 1em;
 }
 
-.js-plotly-plot {
-  margin: 2em 0;
-  width: 100%;
-  clear: both;
-}
-
-.js-plotly-plot .plotly svg {
-  overflow: visible !important;
-}
-
-.js-plotly-plot .plotly svg text {
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 0.9rem !important;
-}
-
-.js-plotly-plot .plotly svg text.node-label {
-  fill: var(--color-text-primary) !important;
-}
-
 .note {
   text-align: left;
   float: right;
