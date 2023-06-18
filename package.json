@@ -36,7 +36,7 @@
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.0",
     "shiki": "0.14.1",
-    "svelte": "^3.58.0",
+    "svelte": "3.59.1",
     "svelte-check": "^3.2.0",
     "svelte-preprocess-import-assets": "1.0.0",
     "svelte-vega": "2.0.0",
