@@ -23,6 +23,7 @@
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.60.1",
     "@sveltejs/vite-plugin-svelte": "^5.1.1",
+    "@types/three": "^0.176.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.17.1",
@@ -54,5 +55,10 @@
     "vite": "^6.4.2",
     "vite-imagetools": "^10.0.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@threlte/core": "^8",
+    "@threlte/extras": "^9",
+    "three": "^0.176.0"
+  }
 }

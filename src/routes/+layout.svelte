@@ -90,7 +90,10 @@
     border-radius: 24px;
     inline-size: fit-content;
     padding: 3px 3px 2px 3px;
+    -webkit-user-select: none;
+    user-select: none;
   }
+
   .toggle-group label {
     border-radius: 21px;
     border: 1px solid rgba(0, 0, 0, 0);
@@ -100,6 +103,7 @@
     text-align: center;
     user-select: none;
   }
+
   .toggle-group label:has(input:checked) {
     background-color: var(--background-color);
     border: 1px solid var(--background-color);
