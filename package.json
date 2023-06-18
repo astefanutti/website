@@ -19,6 +19,7 @@
   "devDependencies": {
     "@sveltejs/adapter-static": "^2.0.2",
     "@sveltejs/kit": "^1.15.5",
+    "@types/three": "^0.152.0",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
     "eslint": "^8.38.0",
@@ -48,5 +49,10 @@
     "vite-imagetools": "4.0.18",
     "vite-plugin-svelte-svg": "2.2.1"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@threlte/core": "^6.0.0-next.6",
+    "@threlte/extras": "^5.0.0-next.11",
+    "three": "^0.152.2"
+  }
 }
