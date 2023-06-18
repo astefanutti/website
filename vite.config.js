@@ -7,7 +7,7 @@ const supportedExtensions = ['png', 'jpg', 'jpeg'];
 /** @type {import('vite').UserConfig} */
 const config = {
   ssr: {
-    noExternal: ['vega-embed'],
+    noExternal: ['three', 'vega-embed'],
   },
   plugins: [
     // https://github.com/rdela/sveltekit-imagetools
