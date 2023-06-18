@@ -13,10 +13,10 @@
   $: component = data.component as unknown as C
 </script>
 
+<PageHead title={data.frontmatter.title} description={data.frontmatter.description} />
+
 <Article>
-  <PageHead title={data.frontmatter.title} description={data.frontmatter.description} />
   <ArticleTitle title={data.frontmatter.title} />
   <ArticleMeta author={data.frontmatter.author} date={data.frontmatter.date} />
-
   <svelte:component this={component} />
 </Article>
