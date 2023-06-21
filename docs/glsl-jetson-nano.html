@@ -7,19 +7,19 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./katex.min.css" />
   <meta name="viewport" content="width=device-width" />
-  <meta http-equiv="content-security-policy" content="">
+  
 		<link href="./_app/immutable/assets/0.a1eb92a4.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/ArticleMeta.dea4be15.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/Image.b943bec2.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.3a8f7f05.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.a10e3b02.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.12ced9d6.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/control.e7f5239e.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.31806687.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.1fa54114.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.ebf6ac20.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.70b76cbd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/control.f5b05b5f.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.dfba4a27.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.31fbf5e7.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.63b0d980.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/ArticleMeta.dfdfa3ee.js"><title>Running OpenGL Shaders on the Jetson Nano</title><!-- HEAD_svelte-1lbq8gn_START --><!-- HTML_TAG_START --><script>!function(){try {var d=document.documentElement;var e=localStorage.getItem('theme');if("system"===e||(!e&&true)){var t="(prefers-color-scheme: dark)",m=window.matchMedia(t);if(m.media!==t||m.matches){d.setAttribute('data-theme', 'dark');document.documentElement.style.setProperty('color-scheme', 'dark')}else{d.setAttribute('data-theme', 'light');document.documentElement.style.setProperty('color-scheme', 'light')}}else if(e){ d.setAttribute('data-theme', e);document.documentElement.style.setProperty('color-scheme', e)}}catch(e){}}()</script><!-- HTML_TAG_END --><!-- HEAD_svelte-1lbq8gn_END --><!-- HEAD_svelte-1uq71di_START --><meta property="og:site_name" content="ttt.io"><meta property="og:title" content="Running OpenGL Shaders on the Jetson Nano"><meta property="og:description"><!-- HEAD_svelte-1uq71di_END -->
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.92f3d082.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.aaa0690b.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/ArticleMeta.9cb801f8.js"><title>Running OpenGL Shaders on the Jetson Nano</title><!-- HEAD_svelte-1lbq8gn_START --><!-- HTML_TAG_START --><script>!function(){try {var d=document.documentElement;var e=localStorage.getItem('theme');if("system"===e||(!e&&true)){var t="(prefers-color-scheme: dark)",m=window.matchMedia(t);if(m.media!==t||m.matches){d.setAttribute('data-theme', 'dark');document.documentElement.style.setProperty('color-scheme', 'dark')}else{d.setAttribute('data-theme', 'light');document.documentElement.style.setProperty('color-scheme', 'light')}}else if(e){ d.setAttribute('data-theme', e);document.documentElement.style.setProperty('color-scheme', e)}}catch(e){}}()</script><!-- HTML_TAG_END --><!-- HEAD_svelte-1lbq8gn_END --><!-- HEAD_svelte-zkd9fy_START --><meta property="og:site_name" content="Antonin Stefanutti"><meta property="og:title" content="Running OpenGL Shaders on the Jetson Nano"><!-- HEAD_svelte-zkd9fy_END -->
 </head>
 
 <body data-sveltekit-preload-data="hover">
@@ -48,7 +48,7 @@
       <path d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"/>
     </svg><!-- HTML_TAG_END --></label>
     <label class="svelte-1o5f7om"><input type="radio" name="color-scheme" value="system"  data-sr class="svelte-1o5f7om">
-      <!-- HTML_TAG_START --><svg role="img" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+      <!-- HTML_TAG_START --><svg role="img" viewBox="0 0 30 30" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
       <path d="M27,14h-0.172c-0.478,0-0.904-0.337-0.98-0.809c-0.037-0.229-0.081-0.456-0.132-0.68c-0.106-0.464,0.158-0.933,0.597-1.115l0.156-0.065c0.51-0.211,0.753-0.796,0.541-1.307v0c-0.211-0.51-0.796-0.753-1.307-0.541l-0.16,0.066c-0.441,0.183-0.961,0.035-1.214-0.37c-0.122-0.196-0.25-0.388-0.384-0.576c-0.277-0.388-0.213-0.924,0.124-1.261l0.122-0.122c0.391-0.391,0.391-1.024,0-1.414l0,0c-0.391-0.391-1.024-0.391-1.414,0L22.656,5.93c-0.337,0.337-0.873,0.401-1.261,0.124c-0.188-0.134-0.38-0.262-0.576-0.384c-0.405-0.252-0.553-0.773-0.37-1.214l0.066-0.16c0.211-0.51-0.031-1.095-0.541-1.307c-0.51-0.211-1.095,0.031-1.307,0.541l-0.065,0.156c-0.182,0.439-0.651,0.703-1.115,0.597c-0.224-0.051-0.451-0.095-0.68-0.132C16.337,4.076,16,3.65,16,3.172V3c0-0.552-0.448-1-1-1s-1,0.448-1,1v0.172c0,0.478-0.337,0.904-0.809,0.98c-0.229,0.037-0.456,0.081-0.68,0.132c-0.464,0.106-0.933-0.158-1.115-0.597l-0.065-0.156c-0.211-0.51-0.796-0.753-1.307-0.541c-0.51,0.211-0.753,0.796-0.541,1.307l0.066,0.16C9.733,4.897,9.586,5.418,9.18,5.67C8.984,5.792,8.792,5.92,8.605,6.053C8.217,6.33,7.681,6.267,7.344,5.93L7.222,5.808c-0.391-0.391-1.024-0.391-1.414,0l0,0c-0.39,0.391-0.39,1.024,0,1.414L5.93,7.344C6.267,7.681,6.33,8.216,6.053,8.605C5.92,8.792,5.792,8.984,5.67,9.18C5.418,9.586,4.897,9.733,4.456,9.55l-0.16-0.066c-0.51-0.211-1.095,0.031-1.307,0.541v0c-0.211,0.51,0.031,1.095,0.541,1.307l0.156,0.065c0.439,0.182,0.703,0.651,0.597,1.115c-0.051,0.224-0.095,0.451-0.132,0.68C4.076,13.663,3.65,14,3.172,14H3c-0.552,0-1,0.448-1,1v0c0,0.552,0.448,1,1,1h0.172c0.478,0,0.904,0.337,0.98,0.809c0.037,0.229,0.081,0.456,0.132,0.68c0.106,0.464-0.158,0.933-0.597,1.115l-0.156,0.065c-0.51,0.211-0.753,0.796-0.541,1.307v0c0.211,0.51,0.796,0.753,1.307,0.541l0.16-0.066c0.441-0.183,0.961-0.035,1.214,0.37c0.122,0.196,0.25,0.388,0.384,0.576c0.277,0.388,0.213,0.924-0.124,1.261l-0.122,0.122c-0.391,0.391-0.391,1.024,0,1.414s1.024,0.391,1.414,0l0.122-0.122c0.337-0.337,0.873-0.401,1.261-0.124c0.188,0.134,0.38,0.262,0.576,0.384c0.405,0.252,0.553,0.773,0.37,1.214l-0.066,0.16c-0.211,0.51,0.031,1.095,0.541,1.307c0.51,0.211,1.095-0.031,1.307-0.541l0.065-0.156c0.182-0.439,0.651-0.703,1.115-0.597c0.224,0.051,0.451,0.095,0.68,0.132C13.663,25.924,14,26.35,14,26.828V27c0,0.552,0.448,1,1,1s1-0.448,1-1v-0.172c0-0.478,0.337-0.904,0.809-0.98c0.229-0.037,0.456-0.081,0.68-0.132c0.464-0.106,0.933,0.158,1.115,0.597l0.065,0.156c0.211,0.51,0.796,0.753,1.307,0.541c0.51-0.211,0.753-0.796,0.541-1.307l-0.066-0.16c-0.183-0.441-0.035-0.961,0.37-1.214c0.196-0.122,0.388-0.25,0.576-0.384c0.388-0.277,0.924-0.213,1.261,0.124l0.122,0.122c0.391,0.391,1.024,0.391,1.414,0s0.391-1.024,0-1.414l-0.122-0.122c-0.337-0.337-0.401-0.873-0.124-1.261c0.134-0.188,0.262-0.38,0.384-0.576c0.252-0.405,0.773-0.553,1.214-0.37l0.16,0.066c0.51,0.211,1.095-0.031,1.307-0.541v0c0.211-0.51-0.031-1.095-0.541-1.307l-0.156-0.065c-0.439-0.182-0.703-0.651-0.597-1.115c0.051-0.224,0.095-0.451,0.132-0.68C25.924,16.337,26.35,16,26.828,16H27c0.552,0,1-0.448,1-1v0C28,14.448,27.552,14,27,14z M15,23c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S19.418,23,15,23z"/>
       < rect x="15" y="14" width="9" height="2"/>
       <rect x="8.25" y="10.103" transform="matrix(0.5 0.866 -0.866 0.5 15.9904 -5.4904)" width="9" height="2"/>
@@ -60,12 +60,12 @@
       <path d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"/>
     </svg><!-- HTML_TAG_END --></label></fieldset></header>
 
-<article>
-  <h1 class="heading svelte-go1iu3 large">Running OpenGL Shaders on the Jetson Nano</h1>
+
+
+<article><h1 class="heading svelte-go1iu3 large">Running OpenGL Shaders on the Jetson Nano</h1>
   <p class="svelte-4ufgo2">
   <span class="date svelte-4ufgo2">Mon Jun 12 2023</span>
 </p>
-
   <figure class="fullwidth"><picture><source srcset="/_app/immutable/assets/jetson.ab8d0719.avif 600w, /_app/immutable/assets/jetson.3f34f8d8.avif 1000w, /_app/immutable/assets/jetson.da7be365.avif 1400w" type="image/avif" sizes="100vw"><source srcset="/_app/immutable/assets/jetson.f10d6ed1.webp 600w, /_app/immutable/assets/jetson.4d23fede.webp 1000w, /_app/immutable/assets/jetson.1b1bfe77.webp 1400w" type="image/webp" sizes="100vw"><source srcset="/_app/immutable/assets/jetson.b1afe769.jpg 600w, /_app/immutable/assets/jetson.598947d2.jpg 1000w, /_app/immutable/assets/jetson.62b78318.jpg 1400w" type="image/jpeg" sizes="100vw">
   <img src="/_app/immutable/assets/jetson.62b78318.jpg" alt="A shader running on the Jetson Nano" loading="lazy" class="svelte-10t3lmq">
   
@@ -303,7 +303,7 @@ There is so much potential there…</p>
 			
 			<script>
 				{
-					__sveltekit_1aj1st3 = {
+					__sveltekit_l7ydko = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -313,8 +313,8 @@ There is so much potential there…</p>
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.3a8f7f05.js"),
-						import("./_app/immutable/entry/app.31806687.js")
+						import("./_app/immutable/entry/start.1fa54114.js"),
+						import("./_app/immutable/entry/app.dfba4a27.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
