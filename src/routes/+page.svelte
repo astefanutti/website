@@ -10,6 +10,11 @@
 
 <PageHead title="Antonin Stefanutti's Blog" />
 
+<div itemscope itemtype="https://schema.org/WebSite">
+  <meta itemprop="url" content="https://ttt.io" />
+  <meta itemprop="name" content="Antonin Stefanutti" />
+</div>
+
 {#each data.posts as { slug, title, author, date }}
   <ArticleTitle {slug} {title} />
   <ArticleMeta {author} {date} />
