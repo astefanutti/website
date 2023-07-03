@@ -11,14 +11,14 @@
 		<link href="./_app/immutable/assets/0.a1eb92a4.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/ArticleMeta.dea4be15.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/Image.b943bec2.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.1fa54114.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.5b5704c0.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.ebf6ac20.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.70b76cbd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.dd9f7078.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.dfba4a27.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.0574928b.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.92f3d082.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.aaa0690b.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.59a2f0ee.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.801d6103.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/ArticleMeta.9cb801f8.js"><title>Running OpenGL Shaders on the Jetson Nano</title><!-- HEAD_svelte-1lbq8gn_START --><!-- HTML_TAG_START --><script>!function(){try {var d=document.documentElement;var e=localStorage.getItem('theme');if("system"===e||(!e&&true)){var t="(prefers-color-scheme: dark)",m=window.matchMedia(t);if(m.media!==t||m.matches){d.setAttribute('data-theme', 'dark');document.documentElement.style.setProperty('color-scheme', 'dark')}else{d.setAttribute('data-theme', 'light');document.documentElement.style.setProperty('color-scheme', 'light')}}else if(e){ d.setAttribute('data-theme', e);document.documentElement.style.setProperty('color-scheme', e)}}catch(e){}}()</script><!-- HTML_TAG_END --><!-- HEAD_svelte-1lbq8gn_END --><!-- HEAD_svelte-zkd9fy_START --><meta property="og:site_name" content="Antonin Stefanutti"><meta property="og:title" content="Running OpenGL Shaders on the Jetson Nano"><!-- HEAD_svelte-zkd9fy_END -->
 </head>
 
@@ -205,8 +205,8 @@ If you’re on a native Linux host machine, it’s also possible to <a href="htt
 <!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ lsusb </span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">d </span><span style="color: var(--shiki-token-numeric)">0955</span><span style="color: var(--shiki-color-text)">:</span></span>
 <span class="line"><span style="color: var(--shiki-color-text)">Bus </span><span style="color: var(--shiki-token-numeric)">011</span><span style="color: var(--shiki-color-text)"> Device </span><span style="color: var(--shiki-token-numeric)">002</span><span style="color: var(--shiki-color-text)">: ID </span><span style="color: var(--shiki-token-numeric)">0955</span><span style="color: var(--shiki-color-text)">:7f21 NVIDIA Corp. APX</span></span></code></pre><!-- HTML_TAG_END --></li>
 <li><p>Untar the image archive:</p>
-<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ tar </span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">xf demo</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">image</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">egl</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">jetson</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">nano</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">devkit.tegraflash.tar.gz</span></span></code></pre><!-- HTML_TAG_END --></li></ol>
-<ol start="4"><li><p>Flash the Jetson Nano:</p>
+<!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ tar </span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">xf demo</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">image</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">egl</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">jetson</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">nano</span><span style="color: var(--shiki-token-symbol)">-</span><span style="color: var(--shiki-color-text)">devkit.tegraflash.tar.gz</span></span></code></pre><!-- HTML_TAG_END --></li>
+<li><p>Flash the Jetson Nano:</p>
 <!-- HTML_TAG_START --><pre class="shiki   language-ps1"><code tabindex="0"><span class="line"><span style="color: var(--shiki-color-text)">$ sudo .</span><span style="color: var(--shiki-token-symbol)">/</span><span style="color: var(--shiki-color-text)">doflash.sh</span></span></code></pre><!-- HTML_TAG_END --></li></ol>
 <h3 id="compiling-and-testing"><a class="anchor" aria-hidden="true" tabindex="-1" href="#compiling-and-testing"><svg viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Compiling and Testing</h3>
 <p>The Jetson Nano will reboot once the flashing has successfully completed.
@@ -303,7 +303,7 @@ There is so much potential there…</p>
 			
 			<script>
 				{
-					__sveltekit_l7ydko = {
+					__sveltekit_oo9k7z = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -313,8 +313,8 @@ There is so much potential there…</p>
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.1fa54114.js"),
-						import("./_app/immutable/entry/app.dfba4a27.js")
+						import("./_app/immutable/entry/start.5b5704c0.js"),
+						import("./_app/immutable/entry/app.0574928b.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],

@@ -11,14 +11,14 @@
 		<link href="./_app/immutable/assets/0.a1eb92a4.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/ArticleMeta.dea4be15.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/Image.b943bec2.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.1fa54114.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.5b5704c0.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.ebf6ac20.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.70b76cbd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.dd9f7078.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.dfba4a27.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.0574928b.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.92f3d082.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/3.aaa0690b.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.59a2f0ee.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/3.801d6103.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/ArticleMeta.9cb801f8.js"><title>Developing a Kubernetes Admission Controller with Telepresence</title><!-- HEAD_svelte-1lbq8gn_START --><!-- HTML_TAG_START --><script>!function(){try {var d=document.documentElement;var e=localStorage.getItem('theme');if("system"===e||(!e&&true)){var t="(prefers-color-scheme: dark)",m=window.matchMedia(t);if(m.media!==t||m.matches){d.setAttribute('data-theme', 'dark');document.documentElement.style.setProperty('color-scheme', 'dark')}else{d.setAttribute('data-theme', 'light');document.documentElement.style.setProperty('color-scheme', 'light')}}else if(e){ d.setAttribute('data-theme', e);document.documentElement.style.setProperty('color-scheme', e)}}catch(e){}}()</script><!-- HTML_TAG_END --><!-- HEAD_svelte-1lbq8gn_END --><!-- HEAD_svelte-zkd9fy_START --><meta property="og:site_name" content="Antonin Stefanutti"><meta property="og:title" content="Developing a Kubernetes Admission Controller with Telepresence"><!-- HEAD_svelte-zkd9fy_END -->
 </head>
 
@@ -206,7 +206,7 @@ Let’s use it to intercept the requests received by the webhook service, deploy
 			
 			<script>
 				{
-					__sveltekit_l7ydko = {
+					__sveltekit_oo9k7z = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -216,8 +216,8 @@ Let’s use it to intercept the requests received by the webhook service, deploy
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.1fa54114.js"),
-						import("./_app/immutable/entry/app.dfba4a27.js")
+						import("./_app/immutable/entry/start.5b5704c0.js"),
+						import("./_app/immutable/entry/app.0574928b.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
