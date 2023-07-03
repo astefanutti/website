@@ -204,7 +204,6 @@ The distribution image that you've just built, can now be used to flash the Jets
   $ tar -xf demo-image-egl-jetson-nano-devkit.tegraflash.tar.gz
   ```
 
-
 4. Flash the Jetson Nano:
 
   ```ps1
