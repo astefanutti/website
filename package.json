@@ -45,7 +45,7 @@
     "unist-util-visit": "4.1.2",
     "vfile-message": "3.1.4",
     "vite": "^4.3.9",
-    "vite-imagetools": "4.0.18",
+    "vite-imagetools": "6.2.4",
     "vite-plugin-svelte-svg": "2.2.1"
   },
   "type": "module"
