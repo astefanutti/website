@@ -5,26 +5,28 @@
   import themeStore, { setTheme } from './index'
 
   import ThemeScript from './ThemeScript.svelte'
-  /** Forced theme name for the current page */
-  export let forcedTheme: string | undefined = undefined
-  /** Disable all CSS transitions when switching themes */
-  export let disableTransitionOnChange = false
-  /** Whether to switch between dark and light themes based on prefers-color-scheme */
-  export let enableSystem: boolean = true
-  /** Whether to indicate to browsers which color scheme is used (dark or light) for built-in UI like inputs and buttons */
-  export let enableColorScheme: boolean = true
-  /** Key used to store theme setting in localStorage */
-  export let storageKey: string = 'theme'
-  /** List of all available theme names */
-  export let themes: string[] = enableSystem ? ['light', 'dark', 'system'] : ['light', 'dark']
-  /** Default theme name (for v0.0.12 and lower the default was light). If `enableSystem` is false, the default theme is light */
-  export let defaultTheme: string = enableSystem ? 'system' : 'light'
-  /** HTML attribute modified based on the active theme. Accepts `class` and `data-*` (meaning any data attribute, `data-mode`, `data-color`, etc.) */
-  export let attribute: string | 'class' = 'data-theme'
-  /** Mapping of theme name to HTML attribute value. Object where key is the theme name and value is the attribute value */
-  export let value: {
-    [themeName: string]: string
-  } = undefined
+
+  let {
+    forcedTheme = undefined,
+    disableTransitionOnChange = false,
+    enableSystem = true,
+    enableColorScheme = true,
+    storageKey = 'theme',
+    themes = enableSystem ? ['light', 'dark', 'system'] : ['light', 'dark'],
+    defaultTheme = enableSystem ? 'system' : 'light',
+    attribute = 'data-theme',
+    value = undefined,
+  }: {
+    forcedTheme?: string
+    disableTransitionOnChange?: boolean
+    enableSystem?: boolean
+    enableColorScheme?: boolean
+    storageKey?: string
+    themes?: string[]
+    defaultTheme?: string
+    attribute?: string | 'class'
+    value?: { [themeName: string]: string }
+  } = $props()
 
   const initialTheme = getTheme(storageKey, defaultTheme)
 
@@ -36,10 +38,10 @@
     systemTheme: (enableSystem ? getTheme(storageKey) : undefined) as 'light' | 'dark' | undefined,
   })
 
-  $: theme = $themeStore.theme
-  $: resolvedTheme = $themeStore.resolvedTheme
+  let theme = $derived($themeStore.theme)
+  let resolvedTheme = $derived($themeStore.resolvedTheme)
 
-  const attrs = !value ? themes : Object.values(value)
+  let attrs = $derived(!value ? themes : Object.values(value))
 
   const handleMediaQuery = (e?) => {
     const systemTheme = getSystemTheme(e)
@@ -83,17 +85,13 @@
 
   const storageHandler = (e: StorageEvent) => {
     if (e.key !== storageKey) return
-    // If default theme set, use it if localstorage === null (happens on local storage manual deletion)
     setTheme(e.newValue || defaultTheme)
   }
 
   const onWindow = (window) => {
-    // Always listen to System preference
     const media = window.matchMedia(MEDIA)
-    // Intentionally use deprecated listener methods to support iOS & old browsers
     media.addListener(mediaHandler)
     mediaHandler(media)
-    // localStorage event handling
     window.addEventListener('storage', storageHandler)
     return {
       destroy() {
@@ -103,32 +101,28 @@
     }
   }
 
-  // color-scheme handling
-  $: if (enableColorScheme && browser) {
-    let colorScheme =
-      // If theme is forced to light or dark, use that
-      forcedTheme && colorSchemes.includes(forcedTheme)
-        ? forcedTheme
-        : // If regular theme is light or dark
-        theme && colorSchemes.includes(theme)
-        ? theme
-        : // If theme is system, use the resolved version
-        theme === 'system'
-        ? resolvedTheme || null
-        : null
+  $effect(() => {
+    if (enableColorScheme && browser) {
+      let colorScheme =
+        forcedTheme && colorSchemes.includes(forcedTheme)
+          ? forcedTheme
+          : theme && colorSchemes.includes(theme)
+          ? theme
+          : theme === 'system'
+          ? resolvedTheme || null
+          : null
 
-    // color-scheme tells browser how to render built-in elements like forms, scrollbars, etc.
-    // if color-scheme is null, this will remove the property
-    document.documentElement.style.setProperty('color-scheme', colorScheme)
-  }
+      document.documentElement.style.setProperty('color-scheme', colorScheme)
+    }
+  })
 
-  $: {
+  $effect(() => {
     if (forcedTheme) {
       changeTheme(theme, true, false)
     } else {
       changeTheme(theme)
     }
-  }
+  })
 </script>
 
 <ThemeScript {forcedTheme} {storageKey} {attribute} {enableSystem} {defaultTheme} {value} {attrs} />

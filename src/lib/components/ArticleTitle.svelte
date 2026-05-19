@@ -1,6 +1,5 @@
 <script lang="ts">
-  export let slug = ''
-  export let title: string
+  let { slug = '', title }: { slug?: string; title: string } = $props()
 </script>
 
 {#if slug}

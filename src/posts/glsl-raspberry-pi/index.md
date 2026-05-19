@@ -8,7 +8,7 @@ tags:
   - OpenGL
   - Raspberry Pi
 # description: >
-#   Since I built my Kubernetes cluster with Rapsberry Pi a year ago, I've kept somewhere in a corner of my head, the idea I could use the touchscreen monitor to play with OpenGL, making the coolest cluster ever, to begin with 😎, and turning it eventually, into a small gaming device 🕹👾.
+#   Since I built my Kubernetes cluster with Raspberry Pi a year ago, I've kept somewhere in a corner of my head, the idea I could use the touchscreen monitor to play with OpenGL, making the coolest cluster ever, to begin with 😎, and turning it eventually, into a small gaming device 🕹👾.
 ---
 
 <script>
@@ -16,11 +16,11 @@ tags:
 
   import LinuxGraphicsStack from './Linux_Graphics_Stack.svg';
   import RaspberryPiVideoAPI from './Raspberrypi_video_API.svg';
-  import examplesImg from './examples.png?width=600;1000;1400'
-  import torusImg from './torus.jpg?width=600;1000;1400'
-  import arkanoidImg from './arkanoid.png?width=400;800'
-  import pacmanImg from './pacman.png?width=400;800'
-  import spaceInvadersImg from './space_invaders.png?width=400;800'
+  import examplesImg from './examples.png?w=600;1000;1400'
+  import torusImg from './torus.jpg?w=600;1000;1400'
+  import arkanoidImg from './arkanoid.png?w=400;800'
+  import pacmanImg from './pacman.png?w=400;800'
+  import spaceInvadersImg from './space_invaders.png?w=400;800'
 
   const marginImgSizes="(max-width: calc(1.4 * 800px)) 25vw, 400px";
 </script>
@@ -50,14 +50,14 @@ So I've accepted the mission to run shaders from _Shadertoy_, on the Raspberry P
 
 [^2]: Shadertoy has been created by _Iñigo Quilez_, that publishes very interesting articles, tutorials, and other awesome resources at [iquilezles.org](https://www.iquilezles.org).
 
-[^3]: As crazy as it may sounds, it's possible to develop games in GLSL (click on the images to try it):<br/>[<Image src={arkanoidImg} alt="Arkanoid" sizes={marginImgSizes}/>](https://www.shadertoy.com/view/MddGzf)<br/>[<Image src={pacmanImg} alt="Pacman" sizes={marginImgSizes}"/>](https://www.shadertoy.com/view/Ms3XWN)<br/>[<Image src={spaceInvadersImg} alt="Space Invaders" sizes={marginImgSizes}/>](https://www.shadertoy.com/view/wllSRs)
+[^3]: As crazy as it may sound, it's possible to develop games in GLSL (click on the images to try it):<br/>[<Image src={arkanoidImg} alt="Arkanoid" sizes={marginImgSizes}/>](https://www.shadertoy.com/view/MddGzf)<br/>[<Image src={pacmanImg} alt="Pacman" sizes={marginImgSizes}"/>](https://www.shadertoy.com/view/Ms3XWN)<br/>[<Image src={spaceInvadersImg} alt="Space Invaders" sizes={marginImgSizes}/>](https://www.shadertoy.com/view/wllSRs)
 
 ## The Linux Graphics Stack
 
 I use a Raspberry Pi 4 as my cluster's _main_ node, that's connected to the touchscreen monitor.
 It runs the Lite version of [Raspberry Pi OS](https://www.raspberrypi.org/software/operating-systems), which means there is no windowing system available, like X11.
 
-I also have some Rapsberry Pi 3, so I wanted to have a solution that would work on these as well, and possibly on any other Linux device with GPU hardware.
+I also have some Raspberry Pi 3, so I wanted to have a solution that would work on these as well, and possibly on any other Linux device with GPU hardware.
 
 The following diagram gives a good understanding of the Linux graphics stack:
 
@@ -67,17 +67,17 @@ The following diagram gives a good understanding of the Linux graphics stack:
 </figure>
 
 With the requirement to run without any windowing system, like X or Wayland, this implies relying either on:
-* Proprietary device drivers (the [binary blob](https://en.wikipedia.org/wiki/Proprietary_device_driver) at the bottom,left-hand side of the illustation),
+* Proprietary device drivers (the [binary blob](https://en.wikipedia.org/wiki/Proprietary_device_driver) at the bottom,left-hand side of the illustration),
 * Or, Mesa[^4] open-source device drivers, using the [DRM](https://en.wikipedia.org/wiki/Direct_Rendering_Manager)/[KMS](https://en.wikipedia.org/wiki/Direct_Rendering_Manager#Kernel_Mode_Setting) Linux kernel sub-system, to implement [mode-setting](https://en.wikipedia.org/wiki/Mode-setting) and [page-flipping](https://en.wikipedia.org/wiki/Multiple_buffering#Page_flipping) operations.
 
 [^4]: The Mesa 3D Graphics Library, is an open source software implementation of the OpenGL specifications. The project also hosts the development of open-source device drivers for graphic chipsets.
 
-While the later option requires more development work, it promises to work across the [range of GPUs](https://docs.mesa3d.org/systems.html) that have a Mesa driver available.
+While the latter option requires more development work, it promises to work across the [range of GPUs](https://docs.mesa3d.org/systems.html) that have a Mesa driver available.
 It also brings the _a-priori_ benefits of the open-source model, with community and freely accessible documentation.
 
 Now that the Linux stack is clearer, let's continue on that mission, and find out what drivers exist for the Raspberry Pi ...
 
-## The Rapsberry Pi
+## The Raspberry Pi
 
 The Raspberry Pi 3 Broadcom BCM2837 SoC includes the VideoCore IV GPU, which could initially be used with the corresponding proprietary driver, and closed-source implementation of the graphics libraries.
 While some portions of that stack was released as open-source in 2012, most of the work is still done in the closed-source runtime libraries and GPU code, as depicted in this diagram:
@@ -93,14 +93,14 @@ The C header files and libraries for these Broadcom specific implementations are
 
 In 2014, Broadcom and the Raspberry Pi Foundation announced the documentation release for the VideoCore IV 3D graphics processor[^6], as well as the source release of the graphics stack under a BSD license[^7].
 Few months after the announcement, the source code of a Gallium-based Mesa OpenGL driver for the Broadcom SoC GPU, written from scratch by _Eric Anholt_, was committed to the Mesa project[^8].
-**This paved the way towards open-source drivers for the Rapsberry Pi GPUs**.
+**This paved the way towards open-source drivers for the Raspberry Pi GPUs**.
 
 [^6]: The Architecture Reference Guide for the Broadcom VideoCore IV GPU is available at https://docs.broadcom.com/docs/12358545.
 [^7]: The source code for the userland libraries can be found at https://github.com/raspberrypi/userland.
 [^8]: The source code for the VC4 driver can be found in the `src/gallium/drivers/vc4` directory of the [Mesa repository](https://gitlab.freedesktop.org/mesa/mesa).
 
 The Raspberry Pi 4 Broadcom BCM2711 SoC (formerly BCM2838) now includes the VideoCore VI GPU, that's only supported by a Mesa driver[^9].
-The original Broadcom proprietary driver, specifically designed for the BCM2837 SoC GPU, does not work on the Rapsberry Pi 4.
+The original Broadcom proprietary driver, specifically designed for the BCM2837 SoC GPU, does not work on the Raspberry Pi 4.
 This Mesa V3D (VideoCore VI) driver [conforms to OpenGL ES 3.1](https://www.khronos.org/conformance/adopters/conformant-products/opengles#submission_882) (as of March 2021), while the VideoCore VI GPU is capable of OpenGL ES 3.2.
 
 [^9]: The source code for the V3D driver can be found in the `src/gallium/drivers/v3d` directory of the [Mesa repository](https://gitlab.freedesktop.org/mesa/mesa).
@@ -113,7 +113,7 @@ With these drivers, running OpenGL or OpenGL ES, without X11, is possible using 
 
 [^10]: The [Linux GPU Driver Developer’s Guide](https://www.kernel.org/doc/html/v5.10/gpu/introduction.html) provides an extensive documentation of the DRM/KMS sub-system.
 
-Lukily, I stumbled upon [kmscube](https://gitlab.freedesktop.org/mesa/kmscube/), which is an example application, written in C, that demonstrates how to use the KMS/GBM/EGL APIs to drive bare metal graphics, and provides an implementation of the [mode-setting](https://en.wikipedia.org/wiki/Mode-setting) and [page-flipping](https://en.wikipedia.org/wiki/Multiple_buffering#Page_flipping) operations.
+Luckily, I stumbled upon [kmscube](https://gitlab.freedesktop.org/mesa/kmscube/), which is an example application, written in C, that demonstrates how to use the KMS/GBM/EGL APIs to drive bare metal graphics, and provides an implementation of the [mode-setting](https://en.wikipedia.org/wiki/Mode-setting) and [page-flipping](https://en.wikipedia.org/wiki/Multiple_buffering#Page_flipping) operations.
 
 The basic idea is to use two triangles, covering the entire screen, that are rasterized by sampling the shader for every pixel.
 So that left me with:

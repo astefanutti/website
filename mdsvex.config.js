@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineMDSveXConfig as defineConfig, escapeSvelte } from 'mdsvex';
-import { getHighlighter, renderToHtml, loadTheme } from 'shiki';
+import { createHighlighter } from 'shiki';
 
 import remarkAbbr from 'remark-abbr';
 
@@ -14,70 +14,70 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 import math from 'remark-math';
-import katex from 'rehype-katex-svelte';
+import katex from './src/plugins/rehype-katex-svelte.js';
 
 import { fromHtml } from 'hast-util-from-html';
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const theme = JSON.parse(fs.readFileSync(path.join(dirname, 'src', 'themes', 'theme.json'), 'utf-8'));
+const clang = JSON.parse(fs.readFileSync(path.join(dirname, 'src', 'languages', 'c.tmLanguage.json'), 'utf-8'));
+
+const COLOR_REPLACEMENTS = {
+  '#282c34': 'var(--shiki-color-background)',
+  '#abb2bf': 'var(--shiki-color-text)',
+  '#d19a66': 'var(--shiki-token-constant)',
+  '#98c379': 'var(--shiki-token-string)',
+  '#7f848e': 'var(--shiki-token-comment)',
+  '#c678dd': 'var(--shiki-token-keyword)',
+  '#e06c75': 'var(--shiki-token-parameter)',
+  '#61afef': 'var(--shiki-token-function)',
+  '#000011': 'var(--shiki-token-punctuation)',
+  '#56b6c2': 'var(--shiki-token-symbol)',
+  '#000013': 'var(--shiki-token-operator)',
+  '#000014': 'var(--shiki-token-variable)',
+  '#000015': 'var(--shiki-token-member)',
+  '#000016': 'var(--shiki-token-numeric)',
+};
+
+const highlighter = await createHighlighter({
+  themes: [theme],
+  langs: ['glsl', 'go', 'powershell', 'diff', 'json', 'yaml', 'ini', clang],
+});
 
 const config = defineConfig({
   extensions: ['.svelte.md', '.md', '.svx'],
 
   highlight: {
-    highlighter: async function highlighter(code, lang, meta) {
-      const dirname = path.dirname(fileURLToPath(import.meta.url));
-      const theme = await loadTheme(path.join(dirname, 'src', 'themes', 'theme.json'));
-      const clang = JSON.parse(fs.readFileSync(path.join(dirname, 'src', 'languages', 'c.tmLanguage.json'), 'utf-8'));
+    highlighter: async (code, lang = 'text', meta = '') => {
+      const html = escapeSvelte(
+        highlighter.codeToHtml(code, {
+          lang,
+          theme: 'One Dark Pro',
+          colorReplacements: COLOR_REPLACEMENTS,
+          meta: { __raw: meta },
+          transformers: [
+            {
+              name: 'custom-mdsvex',
+              pre(node) {
+                const raw = this.options.meta?.__raw || '';
+                const classMatch = raw.match(/class="([^"]+)"/);
+                const extraClass = classMatch ? classMatch[1] : '';
 
-      const shikiHighlighter = await getHighlighter({
-        theme: theme,
-        langs: [clang, "glsl", "go", "powershell", "diff", "json", "yaml", "ini"],
-      });
+                node.properties.class += ` language-${lang}`;
+                if (extraClass) {
+                  node.properties.class += ` ${extraClass}`;
+                }
 
-      shikiHighlighter.setColorReplacements({
-        '#ABB2BF': 'var(--shiki-color-text)',
-        '#D19A66': 'var(--shiki-token-constant)',
-        '#98C379': 'var(--shiki-token-string)',
-        '#7F848E': 'var(--shiki-token-comment)',
-        '#C678DD': 'var(--shiki-token-keyword)',
-        '#E06C75': 'var(--shiki-token-parameter)',
-        '#61AFEF': 'var(--shiki-token-function)',
-        '#000011': 'var(--shiki-token-punctuation)',
-        '#56B6C2': 'var(--shiki-token-symbol)',
-        '#000013': 'var(--shiki-token-operator)',
-        '#000014': 'var(--shiki-token-variable)',
-        '#000015': 'var(--shiki-token-member)',
-        '#000016': 'var(--shiki-token-numeric)',
-      });
-
-      let tag, tags = {};
-      const regex = /(\w+)="([^\s]+)"/g;
-      if (meta && meta.match(regex)) {
-        while ((tag = regex.exec(meta)) !== null) {
-          const [, k, v] = tag;
-          tags[k] = v;
-        }
-      }
-
-      const tokens = shikiHighlighter.codeToThemedTokens(code, lang);
-
-      const html = escapeSvelte(renderToHtml(tokens, {
-        elements: {
-          pre({ className, style, children }) {
-            return `<pre class="${className} ${tags["class"] || ""} language-${lang}">${children}</pre>`
-          },
-          code({ children }) {
-            return `<code tabindex="0">${children}</code>`
-          },
-          // token({ style, children, token }) {
-          //   console.log(JSON.stringify(token));
-          //   return `<span style="${style}">${children}</span>`;
-          // },
-          // customize line to add line number and highlight current line
-          // line({ className, index, children }) {
-          //   const shallHighlight = highlightLines.includes(index)
-          //   return `<span class="${className} ${shallHighlight ? 'highlighted-line' : ''}"><span class="line-number">${index + 1}</span>${children}</span>`
-          // },
-        }
-      }));
+                node.properties.style = (node.properties.style || '')
+                  .replace(/background-color:[^;]+/, 'background-color:var(--shiki-color-background)');
+              },
+              code(node) {
+                node.properties.tabindex = '0';
+              },
+            },
+          ],
+        })
+      );
 
       return `{@html \`${html}\` }`;
     },

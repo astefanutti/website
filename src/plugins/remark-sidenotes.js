@@ -52,7 +52,7 @@ function transformer(tree) {
   // Syntax for Marginnotes [^<descriptor>] and somewhere else [^<descriptor]: {-}
   visit(tree, 'footnoteReference', (node, index, parent) => {
     const target = select(
-      `footnoteDefinition[identifier=${node.identifier}]`,
+      `footnoteDefinition[identifier="${node.identifier}"]`,
       tree,
     );
 

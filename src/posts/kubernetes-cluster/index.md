@@ -20,17 +20,17 @@ tags:
 
   import Image from '$lib/components/Image.svelte';
 
-  import screenImg from './screen.jpg?width=600;1000;1400';
-  import frontImg from './front.jpg?width=600;1000;1400';
-  import topImg from './top.jpg?width=400;800';
-  import leftImg from './left.jpg?width=600;1000;1400';
-  import pullUpImg from './pull-up.jpg?width=400;800';
-  import rearImg from './rear.jpg?width=600;1000;1400';
-  import entryImg from './entry.jpg?width=400;800';
-  import rightImg from './right.jpg?width=600;1000;1400';
-  import openImg from './open.jpg?width=600;1000;1400';
-  import relayImg from './relay.jpg?width=400;800';
-  import ssdImg from './ssd.jpg?width=400;800';
+  import screenImg from './screen.jpg?w=600;1000;1400';
+  import frontImg from './front.jpg?w=600;1000;1400';
+  import topImg from './top.jpg?w=400;800';
+  import leftImg from './left.jpg?w=600;1000;1400';
+  import pullUpImg from './pull-up.jpg?w=400;800';
+  import rearImg from './rear.jpg?w=600;1000;1400';
+  import entryImg from './entry.jpg?w=400;800';
+  import rightImg from './right.jpg?w=600;1000;1400';
+  import openImg from './open.jpg?w=600;1000;1400';
+  import relayImg from './relay.jpg?w=400;800';
+  import ssdImg from './ssd.jpg?w=400;800';
 
   const marginImgSizes="(max-width: calc(1.4 * 800px)) 25vw, 400px";
 </script>
@@ -41,12 +41,12 @@ A year ago, I decided I would build my own Kubernetes cluster.
 As a software engineer, I either use a local single-node Kubernetes cluster[^1], or a remote multi-node cluster, to test my work on a daily basis.
 I wanted to have the benefits of both, that is being able to use a multi-node cluster, without any of the latencies you can experience while working with a remote environment.
 
-[^1]: I usually rely on [Minikube](https://minikube.sigs.k8s.io), though other solutions exist, like [Kind](https://kind.sigs.k8s.io), that can actually emulate multiple nodes. Mutli-node support [may eventually come](https://github.com/kubernetes/minikube/issues/94) for Minikube.
+[^1]: I usually rely on [Minikube](https://minikube.sigs.k8s.io), though other solutions exist, like [Kind](https://kind.sigs.k8s.io), that can actually emulate multiple nodes. Multi-node support [may eventually come](https://github.com/kubernetes/minikube/issues/94) for Minikube.
 
 There are a number of excellent _how-to_ already available on building and setting-up a multi-node Kubernetes cluster using [Single-Board Computers](https://en.wikipedia.org/wiki/Single-board_computer).
-A lot of them choose the Rapsberry Pi as SBC, and I decided to follow that path of least resistance.
+A lot of them choose the Raspberry Pi as SBC, and I decided to follow that path of least resistance.
 The Raspberry Pi has proven to be both an approachable and affordable[^2] platform.
-However, I found none of these setups would meet all of the following requirements.
+However, I found none of these setups would meet all the following requirements.
 
 [^2]: Broadcom and the RPi foundation did not license the ARMv8 crypto extensions (as necessary for hardware accelerated AES support). The microSD card, as the default solution to boot the OS, is another trade-off.
 
@@ -129,12 +129,12 @@ At the time I started this project, they were no plan to have the Raspberry Pi 4
 That explains I still have three RPi3s as worker nodes.
 I replaced the two others with RPi4s, for nodes requiring more resources, _i.e._, the master node, and the worker node also used for data backup.
 
-Shortly after the RPi4 came out, _PicoCluster_ released a [new case](https://www.picocluster.com/collections/raspberry-pi4/products/pico-5-raspberry-pi4) specifically for the Rasperry Pi 4, that includes a more poweful power supply, two fans, and a power switch.
+Shortly after the RPi4 came out, _PicoCluster_ released a [new case](https://www.picocluster.com/collections/raspberry-pi4/products/pico-5-raspberry-pi4) specifically for the Raspberry Pi 4, that includes a more powerful power supply, two fans, and a power switch.
 However, the case is larger, the fans are likely louder than the _Noctua_ NF-A4x20, whose speed can be controlled with [Pulse-Width Modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation)[^5] depending on the temperature probed from the boards, it includes a mains AC power supply unit and, last but not least, is more expensive.
 For these reasons, I'd still be choosing the _Pico 5S_ kit.
 It's more work, but I find the end result better, and more rewarding the journey along building it.
 
-[^5]: Both the Broadcom BCM2837 (RPi3) and BCM2711 (RPi4) SoCs have hardware timers capable of generating PWM signals, and it is quite straighforward to generate the [control input signal](https://noctua.at/media/wysiwyg/Noctua_PWM_specifications_white_paper.pdf), expected by the _Noctua_ NF-A4x20 PWM, without overloading the CPU. Besides, the fan is hardly perceptible at half-speed (~2500 RPM), which has proven enough to keep the temperature below 45ºC/113°F under normal load.
+[^5]: Both the Broadcom BCM2837 (RPi3) and BCM2711 (RPi4) SoCs have hardware timers capable of generating PWM signals, and it is quite straightforward to generate the [control input signal](https://noctua.at/media/wysiwyg/Noctua_PWM_specifications_white_paper.pdf), expected by the _Noctua_ NF-A4x20 PWM, without overloading the CPU. Besides, the fan is hardly perceptible at half-speed (~2500 RPM), which has proven enough to keep the temperature below 45ºC/113°F under normal load.
 
 ## Assembly
 
@@ -148,14 +148,14 @@ It's more work, but I find the end result better, and more rewarding the journey
 
 The front panel has a hole that exposes the microSD slots.
 That's convenient, even if I plan to setup [USB mass storage boot](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md), as soon as it's fully supported by the RPi4.
-The hole also helps the air flowing through the case, while the two SSD storage units are placed right in front of the fan, which helps maintaining optimal operating temperature.
+The hole also helps the air flowing through the case, while the two SSD storage units are placed right in front of the fan, which helps to maintain optimal operating temperature.
 
 The RPi's activity and power LEDs are clearly visible, which gives a quick visual feedback on the cluster status.
 The activity LEDs from the 8-ports Gigabit Ethernet switch are also visible.
 
 ### Left Panel
 
-^[<Image src={pullUpImg} alt="Pull-up resistor" sizes={marginImgSizes}/>On the bottom-left corner, a small circuit intefaces the Noctua fan 4-pin y-cable and the master RPi. It's hardware [PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation) capable GPIO is configured to control the fan rotation speed, based on the RPi temperatures, probed via SSH at regular interval. It also reads back the RPM signal from the fan, for monitoring purpose.]
+^[<Image src={pullUpImg} alt="Pull-up resistor" sizes={marginImgSizes}/>On the bottom-left corner, a small circuit interfaces the Noctua fan 4-pin y-cable and the master RPi. It's hardware [PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation) capable GPIO is configured to control the fan rotation speed, based on the RPi temperatures, probed via SSH at regular interval. It also reads back the RPM signal from the fan, for monitoring purpose.]
 
 <figure class="liquid">
   <Image src={leftImg} alt="Left Side"/>
@@ -173,7 +173,7 @@ Four jumper wires connect each of the worker node to the master RPi, from a GPIO
   <Image src={rearImg} alt="Rear Panel"/>
 </figure>
 
-The rear panel hides all the cables, that are a by-product of artisanal modularlity.
+The rear panel hides all the cables, that are a by-product of artisanal modularity.
 I found difficult to find quality cables. I particularly struggled finding short, angled USB 3.0 extension cables.
 Cables are the most numerous moving parts in the assembly, with mechanical and electrical constraints, and they proved to be the major source of trouble.
 
@@ -202,7 +202,7 @@ The right panel holds the 8-ports Gigabit Ethernet switch.
 I had to decide what power supply I should use, more specifically what wattage should it be capable of supplying, to meet what's drawn by the cluster.
 It's kind of a chicken-egg question, because you can't get any measurements, unless you already have a power supply.
 
-To have an estimation, I turned to the official documentation, that provides some [power requirements](https://www.raspberrypi.org/documentation/faqs/#pi-power) for the Rasperry Pi, and other component specifications.
+To have an estimation, I turned to the official documentation, that provides some [power requirements](https://www.raspberrypi.org/documentation/faqs/#pi-power) for the Raspberry Pi, and other component specifications.
 That gave me the following estimates, based on the reported _average_ consumption figures:
 
 <section style="display: flow-root;">
@@ -252,7 +252,7 @@ I decided I would use these USB 3.0 ports, to connect SSD drives using M.2 NVMe 
 However, it turned out finding such a compatible adapter is a challenge.
 I had naively assumed any adapters would work, so I bought a first adapter, without checking its compatibility with the RPi4.
 
-I luckily stumled on the [Raspberry Pi 4 USB Boot Config Guide for SSD/Flash Drives](https://jamesachambers.com/raspberry-pi-4-usb-boot-config-guide-for-ssd-flash-drives/) by _James Chambers_, and then bought the recommanded _Shinestar_ M.2 NVMe to USB 3.0 adapter.
+I luckily stumbled on the [Raspberry Pi 4 USB Boot Config Guide for SSD/Flash Drives](https://jamesachambers.com/raspberry-pi-4-usb-boot-config-guide-for-ssd-flash-drives/) by _James Chambers_, and then bought the recommended _Shinestar_ M.2 NVMe to USB 3.0 adapter.
 It has almost the same form-factor as the M.2 NVMe 2280 size (22mm wide and 80mm long), which is a perfect fit for the _Pico 5S_ case.
 I coupled the adapter with a Samsung SSD 970 EVO Plus M.2 PCIe NVMe 500 Go card.
 
@@ -343,7 +343,7 @@ $ sudo service k3s restart
 
 I've used [Kubebox](https://github.com/astefanutti/kubebox), as interactive dashboard, displayed on the screen.
 
-Almost ironically, it turns out a lot more difficult to find multi-architecture images, or to build ARM compatible versions manually, than to setup Kubernetes.
+Almost ironically, it turns out a lot more difficult to find multi-architecture images, or to build ARM compatible versions manually, than to set up Kubernetes.
 
 ## Future
 
@@ -360,6 +360,6 @@ There are also a couple of things I still plan to do, like:
 
 I'm pretty sure I've forgotten a large portion of the zillions things I've learnt there.
 As a software engineer, I'm used to breaking things quite inconsequently.
-Hardware, from my experience, seems far less tolerant to _try-and-error_ cycles.
+Hardware, from my experience, seems far less tolerant to _trial-and-error_ cycles.
 
 In general, the more I learn, the more fascinated I become by software and hardware, how human ingenuity has managed to bridge electrical phenomena and programming languages, towards, what looks like, an approximation of the mind control over matter.

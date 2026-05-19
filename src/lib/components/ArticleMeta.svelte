@@ -1,6 +1,5 @@
 <script lang="ts">
-  export let author: string
-  export let date: string
+  let { author, date }: { author: string; date: string } = $props()
 
   const formattedDate = new Date(date).toDateString()
 </script>
