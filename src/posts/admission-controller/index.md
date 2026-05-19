@@ -1,7 +1,7 @@
 ---
 title: Developing a Kubernetes Admission Controller with Telepresence
 date: 2021-12-21
-published: true
+published: false
 slug: kubernetes-admission-controller
 tags:
   - Kubernetes
