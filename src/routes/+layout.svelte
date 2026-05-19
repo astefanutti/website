@@ -23,7 +23,7 @@
     <span class="icons">
       <a class="icon" href="https://github.com/astefanutti">{@html icons.github}</a>
       <a class="icon" href="https://fosstodon.org/@ttt">{@html icons.mastodon}</a>
-      <a class="icon" href="https://twitter.com/a7tti">{@html icons.twitter}</a>
+      <a class="icon" href="https://fr.linkedin.com/in/astefanutti">{@html icons.linkedin}</a>
     </span>
   </span>
 
