@@ -12,10 +12,10 @@ tags:
   import { Vega, VegaLite } from 'svelte-vega';
   import Image from '$lib/components/Image.svelte';
 
-  import jetsonImg from './jetson.jpg?width=600;1000;1400';
-  import recoveryImg from './recovery.jpg?width=600;1000;1400';
-  import precisionImg from './precision.jpg?width=400;800';
-  import tearingImg from './tearing.jpg?width=400;800';
+  import jetsonImg from './jetson.jpg?w=600;1000;1400';
+  import recoveryImg from './recovery.jpg?w=600;1000;1400';
+  import precisionImg from './precision.jpg?w=400;800';
+  import tearingImg from './tearing.jpg?w=400;800';
 
   import RaspberrySVG from './raspberry.svg';
   import NvidiaSVG from './nvidia.svg';
@@ -40,7 +40,7 @@ tags:
 [kms-glsl]: https://github.com/astefanutti/kms-glsl
 
 Few years ago, I [experimented](/glsl-raspberry-pi) with running OpenGL shaders using the Linux kernel [Direct Rendering Manager](https://docs.kernel.org/gpu/introduction.html), and the [Kernel Mode Setting](https://docs.kernel.org/gpu/drm-kms.html) API.
-I captured the result of this experiment into the [kms-glsl] project, that I've used ever since to run my favorite shaders from [Shadertoy](https://www.shadertoy.com), on the Rapsberry Pi 4.
+I captured the result of this experiment into the [kms-glsl] project, that I've used ever since to run my favorite shaders from [Shadertoy](https://www.shadertoy.com), on the Raspberry Pi 4.
 Unsurprisingly, it quickly became obvious the RPi 4 VideoCore VI GPU would not be capable of rendering complex shaders at decent FPS, nor reasonably scale with display resolution.
 It was time for an upgrade!
 
@@ -101,7 +101,7 @@ Yet, I was still hesitant to spend that amount of money, without any guarantees 
 
 [^2]: The Jetson Nano compute module form factor is another advantage, with its 260-pin SODIMM-style System-on-Module (SoM), so it can be used in different contexts, like with the [Turing Pi 2](https://turingpi.com/product/turing-pi-2/).
 
-What actually triggered me, is the realisation the Jetson Nano Tegra X1 GPU/SoC is [almost the same](https://en.wikipedia.org/wiki/Tegra#Devices_6) as the Nintendo Switch one[^3].
+What actually triggered me, is the realization the Jetson Nano Tegra X1 GPU/SoC is [almost the same](https://en.wikipedia.org/wiki/Tegra#Devices_6) as the Nintendo Switch one[^3].
 At least, it cleared the later concern I had.
 So I went on and bought a [Jetson Nano developer kit](https://developer.nvidia.com/embedded/jetson-nano-developer-kit), then tried to run [kms-glsl], and it failed!
 
@@ -245,7 +245,7 @@ You can then login as `root`, and test [kms-glsl], by running the following inst
   ```
 
 I was quite happy to have [kms-glsl] running on the Jetson Nano.
-At least, I had passed the embarrassement of having bought a unit for nothing.
+At least, I had passed the embarrassment of having bought a unit for nothing.
 Yet, this was not the end of the journey!
 
 ## Bugs and Improvements
@@ -253,7 +253,7 @@ Yet, this was not the end of the journey!
 As I gave few sample shaders a try, I quickly noticed some issues:
 
 1. While some shaders were rendering correctly, others were having weird glitches[^5].
-  It's only when I realised the later were performing more higher precision floating point operations than the former, that I figured it out!
+  It's only when I realized the latter were performing more higher precision floating point operations than the former, that I figured it out!
   The shaders were configured to use the `mediump` precision, and changing it to `highp` fixed it[^6].
   As some systems do not support `highp` precision, I changed the shaders setup, to rely on the `GL_FRAGMENT_PRECISION_HIGH` pre-processor macro:
 
@@ -273,9 +273,9 @@ As I gave few sample shaders a try, I quickly noticed some issues:
   Only those that render at high FPS were affected.
   That's about the only hint I could get.
   So I debugged it, and noticed the calls to `drmModePageFlip` were immediately returning, without page had flipped!
-  I went double check the [Jetson Linux DRM API implementation](https://docs.nvidia.com/jetson/l4t-multimedia/group__direct__rendering__manager.html#gaf16a05d5b066b226eb1063e31a364e04), which explicitely documents that deviation from the usual behavior[^7].
-  So the flushing must be done explicitely, which can be achieved by calling `glFinish()`.
-  This fixed it, and I also double checked it did not impact the rendering on other implementations, e.g., on the Raspberry Pi.
+  I went double-check the [Jetson Linux DRM API implementation](https://docs.nvidia.com/jetson/l4t-multimedia/group__direct__rendering__manager.html#gaf16a05d5b066b226eb1063e31a364e04), which explicitly documents that deviation from the usual behavior[^7].
+  So the flushing must be done explicitly, which can be achieved by calling `glFinish()`.
+  This fixed it, and I also double-checked it did not impact the rendering on other implementations, e.g., on the Raspberry Pi.
 
 [^7]: "`drmModePageFlip` _does not wait for rendering to complete, nor is future rendering blocked until the flip completes. This differs from KMS based implementations that utilize implicit synchronization._"
 
@@ -300,7 +300,7 @@ As I gave few sample shaders a try, I quickly noticed some issues:
   While that solved the issue, it comes at the cost of possible on-screen tearing, which can become clearly visible, depending on the nature of the shader.
   As the double frame buffers get swapped, asynchronously from the [vertical blanking](https://www.kernel.org/doc/html/v6.3/gpu/drm-kms.html#vertical-blanking) period, visual artifacts can result from the display hardware scanning out the new frame buffer.
   This is particularly visible for high-contrast vertical lines[^8].
-  A possible solution would be to implement **tripple buffering**, so a third frame buffer can immediately be used to render the next frame, while the two others stay locked, until the next vertical blanking period.
+  A possible solution would be to implement **triple buffering**, so a third frame buffer can immediately be used to render the next frame, while the two others stay locked, until the next vertical blanking period.
 
 [^8]: A visible example of tearing:<br/><Image src={tearingImg} alt="An example of tearing" sizes={marginImgSizes}/>
 
@@ -319,14 +319,14 @@ The following diagram illustrates the distribution of FPS, that I've measured fo
 </figure>
 
 The Jetson Nano is an order of magnitude faster!
-The median gets a 8.5× factor in synchronous pageflip mode, that locks the Jetson Nano to the display refresh rate, and a 11.9× factor in asynchronous pageflip mode.
+The median gets an 8.5× factor in synchronous page-flip mode, that locks the Jetson Nano to the display refresh rate, and a 11.9× factor in asynchronous page-flip mode.
 While 75% of the shaders render under 15 FPS on the Raspberry Pi 4, 75% render above on the Jetson Nano.
 
 ## Next
 
 My earlier experimentation, with [kms-glsl] on the Raspberry Pi 4, has always felt more like a toy project, than a practical solution.
 Now with the Jetson Nano, I feel like I can move on to the next level, and start building more capable applications.
-The Jetson Nano is already 4 years old, and is being superseeded by the [Jetson Orin Nano](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/), that raises the bar, in terms of specifications, and price :)
+The Jetson Nano is already 4 years old, and is being superseded by the [Jetson Orin Nano](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/), that raises the bar, in terms of specifications, and price :)
 I can't wait to combine the AI/ML capabilities of the Jetson Nano, to augment the interactivity of OpenGL shaders, for example.
 There is so much potential there...
 

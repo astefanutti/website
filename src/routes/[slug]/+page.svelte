@@ -1,16 +1,15 @@
 <script lang="ts">
   import type { PageData } from './$types'
-  import type { SvelteComponentTyped } from 'svelte/internal'
+  import type { Component } from 'svelte'
 
   import Article from '$lib/components/Article.svelte'
   import ArticleTitle from '$lib/components/ArticleTitle.svelte'
   import ArticleMeta from '$lib/components/ArticleMeta.svelte'
   import PageHead from '$lib/components/PageHead.svelte'
 
-  export let data: PageData
+  let { data }: { data: PageData } = $props()
 
-  type C = $$Generic<typeof SvelteComponentTyped<any, any, any>>
-  $: component = data.component as unknown as C
+  const component = $derived(data.component as unknown as Component)
 </script>
 
 <PageHead title={data.frontmatter.title} description={data.frontmatter.description} />

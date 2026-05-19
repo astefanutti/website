@@ -1,9 +1,12 @@
 <script lang="ts">
   import '../app.css'
+  import type { Snippet } from 'svelte'
   import { page } from '$app/stores'
   import SvelteTheme from '$lib/theme/SvelteTheme.svelte'
   import themeStore from '$lib/theme/index'
   import { icons } from './icons'
+
+  let { children }: { children: Snippet } = $props()
 </script>
 
 <SvelteTheme />
@@ -32,7 +35,7 @@
         id="color-scheme-light"
         value="light"
         checked={$themeStore.theme == 'light'}
-        on:click={() => ($themeStore.theme = 'light')}
+        onclick={() => ($themeStore.theme = 'light')}
         data-sr
       />
       {@html icons.sun}
@@ -43,7 +46,7 @@
         name="color-scheme"
         value="system"
         checked={$themeStore.theme == 'system'}
-        on:click={() => ($themeStore.theme = 'system')}
+        onclick={() => ($themeStore.theme = 'system')}
         data-sr
       />
       {@html icons.system}
@@ -55,7 +58,7 @@
         id="color-scheme-dark"
         value="dark"
         checked={$themeStore.theme == 'dark'}
-        on:click={() => ($themeStore.theme = 'dark')}
+        onclick={() => ($themeStore.theme = 'dark')}
         data-sr
       />
       {@html icons.moon}
@@ -63,7 +66,7 @@
   </fieldset>
 </header>
 
-<slot />
+{@render children()}
 
 <footer>
   <p>

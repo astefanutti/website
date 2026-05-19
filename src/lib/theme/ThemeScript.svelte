@@ -1,15 +1,23 @@
 <script lang="ts">
   import { MEDIA } from './constants'
 
-  export let forcedTheme: string
-  export let storageKey: string
-  export let attribute: string
-  export let enableSystem: boolean
-  export let defaultTheme: string
-  export let value: { [themeName: string]: string }
-  export let attrs: any
-
-  // These are minified via Terser and then updated by hand, don't recommend
+  let {
+    forcedTheme,
+    storageKey,
+    attribute,
+    enableSystem,
+    defaultTheme,
+    value,
+    attrs,
+  }: {
+    forcedTheme: string
+    storageKey: string
+    attribute: string
+    enableSystem: boolean
+    defaultTheme: string
+    value: { [themeName: string]: string }
+    attrs: any
+  } = $props()
 
   const updateDOM = (name: string, literal?: boolean) => {
     name = value?.[name] || name
@@ -22,17 +30,16 @@
     return `d.setAttribute('${attribute}', ${val})${`;document.documentElement.style.setProperty('color-scheme', ${val})`}`
   }
 
-  $: defaultSystem = defaultTheme === 'system'
-  // Code-golfing the amount of characters in the script
-  $: optimization =
+  let defaultSystem = $derived(defaultTheme === 'system')
+  let optimization = $derived(
     attribute === 'class'
       ? `var d=document.documentElement.classList;${`d.remove(${attrs
           .map((t: string) => `'${t}'`)
           .join(',')})`};`
       : `var d=document.documentElement;`
+  )
 
-  // Encapsulate script tag into string to not mess with the compiler
-  $: themeScript = `<${'script'}>${
+  let themeScript = $derived(`<${'script'}>${
     forcedTheme
       ? `!function(){${optimization}${updateDOM(forcedTheme)}}()`
       : enableSystem
@@ -46,7 +53,7 @@
       : `!function(){try{${optimization}var e=localStorage.getItem("${storageKey}");if(e){${
           value ? `var x=${JSON.stringify(value)};` : ''
         }${updateDOM(value ? 'x[e]' : 'e', true)}}else{${updateDOM(defaultTheme)};}}catch(t){}}();`
-  }</${'script'}>`
+  }</${'script'}>`)
 </script>
 
 <svelte:head>

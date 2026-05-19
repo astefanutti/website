@@ -6,7 +6,7 @@
   import ArticleTitle from '$lib/components/ArticleTitle.svelte'
   import ArticleMeta from '$lib/components/ArticleMeta.svelte'
 
-  export let data: PageData
+  let { data }: { data: PageData } = $props()
 </script>
 
 <WebSite />
@@ -17,5 +17,3 @@
   <ArticleTitle {slug} {title} />
   <ArticleMeta {author} {date} />
 {/each}
-
-<slot />

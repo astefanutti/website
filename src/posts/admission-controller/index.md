@@ -59,7 +59,7 @@ First things first, let's create an admission controller project.
 There is no unique way to implement an admission webhook.
 The contract is ultimately defined by the [webhook REST API](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#webhook-request-and-response), that can be implemented with any stack.
 
-That being said, the [Kubebuilder](https://github.com/kubernetes-sigs/kubebuilder) project provides tools that scafold projects, for implementing Kubernetes API and webhook.
+That being said, the [Kubebuilder](https://github.com/kubernetes-sigs/kubebuilder) project provides tools that scaffold projects, for implementing Kubernetes API and webhook.
 So let's use it to create our admission controller...
 
 1) Install the `kubebuilder` CLI:
@@ -85,7 +85,7 @@ $ make manifests
 ```
 
 It's also possible to define webhooks for core types.
-However, Kubebuilder does not support scafolding webhook in that case.
+However, Kubebuilder does not support scaffolding webhook in that case.
 So the generated project must be modified manually, as documented in [admission webhook for core types](https://book.kubebuilder.io/reference/webhook-for-core-types.html).
 
 4) Install the generated CRD manifest:

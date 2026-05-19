@@ -1,5 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import svelteSVG from "vite-plugin-svelte-svg";
+import svg from '@poppanator/sveltekit-svg';
 import { imagetools } from 'vite-imagetools';
 
 const supportedExtensions = ['png', 'jpg', 'jpeg'];
@@ -7,10 +7,9 @@ const supportedExtensions = ['png', 'jpg', 'jpeg'];
 /** @type {import('vite').UserConfig} */
 const config = {
   ssr: {
-    noExternal: ['vega-embed'],
+    noExternal: ['svelte-vega', 'vega-embed'],
   },
   plugins: [
-    // https://github.com/rdela/sveltekit-imagetools
     imagetools({
       removeMetadata: true,
       defaultDirectives: (url) => {
@@ -18,16 +17,28 @@ const config = {
         if (supportedExtensions.includes(extension)) {
           return new URLSearchParams({
             format: 'avif;webp;' + extension,
-            picture: true,
+            as: 'picture',
           });
         }
         return new URLSearchParams();
       }
     }),
     sveltekit(),
-    svelteSVG({
-      svgoConfig: {}, // See https://github.com/svg/svgo#configuration
-      requireSuffix: false, // Set false to accept '.svg' without the '?component'
+    svg({
+      svgoOptions: {
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                removeUselessDefs: false,
+                removeHiddenElems: false,
+                cleanupIds: false,
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
 };
