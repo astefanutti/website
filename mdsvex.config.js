@@ -20,7 +20,6 @@ import { fromHtml } from 'hast-util-from-html';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const theme = JSON.parse(fs.readFileSync(path.join(dirname, 'src', 'themes', 'theme.json'), 'utf-8'));
-const clang = JSON.parse(fs.readFileSync(path.join(dirname, 'src', 'languages', 'c.tmLanguage.json'), 'utf-8'));
 
 const COLOR_REPLACEMENTS = {
   '#282c34': 'var(--shiki-color-background)',
@@ -41,7 +40,7 @@ const COLOR_REPLACEMENTS = {
 
 const highlighter = await createHighlighter({
   themes: [theme],
-  langs: ['glsl', 'go', 'powershell', 'diff', 'json', 'yaml', 'ini', clang],
+  langs: ['glsl', 'go', 'powershell', 'diff', 'json', 'yaml', 'ini', 'c'],
 });
 
 const config = defineConfig({
