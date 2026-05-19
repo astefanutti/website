@@ -10,6 +10,7 @@
   --color-text-secondary: #555;
   --color-text-emphasis: #080808;
   --color-background-code: #fff;
+  --shiki-color-background: var(--color-background-code);
   --color-background-note: #dcdcdc;
   --color-line-secondary: #d3d3d3;
 
@@ -33,12 +34,13 @@
 [data-theme=dark] {
   --font-weight: 350;
 
-  --color-background: #19191e;
+  --color-background: #121217;
   --color-text-primary: #d2d3d7;
   --color-text-secondary: #aaa;
   --color-text-emphasis: #f8f9fa;
-  --color-background-code: #000;
-  --color-background-note: #262634;
+  --color-background-code: #222829;
+  --shiki-color-background: var(--color-background-code);
+  --color-background-note: #262626;
   --color-line-secondary: #333;
 
   --shiki-color-text: #fff;
@@ -230,7 +232,17 @@ pre {
   -o-tab-size: 4;
   tab-size: 4;
   clear: both;
-  padding: 0.8em 0px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: var(--color-background-code);
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  padding: 2px 4px;
+  background-color: var(--color-background-code);
 }
 
 pre>code {
@@ -238,18 +250,9 @@ pre>code {
   overflow-x: auto;
   display: block;
   font-size: 0.95rem;
-}
-
-code {
-  font-size: 0.9rem;
-}
-
-code,
-pre>code {
-  font-family: 'JetBrains Mono', monospace;
-  border-radius: 4px;
-  padding: 2px 4px;
-  background-color: var(--color-background-code);
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
 }
 
 .note>code {
