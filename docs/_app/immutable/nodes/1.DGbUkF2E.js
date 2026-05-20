@@ -1,0 +1,1 @@
+import{a,f as e}from"../chunks/tcY2rVZ6.js";import"../chunks/Dp8JPkwN.js";var o=e('<h2 class="svelte-1j96wlh"><span class="errorCode svelte-1j96wlh">404</span> <span class="errorMessage svelte-1j96wlh">Page Not Found</span></h2>');function n(s){var r=o();a(s,r)}export{n as component};
