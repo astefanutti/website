@@ -62,9 +62,13 @@ function transformer(tree) {
       ? target.children.children[0]
       : target.children[0];
 
-    const isMarginNote = notesAst.children[0].value == MARGINNOTE_SYMBOL;
+    const firstChild = notesAst.children[0];
+    const isMarginNote = firstChild.value && firstChild.value.startsWith(MARGINNOTE_SYMBOL);
     if (isMarginNote) {
-      notesAst.children = notesAst.children.slice(1);
+      firstChild.value = firstChild.value.slice(MARGINNOTE_SYMBOL.length);
+      if (!firstChild.value) {
+        notesAst.children = notesAst.children.slice(1);
+      }
     }
 
     // parent.children.splice(index, 1, ...getReplacement(notesAst, isMarginNote));
