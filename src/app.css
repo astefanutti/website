@@ -3,7 +3,7 @@
 }
 
 [data-theme=light] {
-  --font-weight: 400;
+  --font-weight: 450;
 
   --color-background: #e5e5e5;
   --color-text-primary: #212121;
@@ -34,7 +34,7 @@
 [data-theme=dark] {
   --font-weight: 400;
 
-  --color-background: #121217;
+  --color-background: #0d1117;
   --color-text-primary: #d2d3d7;
   --color-text-secondary: #aaa;
   --color-text-emphasis: #f8f9fa;
@@ -60,8 +60,8 @@
   --shiki-token-numeric: #79B8FF;
 }
 
-[data-theme=dark] img {
-  filter: brightness(.9) contrast(1.1);
+[data-theme=light] img {
+  filter: brightness(.95);
 }
 
 .language-ps1 {
