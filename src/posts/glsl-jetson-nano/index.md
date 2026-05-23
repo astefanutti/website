@@ -37,10 +37,10 @@ tags:
   </figcaption>
 </figure>
 
-[kms-glsl]: https://github.com/astefanutti/kms-glsl
+[Shaderbang]: https://github.com/astefanutti/shaderbang
 
 Few years ago, I [experimented](/glsl-raspberry-pi) with running OpenGL shaders using the Linux kernel [Direct Rendering Manager](https://docs.kernel.org/gpu/introduction.html), and the [Kernel Mode Setting](https://docs.kernel.org/gpu/drm-kms.html) API.
-I captured the result of this experiment into the [kms-glsl] project, that I've used ever since to run my favorite shaders from [Shadertoy](https://www.shadertoy.com), on the Raspberry Pi 4.
+I captured the result of this experiment into the [Shaderbang] project, that I've used ever since to run my favorite shaders from [Shadertoy](https://www.shadertoy.com), on the Raspberry Pi 4.
 Unsurprisingly, it quickly became obvious the RPi 4 VideoCore VI GPU would not be capable of rendering complex shaders at decent FPS, nor reasonably scale with display resolution.
 It was time for an upgrade!
 
@@ -97,13 +97,13 @@ The results from the few ones I was able to find are illustrated in the diagrams
 
 I concluded the Jetson Nano would be the best compromise.
 While it has inferior FLOP/s and Pixel/s theoretical performance limits than the Orange Pi 5, it provides the greatest number of shaders per price, which is very likely to be the limiting factor for my use case[^2].
-Yet, I was still hesitant to spend that amount of money, without any guarantees I'd be able to run [kms-glsl] on it, nor it'd run orders of magnitude faster than on the Raspberry Pi 4!
+Yet, I was still hesitant to spend that amount of money, without any guarantees I'd be able to run [Shaderbang] on it, nor it'd run orders of magnitude faster than on the Raspberry Pi 4!
 
 [^2]: The Jetson Nano compute module form factor is another advantage, with its 260-pin SODIMM-style System-on-Module (SoM), so it can be used in different contexts, like with the [Turing Pi 2](https://turingpi.com/product/turing-pi-2/).
 
 What actually triggered me, is the realization the Jetson Nano Tegra X1 GPU/SoC is [almost the same](https://en.wikipedia.org/wiki/Tegra#Devices_6) as the Nintendo Switch one[^3].
 At least, it cleared the later concern I had.
-So I went on and bought a [Jetson Nano developer kit](https://developer.nvidia.com/embedded/jetson-nano-developer-kit), then tried to run [kms-glsl], and it failed!
+So I went on and bought a [Jetson Nano developer kit](https://developer.nvidia.com/embedded/jetson-nano-developer-kit), then tried to run [Shaderbang], and it failed!
 
 [^3]: NVIDIA has disabled some shading units on the Jetson Nano GPU, to reach 128 shaders, unlike the Nintendo Switch (2017, HAC-001) GPU variant, which has all the 256 shaders enabled.
 
@@ -128,11 +128,11 @@ It comes with the [meta-tegra] BSP layer for NVIDIA Jetson platforms, based on L
 
 ### Building the Distribution
 
-After a couple of iterations, I came up with the following instructions, that build a minimal distribution image, which can be used to flash the Jetson Nano, and run [kms-glsl] successfully:
+After a couple of iterations, I came up with the following instructions, that build a minimal distribution image, which can be used to flash the Jetson Nano, and run [Shaderbang] successfully:
 
 1. Start a build environment, that contains the toolchain, on your host machine, using a [Poky container](https://github.com/crops/poky-container):
 
-  ```ps1
+  ```shell
   $ docker run --rm -it -v `pwd`:/workdir crops/poky:ubuntu-22.04
   ```
 
@@ -141,7 +141,7 @@ After a couple of iterations, I came up with the following instructions, that bu
 
 2. Setup the build, from the [tegra-demo-distro](https://github.com/OE4T/tegra-demo-distro) reference distributions project:
 
-  ```ps1
+  ```shell
   $ git clone -b kirkstone-l4t-r32.7.x https://github.com/OE4T/tegra-demo-distro.git
   $ cd tegra-demo-distro
   $ git submodule update --init
@@ -152,7 +152,7 @@ After a couple of iterations, I came up with the following instructions, that bu
 
 3. Update the build configuration, by appending the following changes:
 
-  ```ps1
+  ```shell
   $ cat <<EOT >> conf/local.conf
   DISTRO_FEATURES:remove = "wayland"
 
@@ -162,7 +162,7 @@ After a couple of iterations, I came up with the following instructions, that bu
 
   CORE_IMAGE_BASE_INSTALL:remove = "packagegroup-demo-egltests"
 
-  # Tools needed to build kms-glsl
+  # Tools needed to build shaderbang
   CORE_IMAGE_EXTRA_INSTALL += "git"
   CORE_IMAGE_EXTRA_INSTALL += "make"
   CORE_IMAGE_EXTRA_INSTALL += "gcc"
@@ -172,13 +172,13 @@ After a couple of iterations, I came up with the following instructions, that bu
 
 4. Start the build (it may take a while to complete):
 
-  ```ps1
+  ```shell
   $ bitbake demo-image-egl
   ```
 
 5. Once completed, you can copy the distribution image into the mounted host directory, and exit the build container:
 
-  ```ps1
+  ```shell
   $ cp tmp/deploy/images/jetson-nano-devkit/demo-image-egl-jetson-nano-devkit.tegraflash.tar.gz /workdir/
   $ exit
   ```
@@ -193,39 +193,39 @@ The distribution image that you've just built, can now be used to flash the Jets
 
 2. Connect the Jetson Nano to your host machine via the micro-B USB port, power it up via the 5V jack barrel, and check it's connected:
 
-  ```ps1
+  ```shell
   $ lsusb -d 0955:
   Bus 011 Device 002: ID 0955:7f21 NVIDIA Corp. APX
   ```
 
 3. Untar the image archive:
 
-  ```ps1
+  ```shell
   $ tar -xf demo-image-egl-jetson-nano-devkit.tegraflash.tar.gz
   ```
 
 4. Flash the Jetson Nano:
 
-  ```ps1
+  ```shell
   $ sudo ./doflash.sh
   ```
 
 ### Compiling and Testing
 
 The Jetson Nano will reboot once the flashing has successfully completed.
-You can then login as `root`, and test [kms-glsl], by running the following instructions:
+You can then login as `root`, and test [Shaderbang], by running the following instructions:
 
 1. Build the project:
 
-  ```ps1
-  $ git clone https://github.com/astefanutti/kms-glsl.git
-  $ cd kms-glsl
+  ```shell
+  $ git clone https://github.com/astefanutti/shaderbang.git
+  $ cd shaderbang
   $ make
   ```
 
 2. Run an example, e.g.:
 
-  ```ps1
+  ```shell
   $ ./glsl examples/costal_landscape.glsl
 
   Using display 0x55aadc1320 with EGL version 1.5
@@ -244,7 +244,7 @@ You can then login as `root`, and test [kms-glsl], by running the following inst
   Rendered 41 frames in 2.049823 sec (20.001726 fps)
   ```
 
-I was quite happy to have [kms-glsl] running on the Jetson Nano.
+I was quite happy to have [Shaderbang] running on the Jetson Nano.
 At least, I had passed the embarrassment of having bought a unit for nothing.
 Yet, this was not the end of the journey!
 
@@ -281,8 +281,8 @@ As I gave few sample shaders a try, I quickly noticed some issues:
 
 3. At last, all the shaders were rendering visually OK.
   However, the rendering was peaking at 30 FPS for a large proportion.
-  For the first time since I started experimenting with [kms-glsl], the limiting factor wasn't the GPU anymore, it was the display refresh rate!
-  That led me to [add support for async page flipping](https://github.com/astefanutti/kms-glsl/pull/14/files), using the `DRM_MODE_PAGE_FLIP_ASYNC` flag, e.g.:
+  For the first time since I started experimenting with [Shaderbang], the limiting factor wasn't the GPU anymore, it was the display refresh rate!
+  That led me to [add support for async page flipping](https://github.com/astefanutti/shaderbang/pull/14/files), using the `DRM_MODE_PAGE_FLIP_ASYNC` flag, e.g.:
 
   ```c class="liquid"
   uint32_t flags;
@@ -307,7 +307,7 @@ As I gave few sample shaders a try, I quickly noticed some issues:
 ## Benchmark
 
 I can finally answer that one question: have I made a good decision to choose the Jetson Nano to achieve my initial goal, i.e., being able to run shaders at faster FPS, and larger display resolution, than on the Raspberry Pi 4?
-The following diagram illustrates the distribution of FPS, that I've measured for [a set of 59 shaders](https://github.com/astefanutti/kms-glsl/tree/10ce390c7f82e5ba776cc63d95949d011cce7a3a/examples), running either on the Raspberry Pi 4 or the Jetson Nano, on the same display, at full HD resolution (1920×1080 pixels):
+The following diagram illustrates the distribution of FPS, that I've measured for [a set of 59 shaders](https://github.com/astefanutti/shaderbang/tree/10ce390c7f82e5ba776cc63d95949d011cce7a3a/examples), running either on the Raspberry Pi 4 or the Jetson Nano, on the same display, at full HD resolution (1920×1080 pixels):
 
 <RaspberrySVG/>
 <NvidiaSVG/>
@@ -315,7 +315,7 @@ The following diagram illustrates the distribution of FPS, that I've measured fo
 
 <figure>
   <Vega spec={Benchmark} options={{actions: false, renderer: 'svg'}} />
-  <figcaption><sup>+</sup>Over the set of shaders from the project <a href="https://github.com/astefanutti/kms-glsl/tree/10ce390c7f82e5ba776cc63d95949d011cce7a3a/examples">examples</a> directory.<br/>Async refers to async page flipping, using the <code>DRM_MODE_PAGE_FLIP_ASYNC</code> flag.</figcaption>
+  <figcaption><sup>+</sup>Over the set of shaders from the project <a href="https://github.com/astefanutti/shaderbang/tree/10ce390c7f82e5ba776cc63d95949d011cce7a3a/examples">examples</a> directory.<br/>Async refers to async page flipping, using the <code>DRM_MODE_PAGE_FLIP_ASYNC</code> flag.</figcaption>
 </figure>
 
 The Jetson Nano is an order of magnitude faster!
@@ -324,7 +324,7 @@ While 75% of the shaders render under 15 FPS on the Raspberry Pi 4, 75% render a
 
 ## Next
 
-My earlier experimentation, with [kms-glsl] on the Raspberry Pi 4, has always felt more like a toy project, than a practical solution.
+My earlier experimentation, with [Shaderbang] on the Raspberry Pi 4, has always felt more like a toy project, than a practical solution.
 Now with the Jetson Nano, I feel like I can move on to the next level, and start building more capable applications.
 The Jetson Nano is already 4 years old, and is being superseded by the [Jetson Orin Nano](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/), that raises the bar, in terms of specifications, and price :)
 I can't wait to combine the AI/ML capabilities of the Jetson Nano, to augment the interactivity of OpenGL shaders, for example.

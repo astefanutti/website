@@ -37,7 +37,7 @@ tags:
 [^tldr] As far as I can remember, I've always felt attracted by computer graphics.
 I guess I approach the field from the angle of my Mathematics background, as I see it as a universal language between machines, arts, and possibly, nature[^1].
 
-[^tldr]: {-} **TL;DR:** If you just want to try it, you can head to the **[project repository](https://github.com/astefanutti/kms-glsl).**
+[^tldr]: {-} **TL;DR:** If you just want to try it, you can head to the **[project repository](https://github.com/astefanutti/shaderbang).**
 
 [^1]: _"How can it be that mathematics, being after all a product of human thought which is independent of experience, is so admirably appropriate to the objects of reality?"_ -- Albert Einstein.
 
@@ -246,7 +246,7 @@ static void draw_shadertoy(uint64_t start_time, unsigned frame) {
 }
 ```
 
-The complete source code is available at https://github.com/astefanutti/kms-glsl.
+The complete source code is available at https://github.com/astefanutti/shaderbang.
 
 ## The Fun
 
@@ -254,7 +254,7 @@ The complete source code is available at https://github.com/astefanutti/kms-glsl
   <Image src={examplesImg} alt="Examples"/>
   <figcaption>
     A selection of shaders from Shadertoy, that run successfully on the Rapsberry Pi.<br/>
-    You can find copies of these in the <code>examples</code> directory of the <a href="https://github.com/astefanutti/kms-glsl">project repository</a>.
+    You can find copies of these in the <code>examples</code> directory of the <a href="https://github.com/astefanutti/shaderbang">project repository</a>.
   </figcaption>
 </figure>
 
@@ -262,14 +262,14 @@ I've successfully run shaders on the RPi 3B+ and RPi 4, with Raspberry Pi OS Lit
 
 You can run the following instructions to build the CLI binary:
 
-```ps1
+```shell
 $ sudo apt update
 # Install the build tools
 $ sudo apt install gcc make
 # Install the required DRM, GBM, EGL and OpenGL ES API headers
 $ sudo apt install libdrm-dev libgbm-dev libegl-dev libgles2-mesa-dev
 # Clone the repository
-$ git clone https://github.com/astefanutti/kms-glsl.git && cd kms-glsl
+$ git clone https://github.com/astefanutti/shaderbang.git && cd shaderbang
 # Build the glsl CLI binary
 $ make
 ```
@@ -279,7 +279,7 @@ Assuming you've installed [Raspberry Pi OS](https://www.raspberrypi.org/software
 
 1) Edit the `/boot/config.txt` [file](https://www.raspberrypi.org/documentation/configuration/config-txt/), e.g.:
 
-```ps1
+```shell
 $ sudo vi /boot/config.txt
 ```
 
@@ -298,13 +298,13 @@ v3d_freq_min=500
 
 3) Reboot your Raspberry Pi, so that the changes are taken into account, e.g.:
 
-```ps1
+```shell
 $ sudo reboot
 ```
 
 You can then run shaders from the `examples` directory, e.g.:
 
-```ps1
+```shell
 $ ./glsl examples/stripey_torus_interior.glsl
 
 OpenGL ES 2.x information:
@@ -319,7 +319,7 @@ And check that `renderer: "V3D 4.2"` is present in the console output, to confir
 Soon after I started testing, I realized the framerate was fluctuating, and the V3D GPU frequency was dropping well below 500 MHz.
 This can be observed by running the following command from a separate terminal:
 
-```ps1
+```shell
 $ watch -n 1 vcgencmd measure_clock v3d
 ```
 
@@ -339,7 +339,7 @@ A newer `vc4-kms-v3d` driver, known as the _full_ DRM/KMS driver, is now availab
 
 I gave it a try, after an upgrade to the latest kernel version available (as of March 2021):
 
-```ps1
+```shell
 $ sudo apt full-upgrade
 $ uname -a
 Linux master 5.10.17-v7l+ #1403 SMP Mon Feb 22 11:33:35 GMT 2021 armv7l GNU/Linux
@@ -361,4 +361,4 @@ There are also few things that, I think, would be logical additions:
 What started as a toy project, to end year 2020 light-heartedly, turned out to be a small, yet very rewarding, journey into the world of open-source GPU programming.
 I think I can safely say it: mission accomplished!
 
-I'd be happy to hear your feedback at https://github.com/astefanutti/kms-glsl!
+I'd be happy to hear your feedback at https://github.com/astefanutti/shaderbang!

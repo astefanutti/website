@@ -64,21 +64,21 @@ So let's use it to create our admission controller...
 
 1) Install the `kubebuilder` CLI:
 
-```ps1
+```shell
 $ curl -L -o kubebuilder https://go.kubebuilder.io/dl/3.2.0/$(go env GOOS)/$(go env GOARCH)
 $ chmod +x kubebuilder && mv kubebuilder /usr/local/bin/
 ```
 
 2) Scafold the project:
 
-```ps1
+```shell
 $ mkdir webhook && cd webhook
 $ kubebuilder init --repo github.com/user/webhook
 ```
 
 3) Define the `Hooked` CRD, and the associated mutating webhook:
 
-```ps1
+```shell
 $ kubebuilder create api --version v1 --kind Hooked
 $ kubebuilder create webhook --version v1 --kind Hooked --defaulting
 $ make manifests
@@ -90,27 +90,27 @@ So the generated project must be modified manually, as documented in [admission 
 
 4) Install the generated CRD manifest:
 
-```ps1
+```shell
 $ kubectl apply -k config/crd
 ```
 
 5) Create a namespace:
 
-```ps1
+```shell
 $ kubectl create ns webhook
 $ kubectl config set-context --current --namespace=webhook
 ```
 
 6) Deploy the generated webhook manifests:
 
-```ps1
+```shell
 $ $(cd config/webhook && kustomize edit set namespace webhook)
 $ kubectl apply -k config/webhook
 ```
 
 7) Create a sample `Hooked` resource:
 
-```ps1
+```shell
 $ kubectl apply -f config/samples/_v1_hooked.yaml
   Error from server (InternalError): error when creating "config/samples/_v1_hooked.yaml":
   Internal error occurred: failed calling webhook "mhooked.kb.io":
@@ -131,13 +131,13 @@ Let's use it to intercept the requests received by the webhook service, deployed
 
 1) Install the `telepresence` CLI:
 
-```ps1
+```shell
 $ curl -fL https://app.getambassador.io/download/tel2/darwin/amd64/2.4.9/telepresence -o /usr/local/bin/telepresence
 ```
 
 2) Connect Telepresence to the cluster, and check the status:
 
-```ps1
+```shell
 $ telepresence connect
 Launching Telepresence Root Daemon
 Launching Telepresence User Daemon
@@ -163,14 +163,14 @@ User Daemon: Running
 
 3) Telepresence requires a `Deployment`, as interception target, so instead of relying on the real controller deployment, let's create a compatible mock:
 
-```ps1
+```shell
 $ kubectl create deployment webhook --image=k8s.gcr.io/echoserver:1.10 --port 9443
 $ kubectl set selector svc webhook-service app=webhook
 ```
 
 4) Intercept the webhook service:
 
-```ps1
+```shell
 $ telepresence intercept webhook --service webhook-service --port 9443
 
 Using Deployment webhook
@@ -185,7 +185,7 @@ intercepted
 
 5) Generate the webhook server certificate, as the API server mandates HTTPS:
 
-```ps1
+```shell
 # Generate the CA certificate
 $ openssl req -new -x509 -nodes -days 365 -keyout ca.key -out ca.crt -subj "/CN=webhook"
 # Generate the webhook server certificate
@@ -198,7 +198,7 @@ $ openssl x509 -req -days 365 -in tls.csr -out tls.crt -CA ca.crt -CAkey ca.key 
 
 6) Patch the `MutatingWebhookConfiguration` resource, to set the `caBundle` field with the generated CA certificate:
 
-```ps1
+```shell
 $ kubectl patch mutatingwebhookconfiguration mutating-webhook-configuration --type='json' \
 -p="[{'op': 'add', 'path': '/webhooks/0/clientConfig/caBundle', 'value':'$(cat ca.crt | base64 | tr -d '\n')'}]"
 ```
@@ -214,13 +214,13 @@ mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 
 8) Start the admission controller:
 
-```ps1
+```shell
 $ go run main.go
 ```
 
 9) Create a sample `Hooked` resource:
 
-```ps1
+```shell
 $ kubectl apply -f config/samples/_v1_hooked.yaml
 hooked.my.domain/hooked-sample created
 ```

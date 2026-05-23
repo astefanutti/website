@@ -64,12 +64,25 @@
   filter: brightness(.95);
 }
 
-.language-ps1 {
+.language-shell {
   --shiki-token-constant: var(--shiki-color-text);
   --shiki-token-numeric: var(--shiki-color-text);
   --shiki-token-keyword: var(--shiki-color-text);
   --shiki-token-parameter: var(--shiki-color-text);
   --shiki-token-symbol: var(--shiki-color-text);
+  --shiki-token-function: var(--shiki-color-text);
+  --shiki-token-string: var(--shiki-color-text);
+  --shiki-token-operator: var(--shiki-color-text);
+  --shiki-token-punctuation: var(--shiki-color-text);
+}
+
+.shell-prompt {
+  user-select: none;
+  color: var(--shiki-token-comment);
+}
+
+.shell-output span {
+  color: var(--shiki-token-comment) !important;
 }
 
 @font-face {
@@ -252,6 +265,11 @@ pre {
   padding: 4px 8px;
   border-radius: 8px;
   background-color: var(--color-background-code);
+}
+
+pre.wrap code {
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 code {

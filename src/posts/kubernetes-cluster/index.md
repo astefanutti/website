@@ -260,7 +260,7 @@ I coupled the adapter with a Samsung SSD 970 EVO Plus M.2 PCIe NVMe 500 Go card.
 
 Once I had installed and configured everything, I decided I would do a quick test to check the data transfer rates, by copying a large file from the SSD drive to my laptop, using `scp`:
 
-```ps1
+```shell
 $ scp pi@master:<source> <destination>
 100% 1181MB  39.0MB/s   00:30
 ```
@@ -272,7 +272,7 @@ Interestingly, the CPU has become the bottleneck with the RPi4, while it used to
 
 A quick test, using `netcat`, gave a much better transfer rate of 104MB/s in the same conditions:
 
-```ps1
+```shell
 $ nc -l 6000 | dd bs=1m of=<destination> & ssh pi@master "dd bs=1M if=<source> | nc -q 0 $(hostname -I | awk '{print $1}') 6000"
 [1] 71300 71301
 1181+1 records in
@@ -301,14 +301,14 @@ That being said, here is the gist of it:
 
 Enable _cgroups_, on each node:
 
-```ps1
+```shell
 $ sudo sed -i '$ s/$/ cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory/' /boot/cmdline.txt
 $ sudo reboot
 ```
 
 Install _k3s_ on the **master** node:
 
-```ps1
+```shell
 $ curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
 # To check the service status
 $ sudo systemctl status k3s
@@ -316,13 +316,13 @@ $ sudo systemctl status k3s
 
 Retrieve the _token_, which authorizes the worker nodes to connect to the master node:
 
-```ps1
+```shell
 $ sudo cat /var/lib/rancher/k3s/server/node-token
 ```
 
 Install _k3s_ on each **worker** node:
 
-```ps1
+```shell
 $ curl -sfL https://get.k3s.io | K3S_URL="https://<MASTER_IP>:6443" K3S_TOKEN="<NODE_TOKEN>" sh -
 # To check the service status
 $ sudo systemctl status k3s-agent
@@ -330,7 +330,7 @@ $ sudo systemctl status k3s-agent
 
 If you plan to rely on the internal container image registry, that's installed by default, you may have to declare it as an insecure registry, to allow _containerd_ to pull images from it:
 
-```ps1
+```shell
 $ sudo sh -c 'REGISTRY=$(kubectl get svc -n kube-system registry -o jsonpath={.spec.clusterIP}); \
 cat <<EOT >> /etc/rancher/k3s/registries.yaml
 mirrors:

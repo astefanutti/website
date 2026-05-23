@@ -40,7 +40,7 @@ const COLOR_REPLACEMENTS = {
 
 const highlighter = await createHighlighter({
   themes: [theme],
-  langs: ['glsl', 'go', 'powershell', 'diff', 'json', 'yaml', 'ini', 'c'],
+  langs: ['glsl', 'go', 'diff', 'json', 'yaml', 'ini', 'c', 'shell', 'python'],
 });
 
 const config = defineConfig({
@@ -72,6 +72,26 @@ const config = defineConfig({
               },
               code(node) {
                 node.properties.tabindex = '0';
+              },
+              line(node) {
+                if (this.options.lang !== 'shell') return;
+                const first = node.children[0];
+                const firstText = first?.children?.[0]?.value || '';
+                if (firstText === '$') {
+                  first.children[0].value = '$ ';
+                  first.properties = { class: 'shell-prompt' };
+                  const second = node.children[1];
+                  if (second?.children?.[0]?.value?.startsWith(' ')) {
+                    second.children[0].value = second.children[0].value.slice(1);
+                  }
+                } else {
+                  const text = node.children
+                    .map((c) => c.children?.[0]?.value || c.value || '')
+                    .join('');
+                  if (text.trim()) {
+                    node.properties.class = (node.properties.class || '') + ' shell-output';
+                  }
+                }
               },
             },
           ],
