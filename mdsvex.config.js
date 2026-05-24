@@ -72,6 +72,29 @@ const config = defineConfig({
               },
               code(node) {
                 node.properties.tabindex = '0';
+                if (this.options.lang !== 'shell' || !this.options.meta?.__raw?.includes('wrap')) return;
+                const insertWbr = (children) => {
+                  const result = [];
+                  for (const child of children) {
+                    if (child.type === 'text') {
+                      const parts = child.value.split(/(?<=\/)|(\.|_)/);
+                      for (const part of parts) {
+                        if (part === undefined || part === '') continue;
+                        const prev = result[result.length - 1];
+                        if (result.length > 0 && (part === '.' || part === '_' || prev?.type === 'text' && prev.value.endsWith('/'))) {
+                          result.push({ type: 'element', tagName: 'wbr', properties: {}, children: [] });
+                        }
+                        result.push({ type: 'text', value: part });
+                      }
+                    } else if (child.children) {
+                      result.push({ ...child, children: insertWbr(child.children) });
+                    } else {
+                      result.push(child);
+                    }
+                  }
+                  return result;
+                };
+                node.children = insertWbr(node.children);
               },
               line(node) {
                 if (this.options.lang !== 'shell') return;

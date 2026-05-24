@@ -132,7 +132,7 @@ After a couple of iterations, I came up with the following instructions, that bu
 
 1. Start a build environment, that contains the toolchain, on your host machine, using a [Poky container](https://github.com/crops/poky-container):
 
-  ```shell
+  ```shell class="wrap"
   $ docker run --rm -it -v `pwd`:/workdir crops/poky:ubuntu-22.04
   ```
 
@@ -141,7 +141,7 @@ After a couple of iterations, I came up with the following instructions, that bu
 
 2. Setup the build, from the [tegra-demo-distro](https://github.com/OE4T/tegra-demo-distro) reference distributions project:
 
-  ```shell
+  ```shell class="wrap"
   $ git clone -b kirkstone-l4t-r32.7.x https://github.com/OE4T/tegra-demo-distro.git
   $ cd tegra-demo-distro
   $ git submodule update --init
@@ -172,13 +172,13 @@ After a couple of iterations, I came up with the following instructions, that bu
 
 4. Start the build (it may take a while to complete):
 
-  ```shell
+  ```shell class="wrap"
   $ bitbake demo-image-egl
   ```
 
 5. Once completed, you can copy the distribution image into the mounted host directory, and exit the build container:
 
-  ```shell
+  ```shell class="wrap"
   $ cp tmp/deploy/images/jetson-nano-devkit/demo-image-egl-jetson-nano-devkit.tegraflash.tar.gz /workdir/
   $ exit
   ```
@@ -193,20 +193,20 @@ The distribution image that you've just built, can now be used to flash the Jets
 
 2. Connect the Jetson Nano to your host machine via the micro-B USB port, power it up via the 5V jack barrel, and check it's connected:
 
-  ```shell
+  ```shell class="wrap"
   $ lsusb -d 0955:
   Bus 011 Device 002: ID 0955:7f21 NVIDIA Corp. APX
   ```
 
 3. Untar the image archive:
 
-  ```shell
+  ```shell class="wrap"
   $ tar -xf demo-image-egl-jetson-nano-devkit.tegraflash.tar.gz
   ```
 
 4. Flash the Jetson Nano:
 
-  ```shell
+  ```shell class="wrap"
   $ sudo ./doflash.sh
   ```
 
@@ -217,7 +217,7 @@ You can then login as `root`, and test [Shaderbang], by running the following in
 
 1. Build the project:
 
-  ```shell
+  ```shell class="wrap"
   $ git clone https://github.com/astefanutti/shaderbang.git
   $ cd shaderbang
   $ make

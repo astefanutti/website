@@ -75,7 +75,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 
 Make it executable, and run it directly:
 
-```shell
+```shell class="wrap"
 $ chmod +x examples/plasma_globe.glsl
 $ ./examples/plasma_globe.glsl
 ```
@@ -111,13 +111,13 @@ The `cloth.py` file declares its own dependencies in a `# /// script` block:
 With [uv](https://docs.astral.sh/uv/), this means zero-install execution.
 You can run it locally:
 
-```shell
+```shell class="wrap"
 $ uv run examples/cloth.py
 ```
 
 Or directly from GitHub, without cloning the repository:
 
-```shell
+```shell class="wrap"
 $ uv run https://raw.githubusercontent.com/astefanutti/shaderbang/main/examples/cloth.py
 ```
 
@@ -128,7 +128,7 @@ No virtualenv setup, no `requirements.txt`, no `pip install` -- the script _is_ 
 
 Shaderbang ships with a `shadertoy` command that runs shaders from [shadertoy.com](https://www.shadertoy.com) directly on your hardware:
 
-```shell
+```shell class="wrap"
 $ shadertoy examples/plasma_globe.glsl -t iChannel0 presets/tex_RGBA_noise_medium.png
 ```
 

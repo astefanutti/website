@@ -246,7 +246,7 @@ static void draw_shadertoy(uint64_t start_time, unsigned frame) {
 }
 ```
 
-The complete source code is available at https://github.com/astefanutti/shaderbang.
+The complete source code is available at [Shaderbang](https://github.com/astefanutti/shaderbang).
 
 ## The Fun
 
@@ -279,7 +279,7 @@ Assuming you've installed [Raspberry Pi OS](https://www.raspberrypi.org/software
 
 1) Edit the `/boot/config.txt` [file](https://www.raspberrypi.org/documentation/configuration/config-txt/), e.g.:
 
-```shell
+```shell class="wrap"
 $ sudo vi /boot/config.txt
 ```
 
@@ -298,7 +298,7 @@ v3d_freq_min=500
 
 3) Reboot your Raspberry Pi, so that the changes are taken into account, e.g.:
 
-```shell
+```shell class="wrap"
 $ sudo reboot
 ```
 
@@ -319,7 +319,7 @@ And check that `renderer: "V3D 4.2"` is present in the console output, to confir
 Soon after I started testing, I realized the framerate was fluctuating, and the V3D GPU frequency was dropping well below 500 MHz.
 This can be observed by running the following command from a separate terminal:
 
-```shell
+```shell class="wrap"
 $ watch -n 1 vcgencmd measure_clock v3d
 ```
 
@@ -339,7 +339,7 @@ A newer `vc4-kms-v3d` driver, known as the _full_ DRM/KMS driver, is now availab
 
 I gave it a try, after an upgrade to the latest kernel version available (as of March 2021):
 
-```shell
+```shell class="wrap"
 $ sudo apt full-upgrade
 $ uname -a
 Linux master 5.10.17-v7l+ #1403 SMP Mon Feb 22 11:33:35 GMT 2021 armv7l GNU/Linux
@@ -361,4 +361,4 @@ There are also few things that, I think, would be logical additions:
 What started as a toy project, to end year 2020 light-heartedly, turned out to be a small, yet very rewarding, journey into the world of open-source GPU programming.
 I think I can safely say it: mission accomplished!
 
-I'd be happy to hear your feedback at https://github.com/astefanutti/shaderbang!
+I'd be happy to hear your feedback at [Shaderbang](https://github.com/astefanutti/shaderbang)!

@@ -301,14 +301,14 @@ That being said, here is the gist of it:
 
 Enable _cgroups_, on each node:
 
-```shell
+```shell class="wrap"
 $ sudo sed -i '$ s/$/ cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory/' /boot/cmdline.txt
 $ sudo reboot
 ```
 
 Install _k3s_ on the **master** node:
 
-```shell
+```shell class="wrap"
 $ curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
 # To check the service status
 $ sudo systemctl status k3s
@@ -316,13 +316,13 @@ $ sudo systemctl status k3s
 
 Retrieve the _token_, which authorizes the worker nodes to connect to the master node:
 
-```shell
+```shell class="wrap"
 $ sudo cat /var/lib/rancher/k3s/server/node-token
 ```
 
 Install _k3s_ on each **worker** node:
 
-```shell
+```shell class="wrap"
 $ curl -sfL https://get.k3s.io | K3S_URL="https://<MASTER_IP>:6443" K3S_TOKEN="<NODE_TOKEN>" sh -
 # To check the service status
 $ sudo systemctl status k3s-agent
@@ -330,7 +330,7 @@ $ sudo systemctl status k3s-agent
 
 If you plan to rely on the internal container image registry, that's installed by default, you may have to declare it as an insecure registry, to allow _containerd_ to pull images from it:
 
-```shell
+```shell class="wrap"
 $ sudo sh -c 'REGISTRY=$(kubectl get svc -n kube-system registry -o jsonpath={.spec.clusterIP}); \
 cat <<EOT >> /etc/rancher/k3s/registries.yaml
 mirrors:
