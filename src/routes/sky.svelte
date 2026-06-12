@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { BackSide, TextureLoader, SRGBColorSpace, HalfFloatType } from 'three'
+  import { BackSide, TextureLoader, SRGBColorSpace, HalfFloatType, Vector2 } from 'three'
   import { T, useThrelte, useTask } from '@threlte/core'
   import { MathUtils, Vector3 } from 'three'
   import { EffectComposer, RenderPass, EffectPass, BloomEffect, ToneMappingEffect, ToneMappingMode } from 'postprocessing'
@@ -22,8 +22,6 @@
   $effect(() => {
     const c = new EffectComposer(renderer, { frameBufferType: HalfFloatType })
     c.addPass(new RenderPass(scene, camera.current))
-
-    // mipmapBlur produces round, soft bloom regardless of resolution
     bloomEffect = new BloomEffect({
       mipmapBlur: true,
       intensity: SkyDefaults.bloomStrength,
@@ -33,7 +31,6 @@
     })
     toneMappingEffect = new ToneMappingEffect({ mode: ToneMappings[SkyDefaults.toneMapping] as ToneMappingMode })
     c.addPass(new EffectPass(camera.current, bloomEffect, toneMappingEffect))
-
     composer = c
     invalidate()
     return () => {
@@ -42,18 +39,31 @@
     }
   })
 
-  // Keep composer sized to the canvas
-  $effect(() => {
-    composer?.setSize(size.current.width, size.current.height)
-    invalidate()
-  })
+  // Workaround: Threlte resizes the renderer before our effects run, so by the
+  // time we call composer.setSize(), the EffectComposer sees the renderer already
+  // at the target size and skips updating its internal buffers (inputBuffer,
+  // outputBuffer, and per-pass render targets). This causes stretched/stale bloom
+  // on iOS orientation changes.
+  //
+  // Fix: sync buffer sizes directly inside the render task, right before
+  // composer.render(), where the renderer is guaranteed to be at its final size.
+  // This bypasses EffectComposer.setSize()'s stale-size check. The internal API
+  // (inputBuffer, outputBuffer, passes[].setSize) has been stable in pmndrs
+  // postprocessing for years. The proper upstream fix would be for setSize() to
+  // always update its buffers regardless of the renderer's current size.
+  let lastBufW = 0, lastBufH = 0
 
-  // Render via the composer, respecting on-demand rendering (idle = no work).
-  // Exposure is computed directly from elevation in updateAll, so no extra
-  // frames are needed beyond the transition itself.
   useTask(
     (delta) => {
-      if (composer && shouldRender()) composer.render(delta)
+      if (!composer || !shouldRender()) return
+      const buf = renderer.getDrawingBufferSize(new Vector2())
+      if (buf.x !== lastBufW || buf.y !== lastBufH) {
+        lastBufW = buf.x; lastBufH = buf.y
+        composer.inputBuffer.setSize(buf.x, buf.y)
+        composer.outputBuffer.setSize(buf.x, buf.y)
+        for (const pass of composer.passes) pass.setSize(buf.x, buf.y)
+      }
+      composer.render(delta)
     },
     { stage: renderStage, autoInvalidate: false },
   )
