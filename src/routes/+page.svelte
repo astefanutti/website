@@ -8,7 +8,7 @@
   import { browser } from '$app/environment'
 
   import { Canvas } from '@threlte/core'
-  import { SkyDefaults, ToneMappings } from '$lib/shaders/sky-shader'
+  import { NoToneMapping } from 'three'
   import Sky from './sky.svelte'
 
   let { data }: { data: PageData } = $props()
@@ -47,7 +47,7 @@
   <div class="sky">
     <Canvas
       renderMode="on-demand"
-      toneMapping={ToneMappings[SkyDefaults.toneMapping]}
+      toneMapping={NoToneMapping}
     >
       <Sky />
     </Canvas>
