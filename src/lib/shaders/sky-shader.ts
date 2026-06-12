@@ -1,13 +1,22 @@
-import { Vector3, NoToneMapping, LinearToneMapping, ReinhardToneMapping, CineonToneMapping, ACESFilmicToneMapping, AgXToneMapping, NeutralToneMapping } from 'three';
+import { Vector3 } from 'three';
+import { ToneMappingMode } from 'postprocessing';
 
+// Tone mapping handled by the pmndrs postprocessing ToneMappingEffect.
+// Eye-adaptation auto-exposure is applied as a separate pre-tone-map stage,
+// so it works on top of any of these operators (AgX, etc.).
 export const ToneMappings: Record<string, number> = {
-  None: NoToneMapping, Linear: LinearToneMapping, Reinhard: ReinhardToneMapping,
-  Cineon: CineonToneMapping, ACES: ACESFilmicToneMapping, AgX: AgXToneMapping,
-  Neutral: NeutralToneMapping,
+  Linear: ToneMappingMode.LINEAR,
+  Reinhard: ToneMappingMode.REINHARD2,
+  Cineon: ToneMappingMode.CINEON,
+  ACES: ToneMappingMode.ACES_FILMIC,
+  AgX: ToneMappingMode.AGX,
+  Neutral: ToneMappingMode.NEUTRAL,
 };
 
 export const SkyDefaults = {
   toneMapping: 'AgX',
+  // Auto-exposure (applied pre-tone-map, works on top of AgX etc.). Interpolated
+  // in realtime from sun elevation, so it tracks the transition with no timeout.
   exposureDay: 0.3,
   exposureNight: 1.3,
   sunAzimuth: 165,
@@ -19,6 +28,10 @@ export const SkyDefaults = {
   themeThreshold: 5,
   transitionSunrise: 4500,
   transitionSunset: 4500,
+  sunColor: [1.0, 0.95, 0.82] as [number, number, number],
+  bloomStrength: 0.5,
+  bloomRadius: 0.45,
+  bloomThreshold: 0.0,
 };
 
 export const SkyMoonShader = {
@@ -32,14 +45,12 @@ export const SkyMoonShader = {
     sunPosition: { value: new Vector3() },
     sunAngularDiameterCos: { value: 0.9985 },
     sunHorizonClip: { value: true },
-    sunAureoleIntensity: { value: 2.0 },
-    sunAureoleSpread: { value: 400.0 },
-    sunColor: { value: [1.0, 0.95, 0.82] },
+    sunColor: { value: [...SkyDefaults.sunColor] },
     up: { value: new Vector3(0, 1, 0) },
     moonPosition: { value: new Vector3() },
     moonAlbedoMap: { value: null },
     moonPhase: { value: 0.7 },
-    nightBlend: { value: 0.0 },
+    exposure: { value: 0.3 },
     starDensity: { value: 300.0 },
     starBrightness: { value: 0.7 },
     starGlare: { value: 0.3 },
@@ -115,18 +126,16 @@ export const SkyMoonShader = {
     uniform vec3 moonPosition;
     uniform sampler2D moonAlbedoMap;
     uniform float moonPhase;
-    uniform float nightBlend;
     uniform float starDensity;
     uniform float starBrightness;
     uniform float starGlare;
+    uniform float exposure;
 
     const float pi = 3.141592653589793238462643383279502884197169;
     const float rayleighZenithLength = 8.4E3;
     const float mieZenithLength = 1.25E3;
     uniform float sunAngularDiameterCos;
     uniform bool sunHorizonClip;
-    uniform float sunAureoleIntensity;
-    uniform float sunAureoleSpread;
     uniform vec3 sunColor;
     const float THREE_OVER_SIXTEENPI = 0.05968310365946075;
     const float ONE_OVER_FOURPI = 0.07957747154594767;
@@ -145,7 +154,7 @@ export const SkyMoonShader = {
       return ONE_OVER_FOURPI * ( ( 1.0 - g2 ) * inverse );
     }
 
-    // --- Noise for moon maria ---
+    // --- Noise (used by Kolmogorov turbulence) ---
 
     float hash2( vec2 p ) {
       return fract( sin( dot( p, vec2( 127.1, 311.7 ) ) ) * 43758.5453123 );
@@ -160,16 +169,6 @@ export const SkyMoonShader = {
         mix( hash2( i + vec2( 0, 1 ) ), hash2( i + vec2( 1, 1 ) ), f.x ),
         f.y
       );
-    }
-
-    float fbm2( vec2 p ) {
-      float v = 0.0, a = 0.5;
-      for ( int i = 0; i < 4; i++ ) {
-        v += a * vnoise( p );
-        p *= 2.0;
-        a *= 0.5;
-      }
-      return v;
     }
 
     // --- Kolmogorov-spectrum turbulence (PSD ∝ κ^-11/3) ---
@@ -329,14 +328,8 @@ export const SkyMoonShader = {
       // Per-pixel horizon clipping
       float horizonClip = sunHorizonClip ? smoothstep( -0.003, 0.003, dot( direction, up ) ) : 1.0;
 
-      // Sun disc
+      // Sun disc — glow handled by the bloom post-processing pass
       L0 += sunColor * ( vSunE * 19000.0 * Fex ) * sundisk * limbDark * scintillation * horizonClip;
-
-      // 6. Sun aureole — concentrated forward Mie scattering halo
-      float sunAngDist = acos( clamp( cosTheta, -1.0, 1.0 ) );
-      float aureole = 1.0 / ( 1.0 + sunAureoleSpread * sunAngDist * sunAngDist );
-      vec3 aureoleColor = mix( vec3( 1.0, 0.98, 0.92 ), vec3( 1.0, 0.75, 0.4 ), smoothstep( 0.0, 0.12, sunAngDist ) );
-      L0 += aureoleColor * aureole * vSunE * sunAureoleIntensity * Fex * horizonClip;
 
       // Moon — physically based rendering
       // Models: Lommel-Seeliger BRDF, Hapke opposition surge, Mie atmospheric glow
@@ -350,14 +343,10 @@ export const SkyMoonShader = {
       float illumination = 1.0 - abs( moonPhase * 2.0 - 1.0 );
       float moonVisibility = smoothstep( 0.0, 0.15, illumination );
 
-      // Atmospheric glow — Mie forward scattering (same physics as sun halo)
+      // Atmospheric glow — Mie forward scattering (physical halo through air)
+      // Tighter halo handled by the bloom post-processing pass
       float moonMiePhase = hgPhase( cosMoonAngle, mieDirectionalG );
       L0 += vBetaM * moonMiePhase * 1500.0 * moonVisibility;
-
-      // Soft fog/halo from aerosol scattering (wider than Mie peak)
-      float fogGlow = exp( -moonAngDist * moonAngDist / 0.015 ) * 0.3;
-      fogGlow += exp( -moonAngDist * moonAngDist / 0.003 ) * 0.5;
-      L0 += vec3( 0.7, 0.75, 0.85 ) * fogGlow * moonVisibility;
 
       // Moon disc with anti-aliased edge
       float moonMask = smoothstep( moonAngularRadius + 0.0008, moonAngularRadius - 0.0002, moonAngDist );
@@ -420,11 +409,14 @@ export const SkyMoonShader = {
       vec3 starLight = stars( direction ) * starFade * aboveHorizon * moonOcclusion * starBrightness;
       texColor += starLight;
 
-      gl_FragColor = vec4( texColor, 1.0 );
-
-      #include <tonemapping_fragment>
-      #include <colorspace_fragment>
-
+      // Output exposed linear HDR — bloom operates on these values (so the
+      // moon blooms more as night exposure rises), tone mapping applied last.
+      // Clamp below the HalfFloat ceiling (65504): the raw sun value is ~1e6
+      // which overflows to Inf, and Inf in the bloom mipmap blur becomes NaN —
+      // rendered as black/colored squares on iOS GPUs. A finite cap still
+      // blooms strongly and tone-maps to white.
+      vec3 hdr = min( texColor * exposure, vec3( 1000.0 ) );
+      gl_FragColor = vec4( hdr, 1.0 );
     }
   `,
 };

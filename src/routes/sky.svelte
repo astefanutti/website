@@ -1,17 +1,62 @@
 <script lang="ts">
-  import { BackSide, TextureLoader, SRGBColorSpace } from 'three'
-  import { T, useThrelte } from '@threlte/core'
+  import { BackSide, TextureLoader, SRGBColorSpace, HalfFloatType } from 'three'
+  import { T, useThrelte, useTask } from '@threlte/core'
   import { MathUtils, Vector3 } from 'three'
+  import { EffectComposer, RenderPass, EffectPass, BloomEffect, ToneMappingEffect, ToneMappingMode } from 'postprocessing'
   import { SkyMoonShader, SkyDefaults, ToneMappings } from '$lib/shaders/sky-shader'
   import themeStore from '$lib/theme/index'
   import { page } from '$app/stores'
 
   const debug = $derived($page.url.searchParams.has('debug'))
 
-  const { invalidate, renderer } = useThrelte()
+  const { invalidate, renderer, scene, camera, size, autoRender, renderStage, shouldRender } = useThrelte()
 
-  renderer.toneMapping = ToneMappings[SkyDefaults.toneMapping]
-  renderer.toneMappingExposure = SkyDefaults.exposureDay
+  // Tone mapping + exposure handled by the postprocessing pipeline, not the renderer
+  // Take over rendering to insert bloom + tone mapping passes
+  autoRender.set(false)
+
+  let composer: EffectComposer | undefined
+  let bloomEffect: BloomEffect | undefined
+  let toneMappingEffect: ToneMappingEffect | undefined
+
+  $effect(() => {
+    const c = new EffectComposer(renderer, { frameBufferType: HalfFloatType })
+    c.addPass(new RenderPass(scene, camera.current))
+
+    // mipmapBlur produces round, soft bloom regardless of resolution
+    bloomEffect = new BloomEffect({
+      mipmapBlur: true,
+      intensity: SkyDefaults.bloomStrength,
+      radius: SkyDefaults.bloomRadius,
+      luminanceThreshold: SkyDefaults.bloomThreshold,
+      luminanceSmoothing: 0.3,
+    })
+    toneMappingEffect = new ToneMappingEffect({ mode: ToneMappings[SkyDefaults.toneMapping] as ToneMappingMode })
+    c.addPass(new EffectPass(camera.current, bloomEffect, toneMappingEffect))
+
+    composer = c
+    invalidate()
+    return () => {
+      c.dispose()
+      composer = undefined
+    }
+  })
+
+  // Keep composer sized to the canvas
+  $effect(() => {
+    composer?.setSize(size.current.width, size.current.height)
+    invalidate()
+  })
+
+  // Render via the composer, respecting on-demand rendering (idle = no work).
+  // Exposure is computed directly from elevation in updateAll, so no extra
+  // frames are needed beyond the transition itself.
+  useTask(
+    (delta) => {
+      if (composer && shouldRender()) composer.render(delta)
+    },
+    { stage: renderStage, autoInvalidate: false },
+  )
 
   const uniforms = SkyMoonShader.uniforms
 
@@ -64,9 +109,7 @@
     sunAzimuth: SkyDefaults.sunAzimuth,
     sunSize: 0.999,
     sunHorizonClip: true,
-    sunAureoleIntensity: uniforms.sunAureoleIntensity.value,
-    sunAureoleSpread: uniforms.sunAureoleSpread.value,
-    sunColor: { r: 1.0, g: 0.95, b: 0.82 },
+    sunColor: { r: SkyDefaults.sunColor[0], g: SkyDefaults.sunColor[1], b: SkyDefaults.sunColor[2] },
     moonElevation: SkyDefaults.moonElevation,
     moonAzimuth: SkyDefaults.moonAzimuth,
     moonPhase: uniforms.moonPhase.value,
@@ -79,6 +122,9 @@
     starDensity: uniforms.starDensity.value,
     starBrightness: uniforms.starBrightness.value,
     starGlare: uniforms.starGlare.value,
+    bloomStrength: SkyDefaults.bloomStrength,
+    bloomRadius: SkyDefaults.bloomRadius,
+    bloomThreshold: SkyDefaults.bloomThreshold,
     cameraTilt: SkyDefaults.cameraTilt,
     toneMapping: SkyDefaults.toneMapping,
     themeThreshold: SkyDefaults.themeThreshold,
@@ -98,7 +144,6 @@
     const moonTheta = MathUtils.degToRad(params.moonAzimuth)
     uniforms.moonPosition.value.copy(new Vector3().setFromSphericalCoords(1, moonPhi, moonTheta))
 
-    uniforms.nightBlend.value = MathUtils.smoothstep(-params.sunElevation, -18, 5)
     uniforms.moonPhase.value = params.moonPhase
     uniforms.turbidity.value = params.turbidity
     uniforms.rayleigh.value = params.rayleigh
@@ -106,17 +151,25 @@
     uniforms.mieDirectionalG.value = params.mieDirectionalG
     uniforms.sunAngularDiameterCos.value = params.sunSize
     uniforms.sunHorizonClip.value = params.sunHorizonClip
-    uniforms.sunAureoleIntensity.value = params.sunAureoleIntensity
-    uniforms.sunAureoleSpread.value = params.sunAureoleSpread
     uniforms.sunColor.value = [params.sunColor.r, params.sunColor.g, params.sunColor.b]
     uniforms.starDensity.value = params.starDensity
     uniforms.starBrightness.value = params.starBrightness
     uniforms.starGlare.value = params.starGlare
 
-    renderer.toneMapping = ToneMappings[params.toneMapping] ?? ToneMappings[SkyDefaults.toneMapping]
-    // Exposure — linear over the full elevation range for a gradual, imperceptible transition
-    const exposureBlend = MathUtils.clamp((SkyDefaults.sunElevationDay - params.sunElevation) / (SkyDefaults.sunElevationDay - SkyDefaults.sunElevationNight), 0, 1)
-    renderer.toneMappingExposure = params.exposureDay + (params.exposureNight - params.exposureDay) * exposureBlend
+    if (bloomEffect) {
+      bloomEffect.intensity = params.bloomStrength
+      bloomEffect.mipmapBlurPass.radius = params.bloomRadius
+      bloomEffect.luminanceMaterial.threshold = params.bloomThreshold
+    }
+
+    if (toneMappingEffect) {
+      toneMappingEffect.mode = (ToneMappings[params.toneMapping] ?? ToneMappings[SkyDefaults.toneMapping]) as ToneMappingMode
+    }
+
+    // Auto-exposure: stays at the day value while the sun is well up, then ramps
+    // to the night value through twilight (centred on the horizon), like the eye.
+    const nightness = 1 - MathUtils.smoothstep(params.sunElevation, -3, 3)
+    uniforms.exposure.value = params.exposureDay + (params.exposureNight - params.exposureDay) * nightness
     cameraTilt = params.cameraTilt
     invalidate()
   }
@@ -156,8 +209,6 @@
       })
       sunFolder.add(params, 'sunAzimuth', 130, 210, 1).name('Azimuth').onChange(() => { debugOverride = true; updateAll() })
       sunFolder.add(params, 'sunSize', 0.995, 0.9999, 0.0001).name('Size (cos)').onChange(() => { debugOverride = true; updateAll() })
-      sunFolder.add(params, 'sunAureoleIntensity', 0, 2, 0.05).name('Aureole').onChange(() => { debugOverride = true; updateAll() })
-      sunFolder.add(params, 'sunAureoleSpread', 50, 1000, 10).name('Aureole Spread').onChange(() => { debugOverride = true; updateAll() })
       sunFolder.addColor(params, 'sunColor').name('Color').onChange(() => { debugOverride = true; updateAll() })
       sunFolder.add(params, 'sunHorizonClip').name('Horizon Clip').onChange(() => { debugOverride = true; updateAll() })
 
@@ -177,10 +228,15 @@
       starsFolder.add(params, 'starBrightness', 0, 3, 0.05).name('Brightness').onChange(() => { debugOverride = true; updateAll() })
       starsFolder.add(params, 'starGlare', 0, 1, 0.05).name('Glare').onChange(() => { debugOverride = true; updateAll() })
 
+      const bloomFolder = gui.addFolder('Bloom')
+      bloomFolder.add(params, 'bloomStrength', 0, 3, 0.01).name('Strength').onChange(() => { debugOverride = true; updateAll() })
+      bloomFolder.add(params, 'bloomRadius', 0, 1, 0.01).name('Radius').onChange(() => { debugOverride = true; updateAll() })
+      bloomFolder.add(params, 'bloomThreshold', 0, 1, 0.01).name('Threshold').onChange(() => { debugOverride = true; updateAll() })
+
       const renderFolder = gui.addFolder('Render')
-      renderFolder.add(params, 'exposureDay', 0.1, 2, 0.05).name('Exposure Day').onChange(() => { debugOverride = true; updateAll() })
-      renderFolder.add(params, 'exposureNight', 0.1, 2, 0.05).name('Exposure Night').onChange(() => { debugOverride = true; updateAll() })
       renderFolder.add(params, 'toneMapping', Object.keys(ToneMappings)).name('Tone Mapping').onChange(() => { debugOverride = true; updateAll() })
+      renderFolder.add(params, 'exposureDay', 0.1, 2, 0.01).name('Exposure Day').onChange(() => { debugOverride = true; updateAll() })
+      renderFolder.add(params, 'exposureNight', 0.1, 2, 0.01).name('Exposure Night').onChange(() => { debugOverride = true; updateAll() })
       renderFolder.add(params, 'cameraTilt', 0.1, 0.8, 0.01).name('Camera Tilt').onChange(() => { debugOverride = true; updateAll() })
       renderFolder.add(params, 'themeThreshold', -5, 20, 0.5).name('Theme Threshold').onChange(() => updateAll())
     })
