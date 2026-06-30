@@ -22,7 +22,7 @@
     "@poppanator/sveltekit-svg": "^6.0.1",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.60.1",
-    "@sveltejs/vite-plugin-svelte": "^5.1.1",
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@types/three": "^0.176.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
@@ -52,7 +52,7 @@
     "vega-embed": "^7.1.0",
     "vega-lite": "^6.4.3",
     "vfile-message": "^4.0.3",
-    "vite": "^6.4.2",
+    "vite": "^8.1.0",
     "vite-imagetools": "^10.0.0"
   },
   "type": "module",
